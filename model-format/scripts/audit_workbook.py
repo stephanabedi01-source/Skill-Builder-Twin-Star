@@ -85,7 +85,7 @@ def _column_profiles(ws, bounds):
     r0, r1, c0, c1 = bounds
     prof = {}
     for col in range(c0, c1 + 1):
-        text = num = textlen = nonempty = short = 0
+        text = num = textlen = nonempty = short = xflag = 0
         for row in range(r0, r1 + 1):
             cell = ws.cell(row=row, column=col)
             v = cell.value
@@ -94,14 +94,17 @@ def _column_profiles(ws, bounds):
             nonempty += 1
             if isinstance(v, str) and not v.startswith("="):
                 text += 1
-                textlen += len(v.strip())
-                if len(v.strip()) <= 2:
+                s = v.strip()
+                textlen += len(s)
+                if len(s) <= 2:
                     short += 1
+                if s.upper() == "X":
+                    xflag += 1  # standalone "X" nav marker
             else:
                 num += 1  # number, date, bool, or formula
         prof[col] = {
             "text": text, "num": num, "nonempty": nonempty,
-            "avglen": (textlen / text) if text else 0, "short": short,
+            "avglen": (textlen / text) if text else 0, "short": short, "xflag": xflag,
         }
     return prof
 
@@ -133,18 +136,23 @@ def detect_geometry(ws, bounds):
         if prof.get(col, {}).get("nonempty", 0):
             data_end = col
 
-    # label columns: text-bearing columns left of data_start (skip an empty col-A margin).
-    label_cols, marker_col = [], None
+    # marker column: strongest signal is a pre-data column carrying standalone "X" nav
+    # flags (even if it also holds short helper tags); else a narrow single-char column.
+    marker_col = None
+    xcand = [(prof[c]["xflag"], c) for c in range(c0, data_start) if prof[c]["xflag"] >= 2]
+    if xcand:
+        marker_col = max(xcand)[1]
+    label_cols = []
     for col in range(c0, data_start):
         p = prof[col]
-        if p["nonempty"] == 0:
-            continue  # empty margin
-        if p["text"] and p["short"] >= max(1, int(0.6 * p["text"])) and p["avglen"] <= 2.5:
+        if p["nonempty"] == 0 or col == marker_col:
+            continue  # empty margin, or the marker column already chosen
+        if marker_col is None and p["text"] and p["short"] >= max(1, int(0.6 * p["text"])) and p["avglen"] <= 2.5:
             marker_col = col  # narrow column of single-char flags (e.g. "X")
         else:
             label_cols.append(col)
     if not label_cols:  # labels may sit in col A itself
-        label_cols = [c for c in range(c0, data_start) if prof[c]["nonempty"]] or [c0]
+        label_cols = [c for c in range(c0, data_start) if prof[c]["nonempty"] and c != marker_col] or [c0]
 
     return {
         "marker_col": get_column_letter(marker_col) if marker_col else None,
@@ -378,7 +386,9 @@ def _mark_block_firsts(rows):
         c = rc["class"]
         if c in _BLOCK_RESET:
             expect_first = True
-        elif c == "data" and expect_first:
+        elif c == "data" and expect_first and rc["label"]:
+            # The first *labeled* data row of the block gets "$"; an unlabeled stray
+            # data row (e.g. a near-empty row above the first line item) is skipped.
             rc["class"] = "data_first"
             rc["reason"] += " | first $ row of block"
             expect_first = False

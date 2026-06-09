@@ -147,6 +147,9 @@ def _format_sheet(ws, sheet):
     fy_fill, date_fill = fam
     font_name = sheet.get("font_family", sc.FONT_BODY)
     is_cover = sheet.get("tab_type") == "cover"
+    # Output / presentation pages are intentionally all-gray: provenance coloring
+    # (blue inputs / green links) is dropped on them. See references/tab-patterns.md.
+    gray_only = sheet.get("tab_type") == "output"
 
     rowmap = {r["row"]: r for r in sheet.get("rows", [])}
 
@@ -190,7 +193,7 @@ def _format_sheet(ws, sheet):
             elif cls == "header_date":
                 bold = True
 
-            if not forced:
+            if not forced and not gray_only:
                 # provenance drives the color of any cell carrying content in the data area,
                 # and of input cells (so green links inside a toggle stay green).
                 if (is_data or in_input) and cell.value is not None:
@@ -198,6 +201,14 @@ def _format_sheet(ws, sheet):
                     color = (sc.LINK_GREEN if p == "cross_sheet"
                              else sc.INPUT_BLUE if p == "hardcode"
                              else sc.SLATE_GRAY)
+            if in_input and not gray_only and not is_marker:
+                # A triple-marked input is always provenance-colored and never bold/italic,
+                # even if its row was classed as percent/total -- input membership wins.
+                p = provenance(cell)
+                color = (sc.LINK_GREEN if p == "cross_sheet"
+                         else sc.INPUT_BLUE if p == "hardcode" else sc.SLATE_GRAY)
+                bold = italic = False
+                underline = None
             if is_marker and cell.value is not None:
                 color, bold = sc.FLAG_RED, True  # red "X" navigation markers
             if is_cover and isinstance(cell.value, str) and WARNING_RE.search(cell.value):
