@@ -5,6 +5,14 @@ established format, stop — clone it instead (`clone_format.py`; see Mode 0 in
 SKILL.md). Re-deriving an existing format from these heuristics is the failure
 mode, not the goal.
 
+**Generalization note:** the keyword lists, tier examples, tab-name hints, and
+any concrete value below are *evidence from specific models*, not universal
+constants — see the "Generalization first" section in SKILL.md. They describe the
+*kind* of signal to look for; the actual values (palette, fonts, freeze panes,
+formats, names) come from whatever model is in front of you. Classify against the
+model's own structure and reproduce the model's own formatting — never substitute
+Twin Star's values for what the target actually uses.
+
 How to recognize what you're looking at in an unfamiliar model, so the right
 convention from `design-language.md` / `tab-patterns.md` gets applied. `audit_workbook.py`
 makes a first pass with these heuristics and attaches a confidence to every guess;

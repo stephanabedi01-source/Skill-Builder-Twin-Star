@@ -19,6 +19,21 @@ year separators, drawings, charts, cached formula values. Re-deriving destroys
 that tail; cloning preserves it. These tables only ever *author* formatting —
 they must never be used to "normalize" formatting that already exists.
 
+## 0a. Every value in these tables is evidence, not a universal constant
+
+The hexes, theme slots, fonts, sizes, number-format strings, freeze panes, tab
+colors, row heights, and column widths below were extracted from specific models
+(chiefly Twin Star). **They illustrate the practice; they are not constants that
+belong on every model.** A different workbook has its own palette, its own theme,
+its own geometry. When that workbook already has a format, the only correct
+values are *its own* — read them from its theme/styles records and reproduce them
+exactly (clone mode). Use the literal values here only when authoring formatting
+onto a model that has none, and even then expect to map them onto the target's
+own theme rather than hardcoding Twin Star's RGB. **Read every table below as
+"the source's equivalent of this," not "this exact value."** Never
+repaint a model in Twin Star's palette or impose its freeze panes / fonts /
+number formats just because a table here lists them.
+
 All colors are 6-digit RGB hex. The script adds the `FF` alpha prefix and writes
 **resolved RGB** (never theme indices or tints), so the style reproduces faithfully
 on any target workbook regardless of its theme.

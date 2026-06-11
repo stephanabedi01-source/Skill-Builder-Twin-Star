@@ -5,6 +5,17 @@ How each kind of tab is formatted. Recognize the tab type (see
 formats come from `design-language.md` / `style_constants.py` — this file is about
 *which conventions go where*.
 
+**Generalization note:** every hex, font, size, freeze pane, number format, and
+sheet name named in these playbooks is *evidence from specific models* (chiefly
+Twin Star), not a constant to stamp onto other models — see "Generalization
+first" in SKILL.md. Each playbook describes the *pattern* (e.g. "section banners
+get a dark fill with light bold label text", "output pages use one presentation
+font", "totals carry a tiered fill"); the *actual* colors, fonts, and geometry
+are whatever the model in front of you uses. If that model already has a format,
+reproduce its own values exactly (clone mode). When a model does something no
+playbook here describes, replicate what *it* does — the missing example is never a
+license to apply a default.
+
 The golden rule that overrides everything: **never invent structure the target
 doesn't have.** No Assumptions tab → skip toggles and green links. Annual-only
 model → single annual block, no monthly axis, no "x" separator. When the target

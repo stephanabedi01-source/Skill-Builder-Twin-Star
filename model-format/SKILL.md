@@ -5,6 +5,55 @@ description: Format Excel financial and operating models. Two modes — lossless
 
 # Model Format
 
+## ⚠️ Generalization first — specific values are EVIDENCE, not constants
+
+**This skill is applied to many different models, not just the Twin Star model
+its examples are drawn from.** Every model is genuinely different: different
+palettes, themes, fonts, layouts, freeze panes, number formats, tab colors,
+sheet names, and sheet structures.
+
+**The instructions in this skill are not always to be taken literally. They are
+general practices, illustrated with evidence from specific models. The general
+practices apply to every model; the specific values do not.** Treat every
+concrete value anywhere in this skill — every hex color (`#002855`, `#DCE8F4`,
+`#D3EFEF`, `#F2F2F2`, the row-6 tint bands, …), theme-slot assignment,
+freeze-pane location (`E9`, `BY9`, `B5`, …), tab color, font and size (Arial
+9/10, Aptos Narrow 14, …), number-format string, sheet name, cell reference, row
+height, and column width — as **evidence from one workbook, not a universal
+constant.** Never paint a different model with Twin Star's palette or geometry
+just because this skill happens to mention those values.
+
+**The one rule that IS universal:** for any workbook with an established format,
+read *that workbook's own* theme, style records, number-format strings, sheet
+views and freeze panes, tab colors, row/column geometry, drawings, and charts —
+and reproduce them exactly. **Copy the source's exact formatting; do not
+reinterpret it through your own conventions.** The specifics change with every
+model; the discipline does not. (`scripts/clone_format.py` enforces this
+mechanically — see Mode 0.)
+
+### How to read the literal rules
+Every rule written against a specific value must be read in its **general** form.
+The translation pattern is always *[specific fix from one model] → [match
+whatever the source actually has]*:
+
+| Written as (evidence from one model) | Read as (the actual, general rule) |
+|---|---|
+| "restore the freeze pane at `BY9`" | preserve the source's exact freeze pane, wherever it is — or its absence |
+| "row-6 bands are `#B9D1E9` / `#E4E5E8` / …" | preserve each cell's exact fill, whatever color the source uses |
+| "use the trailing-comma scaling number format" | copy the source's exact number-format string, whatever it is |
+| "output pages are Arial 9" | match the source's exact font and size there, whatever they are |
+| "tier 2 = `#DCE8F4`" | use whatever fill the source actually assigns that row (often a theme tint) |
+
+### When a model does something no example covers
+When a new model does something none of these examples mention — a different
+palette, a different header construction, gradient fills, unusual fonts, a layout
+the chassis doesn't describe, anything — the answer is the same general practice:
+**replicate what that model actually does.** The absence of an example is *not*
+permission to fall back on your own default formatting, or on Twin Star's. Read
+the source; reproduce the source.
+
+---
+
 Apply a specific investment-banking house style to any Excel model. The style is a
 **design language, not a literal template**: the conventions below were distilled
 from one model, but this skill formats *any* model — different tab names, different
