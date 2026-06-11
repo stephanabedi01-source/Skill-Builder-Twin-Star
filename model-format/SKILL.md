@@ -1,6 +1,6 @@
 ---
 name: model-format
-description: Format Excel financial and operating models. Two modes — losslessly clone or restore a workbook's existing formatting (exact style records, theme, number formats, views, charts, drawings, cached values) when an established format exists, or impose the house style on unformatted models (banker color-coding with blue inputs, slate-gray formulas, green cross-sheet links; three-tier total fill hierarchy; navy section banners; triple-marked yellow input blocks; exact number formats; model chassis). Use whenever the user uploads or points to an .xlsx and asks to format it, apply the house style or "our model format", make it look like our models or like the original, restore or preserve formatting, transplant formatting between versions, color-code inputs vs formulas, fix totals or number formatting, or make a model client-ready. Triggers on "format this model", "apply house style", "match the original formatting", "style this workbook". Works on any model — monthly or annual, one division or ten.
+description: Format Excel financial and operating models. Mode A losslessly clones a workbook's established formatting (exact style records, theme, number formats, views, charts, drawings, cached values); Mode B formats an unformatted, stripped, or messy model from scratch to a clean professional standard (banker color-coding with blue inputs, gray formulas, green links; tiered total fills; section banners; exact number formats; widths, freezes, tab colors, print setup) — every deliverable finished to the delivery standard (opens on first tab, all tabs at A1, 85% zoom). Use whenever the user uploads or points to an .xlsx and asks to format it, apply the house style or "our model format", make it look like our models or like the original, restore or preserve formatting, format or clean up a messy or stripped model, color-code inputs vs formulas, fix number formats, or make a model client-ready. Triggers on "format this model", "apply house style", "match the original formatting", "make this look professional".
 ---
 
 # Model Format
@@ -97,6 +97,54 @@ clone mode), **drops embedded images**, and **re-serializes charts lossily**.
 Never push a workbook containing drawings/charts through apply_format without
 restoring those parts from the source package afterwards (clone_format's
 machinery is the reference for how).
+
+## The two modes, named
+
+- **Mode A — Replicate.** The source has a deliberate, established format →
+  clone it exactly. This is everything Mode 0 above describes
+  (`clone_format.py`, package-level fidelity, no re-derivation).
+- **Mode B — Format from scratch.** The source is unformatted, stripped, or a
+  chaotic mess → apply your own professional formatting system and make it look
+  excellent. **In this mode your judgment IS the standard — there is no key to
+  copy.** Read `references/from-scratch.md` for the bar to hit (coherent font
+  system, provenance color coding, exact number formats with negatives in
+  parentheses / dashes for zeros / sensible $ % and unit scaling, clear section
+  headers, distinct subtotal vs total treatments, a real alignment and indent
+  hierarchy, sensible column widths and row heights, useful freeze panes,
+  organizing tab colors, clean print setup). Mechanically it is the audit →
+  review → apply workflow below, with the Mode-B map fields (`indent`,
+  `auto_widths`, `column_widths`, `row_heights`) in play.
+
+**How to choose: read the workbook.** A consistent, intentional existing format
+means Mode A. Absent, stripped, or sloppy/inconsistent formatting means Mode B.
+If an odd-but-consistent format leaves you genuinely unsure, ask. And in both
+modes the iron rule holds: **formatting only — never change values, formulas,
+structure, or defined names.**
+
+## Delivery standard — the final save on EVERY workbook handed back
+
+Apply this to every workbook you return, in either mode, as the last step before
+delivery (`scripts/finalize_delivery.py` does all of it surgically, without
+disturbing styles, charts, drawings, or cached values):
+
+- The workbook **opens on the first tab** (workbook active tab = first visible
+  sheet; only that sheet carries `tabSelected`).
+- **Every tab's selection is on A1** and scrolled to the top-left corner
+  (`activeCell`/`sqref` = A1, saved `topLeftCell` cleared). Frozen panes are
+  kept exactly as they should be — just select A1 and scroll each pane back to
+  its origin.
+- **Every tab at 85% zoom** (`zoomScale="85"` on the sheet's active view).
+
+Precedence, explicitly: this delivery standard is a **deliberate exception** to
+the "preserve the source's view settings exactly" rule. Active tab, selected
+cell, scroll position, and zoom always follow this standard at delivery time —
+on every model — even when the source file had something different. Everything
+else about views (gridlines on/off, view mode, freeze panes) still follows the
+existing rules.
+
+```
+python3 scripts/finalize_delivery.py DELIVERABLE.xlsx
+```
 
 ## The hard rules (never break these)
 
@@ -216,3 +264,7 @@ exactly. The skill never assigns a cell value.
   values/formulas; skips working tabs; never moves an existing freeze or print setup.
 - `scripts/clone_format.py` — lossless package-level formatting transplant for
   already-formatted workbooks (clone mode).
+- `scripts/finalize_delivery.py` — the universal final-save step: first tab
+  active, every tab at A1 and 85% zoom; surgical (views only).
+- `references/from-scratch.md` — the Mode B playbook: what "excellent" means
+  when there is no key and your judgment is the standard.

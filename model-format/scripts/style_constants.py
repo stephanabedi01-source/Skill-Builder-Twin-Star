@@ -105,6 +105,13 @@ FONT_OUTPUT = "Segoe UI"  # output / presentation-page tabs (IS Out, UFCF Out, C
 FONT_SIZE   = 10.0
 
 # ===========================================================================
+# 7b. CHASSIS COLUMN WIDTHS (openpyxl width units) -- Mode B / authoring only
+# ===========================================================================
+WIDTH_MARGIN = 1.8   # narrow empty margin col (A) and marker col (B)
+WIDTH_LABEL = 26.0   # primary / secondary label columns
+WIDTH_DATA = 10.0    # uniform data columns
+
+# ===========================================================================
 # 8. PAGE SETUP (presentation tabs)
 # ===========================================================================
 PAGE_ORIENTATION = "portrait"
@@ -144,6 +151,11 @@ def _side(color, style="thin"):
 
 CENTER = Alignment(horizontal="center")
 CENTER_VCENTER = Alignment(horizontal="center", vertical="center")
+
+
+def left_indent(n):
+    """Label-column alignment for line-item hierarchy: left + real indent level."""
+    return Alignment(horizontal="left", indent=int(n))
 
 
 def total_border():

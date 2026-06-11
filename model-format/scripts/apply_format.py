@@ -249,9 +249,12 @@ def _format_sheet(ws, sheet):
                 elif cls in NUMFMT_BY_CLASS:
                     cell.number_format = NUMFMT_BY_CLASS[cls]
 
-            # ---- ALIGNMENT ---- (only the centered header classes; preserve indents)
+            # ---- ALIGNMENT ---- (centered header classes; map-driven indent
+            #      hierarchy on label cells; everything else preserved)
             if cls in CENTER_CLASSES:
                 cell.alignment = sc.CENTER
+            elif info and info.get("indent") and col in label_idx_set:
+                cell.alignment = sc.left_indent(info["indent"])
 
     # ---- BORDERS ----
     for r, info in rowmap.items():
@@ -259,6 +262,33 @@ def _format_sheet(ws, sheet):
             _add_total_border(ws, r, span_lo, span_hi)
     for blk in sheet.get("input_blocks", []):
         _add_input_box(ws, blk["min_row"], blk["max_row"], _idx(blk["min_col"]), _idx(blk["max_col"]))
+
+
+def _apply_geometry(ws, sheet):
+    """Mode-B geometry: chassis column widths / row heights. Only runs when the
+    reviewed map opts in ("auto_widths": true and/or explicit "column_widths" /
+    "row_heights"), so replicate-mode and legacy maps are untouched."""
+    widths = {}
+    if sheet.get("auto_widths"):
+        label_idx = {_idx(x) for x in (sheet.get("label_cols") or [])}
+        marker = _idx(sheet["marker_col"]) if sheet.get("marker_col") else None
+        c_start = _idx(sheet["data_col_start"])
+        c_end = _idx(sheet["data_col_end"])
+        first_label = min(label_idx, default=c_start)
+        for col in range(1, c_end + 1):
+            if col in label_idx:
+                widths[col] = sc.WIDTH_LABEL
+            elif col == marker or col < first_label:
+                widths[col] = sc.WIDTH_MARGIN
+            elif c_start <= col <= c_end:
+                widths[col] = sc.WIDTH_DATA
+    for letter, w in (sheet.get("column_widths") or {}).items():
+        widths[_idx(letter)] = float(w)
+    for col, w in widths.items():
+        # setting width is enough -- openpyxl derives customWidth from it
+        ws.column_dimensions[get_column_letter(col)].width = float(w)
+    for r, h in (sheet.get("row_heights") or {}).items():
+        ws.row_dimensions[int(r)].height = float(h)
 
 
 def apply_map(wb_path, map_path, out_path):
@@ -292,6 +322,7 @@ def apply_map(wb_path, map_path, out_path):
             # "freeze_force": true in the reviewed map.
             ws.freeze_panes = fr
         _format_sheet(ws, sheet)
+        _apply_geometry(ws, sheet)
         formatted.append(ws.title)
 
     wb.save(out_path)
