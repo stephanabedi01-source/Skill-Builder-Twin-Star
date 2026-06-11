@@ -114,8 +114,12 @@ def _add_input_box(ws, r0, r1, c0, c1):
 # ---------------------------------------------------------------------------
 def _setup_presentation_page(ws):
     ws.sheet_view.showGridLines = False
-    ws.print_options.gridLines = False
     ps = ws.page_setup
+    if ps.scale or ps.fitToWidth or ps.orientation or ps.paperSize:
+        # The sheet already carries deliberate print setup (e.g. an explicit
+        # per-tab scale). Imposing fit-to-page or paper defaults on top of it is
+        # noise that diverges from the source -- leave print setup alone.
+        return
     ps.orientation = sc.PAGE_ORIENTATION
     ps.paperSize = 1  # Letter
     ps.fitToWidth = 1  # "label columns plus period fit one page wide"
@@ -281,7 +285,11 @@ def apply_map(wb_path, map_path, out_path):
         if sheet.get("gridlines_off"):
             _setup_presentation_page(ws)
         fr = sheet.get("freeze")
-        if fr:
+        if fr and (ws.freeze_panes in (None, "A1") or sheet.get("freeze_force")):
+            # Never move a freeze the source already has -- a deliberate freeze
+            # (e.g. 76 frozen history columns on a liquidity tab) encodes intent
+            # a header heuristic cannot reconstruct. Override only with
+            # "freeze_force": true in the reviewed map.
             ws.freeze_panes = fr
         _format_sheet(ws, sheet)
         formatted.append(ws.title)

@@ -57,7 +57,7 @@ Repeating divisional blocks — Consolidated first, then one identical block per
 division, each headed by a navy banner + red "X" in col B. Loaded monthly data
 rows blue; derived rows (margins, GP, EBITDA) gray formulas. **Margin % rows
 italic gray directly under their parent.** Tiers: subtotals `F2F2F2`; EBITDA /
-Total Cost of Sales `DBE8F4` (tier 2); Gross Profit `CDF5F5` (tier 3). Below
+Total Cost of Sales `DCE8F4` (tier 2); Gross Profit `D3EFEF` (tier 3). Below
 EBITDA, other income/expense items are tagged "Cash" / "Non-Cash" in col B (these
 feed output-tab SUMIFS — leave the tags alone). Check rows italic red, 3 decimals.
 
@@ -65,27 +65,27 @@ feed output-tab SUMIFS — leave the tags alone). Check rows italic red, 3 decim
 
 Same chassis. "Assets" / "Liabilities & Equity" headers are **bold + underlined
 gray text — NOT banner fills** (use the `section_underline` class). Tiers: Total
-Current Assets / Liabilities `F2F2F2` (tier 1); Total Liabilities `DBE8F4`
-(tier 2); Total Assets and Total L&E `CDF5F5` (tier 3). A "Check" row (Assets minus
+Current Assets / Liabilities `F2F2F2` (tier 1); Total Liabilities `DCE8F4`
+(tier 2); Total Assets and Total L&E `D3EFEF` (tier 3). A "Check" row (Assets minus
 L&E) italic red. Subsequent data rows use the `-_);` number-format variant.
 
 ## Cash Flow
 
 GAAP indirect layout. Section headers bold `0067A5` ("Cash Flows from Operating
 Activities:"). Net-cash-per-section subtotals `F2F2F2` (tier 1); net change in cash
-`DBE8F4` (tier 2); ending cash `CDF5F5` (tier 3). "Memo:" rows plain gray.
+`DCE8F4` (tier 2); ending cash `D3EFEF` (tier 3). "Memo:" rows plain gray.
 Subsequent data rows use the `-_);` variant.
 
 ## Liquidity / borrowing base
 
-Teal header family (`24B1B1` / `9CEBEB`). Advance-rate and rate-spread inputs blue
+Teal header family (`24B1B1` / `A7E0E0`). Advance-rate and rate-spread inputs blue
 font in the live columns; closed historical month columns greyed `F2F2F2` down the
 body. Availability subtotals follow the 3-tier hierarchy. Cell notes/comments are
 used for documentation — leave them.
 
 ## Sales / COGS / detail forecasts
 
-Gray header family (`BCBFC6` / `E3E4E8`). Loaded detail rows greyed `F2F2F2`; bold
+Gray header family (`BCBFC6` / `E4E5E8`). Loaded detail rows greyed `F2F2F2`; bold
 `0067A5` group headers; a bold `F2F2F2` subtotal per group. Col B may repeat a
 normalized lookup key next to the display name in C — leave it.
 

@@ -5,6 +5,20 @@ machine-readable copy of this file; the two must always agree. When formatting,
 the script pulls every value from `style_constants.py` — never retype a hex code
 or a number-format string from memory.
 
+## 0. The fidelity rule (read this before anything below)
+
+Everything below is a **generative** grammar — for formatting a workbook that
+does not yet have an established format, or when the user explicitly asks to
+restyle. **When a workbook already has an established format, the job is to
+replicate that workbook's exact formatting — clone its style records verbatim
+(`scripts/clone_format.py`) — not to re-derive formatting from these
+conventions.** A real model's style sheet always contains a long tail this
+grammar cannot regenerate: per-block tint bands, deliberately hidden white
+"plumbing" text, scaling number formats with trailing commas, mediumDashed
+year separators, drawings, charts, cached formula values. Re-deriving destroys
+that tail; cloning preserves it. These tables only ever *author* formatting —
+they must never be used to "normalize" formatting that already exists.
+
 All colors are 6-digit RGB hex. The script adds the `FF` alpha prefix and writes
 **resolved RGB** (never theme indices or tints), so the style reproduces faithfully
 on any target workbook regardless of its theme.
@@ -60,9 +74,9 @@ just the label cell.
 
 | Fill | Hex | Use |
 |---|---|---|
-| Light gray | `F2F2F2` | **Tier 1: subtotals** (Total Product Cost, Total Current Assets, Net cash from operating activities) |
-| Light blue | `DBE8F4` | **Tier 2: major totals** (Total Cost of Sales, EBITDA, Total Liabilities, net change in cash) |
-| Pale cyan | `CDF5F5` | **Tier 3: headline totals** (Gross Profit, Total Assets, Total Liabilities & Equity, Cash at end of period, Total Availability) |
+| Light gray | `F2F2F2` | **Tier 1: subtotals** (Total Product Cost, Total Current Assets, Net cash from operating activities). Also used as closed-period / loaded-detail shading down data columns. |
+| Light blue | `DCE8F4` | **Tier 2: major totals** (Total Cost of Sales, EBITDA, Total Liabilities, net change in cash). This is accent `508BC9` at tint 0.8 — exactly `DCE8F4`, never `DBE8F4`. |
+| Pale cyan | `D3EFEF` | **Tier 3: headline totals** (Gross Profit, Total Assets, Total Liabilities & Equity, Cash at end of period, Total Availability). Accent `24B1B1` at tint 0.8 — exactly `D3EFEF`, never `CDF5F5`. |
 | Pale yellow | `FFFFCC` | **Input cells** — ALWAYS triple-marked: this fill **+** blue `0000FF` font **+** thin blue `0000FF` box around the whole rectangle of inputs (one box, not per-cell) |
 | Dark navy | `002855` | **Section banner rows** — white bold text; fill extends from the label column across ALL data columns of the row |
 | Steel blue | `9FC3DA` | **Secondary / sub-group banners** ("Cost of Goods Sold", "Operating Expense" on an Assumptions tab) — white bold text |
@@ -97,6 +111,28 @@ openpyxl round-trips our literal strings faithfully.)
 Conventions baked in: negatives in parentheses; zeros render as `-`; `$` sign only
 on the first row of each block and on totals; units stated once per tab.
 
+**Real models use dozens more exact variants — never normalize them to a nearby
+"standard" format.** Ones with display semantics that are easy to destroy:
+`_(* #,##0,_);_(* \(#,##0,\);_(* "-"??_);_(@_)` (the **trailing comma divides the
+display by 1,000** — dropping it shows numbers 1,000× too large); `0"E"` (renders
+`2025E` estimate years); `"S + "000` (rate spreads); builtin 37 `#,##0 ;(#,##0)`
+(quiet check rows); `0.0%_);(0.0%);-%_);` (the `-%` zero token); zero-padding
+variants `-;` vs `-_);` vs `$-_);` (the `_)` aligns zeros with parenthesized
+negatives). The `[$-409]` and `[$-en-US]` locale prefixes are equivalent.
+
+### Refinements observed in the house's own models
+- **Banner rows:** only the *label cell* is white bold; the other cells under the
+  navy fill keep the default font (not bold, not white).
+- **Hidden plumbing:** some check rows and helper headers are deliberately
+  invisible — white (or default) font on white. Never "expose" them by recoloring;
+  red italic 3-decimal styling belongs to *plug/flag* rows that are meant to be seen.
+- **Year-block separators:** `mediumDashed` `BFBFBF` left/right borders run down
+  the sheet between year blocks; light rules use `D9D9D9`.
+- **Indentation:** labels use `horizontal=left` + `indent=1/2/3` for sub-items —
+  real indent levels, not just leading spaces.
+- **Closed/forecast shading:** `F2F2F2` down data columns marks closed or
+  forecast periods on statements, not only on liquidity tabs.
+
 ## 6. The universal sheet chassis
 
 Every schedule tab follows this skeleton. **Adapt the proportions and the row count
@@ -125,12 +161,18 @@ do not insert columns unless the user approves restructuring.
 8. First section banner row — navy `002855` across label + all data columns, white bold, red bold "X" in col B.
 
 ### Header fill pairs by tab family → (FY band fill, date-row fill)
-| Tab family | FY band | Date row |
+**Rule: the date/period row under a band is the 0.6 tint of that band's own
+hue** (`style_constants.tint(hue, 0.6)`) — it is not one global color. When a
+model carries several scenario/year bands side by side, each block's date row
+takes the tint of *its own* band color (e.g. `508BC9`→`B9D1E9`,
+`7E8597`→`CBCED5`, `0067A5`→`99C2DB`, `002855`→`BFC9D4`). Common families:
+
+| Tab family | Band | Date row (0.6 tint) |
 |---|---|---|
-| Core statements (IS, BS, CF) | `525766` | `B6BAC5` |
-| Liquidity / borrowing base | `24B1B1` | `9CEBEB` |
-| Ancillary forecasts (Sales, COGS, BS Forecast) | `BCBFC6` | `E3E4E8` |
-| Assumptions "Live Case" block | `6C1E36` | `DF8AA4` (with "Live Case" white bold over the maroon) |
+| Core statements (IS, BS, CF) | `525766` | `BABCC2` |
+| Liquidity / borrowing base | `24B1B1` | `A7E0E0` |
+| Ancillary forecasts (Sales, COGS, BS Forecast) | `BCBFC6` | `E4E5E8` |
+| Assumptions "Live Case" block | `6C1E36` | `C4A5AF` (with "Live Case" white bold over the maroon) |
 
 ### Freeze panes
 Freeze the header rows + label columns on every schedule (the example freezes rows

@@ -1,5 +1,10 @@
 # Classification heuristics
 
+Everything here serves **impose mode**. If the workbook already has an
+established format, stop — clone it instead (`clone_format.py`; see Mode 0 in
+SKILL.md). Re-deriving an existing format from these heuristics is the failure
+mode, not the goal.
+
 How to recognize what you're looking at in an unfamiliar model, so the right
 convention from `design-language.md` / `tab-patterns.md` gets applied. `audit_workbook.py`
 makes a first pass with these heuristics and attaches a confidence to every guess;
@@ -54,8 +59,8 @@ components, and the statement's bottom line / balancing figure is the headline.*
 | Tier | Fill | Gets it |
 |---|---|---|
 | 1 — subtotal | `F2F2F2` | the first level of summation (Total Current Assets, Total Product Cost, a per-section net-cash subtotal) |
-| 2 — major total | `DBE8F4` | a total that sums subtotals (Total Cost of Sales, EBITDA, Total Liabilities, net change in cash) |
-| 3 — headline total | `CDF5F5` | the bottom line / balancing figure (Gross Profit, Total Assets, Total Liabilities & Equity, Cash at end of period, Total Availability) |
+| 2 — major total | `DCE8F4` | a total that sums subtotals (Total Cost of Sales, EBITDA, Total Liabilities, net change in cash) |
+| 3 — headline total | `D3EFEF` | the bottom line / balancing figure (Gross Profit, Total Assets, Total Liabilities & Equity, Cash at end of period, Total Availability) |
 
 Reason about the arithmetic, not just the words. If "Total X" is computed by adding
 two rows that are themselves "Total …" rows, it's at least tier 2. The figure the

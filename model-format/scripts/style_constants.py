@@ -34,9 +34,9 @@ WHITE         = "FFFFFF"  # text inside dark banner fills (bold)
 # 2. FILLS  ==  3-TIER TOTAL HIERARCHY + SPECIAL FILLS
 #    (all total tiers use bold text; identical on every tab)
 # ===========================================================================
-FILL_TIER1     = "F2F2F2"  # Tier 1: subtotals (Total Product Cost, Total Current Assets, ...)
-FILL_TIER2     = "DBE8F4"  # Tier 2: major totals (Total Cost of Sales, EBITDA, Total Liabilities, ...)
-FILL_TIER3     = "CDF5F5"  # Tier 3: headline totals (Gross Profit, Total Assets, Total L&E, ...)
+FILL_TIER1     = "F2F2F2"  # Tier 1: subtotals (white tint -0.05)
+FILL_TIER2     = "DCE8F4"  # Tier 2: major totals -- accent #508BC9 at tint 0.8 (NOT DBE8F4; that was a one-digit-off extraction)
+FILL_TIER3     = "D3EFEF"  # Tier 3: headline totals -- accent #24B1B1 at tint 0.8 (NOT CDF5F5)
 FILL_INPUT     = "FFFFCC"  # input cells -- ALWAYS triple-marked (this fill + blue font + blue box)
 FILL_BANNER    = "002855"  # section banner rows (dark navy), white bold text, spans label->last data col
 FILL_SUBBANNER = "9FC3DA"  # secondary/sub-group banners (steel blue), white bold text
@@ -49,12 +49,23 @@ BORDER_BLUE = "0000FF"  # thin blue box around an input block (one box per recta
 
 # ===========================================================================
 # 4. HEADER FILL PAIRS BY TAB FAMILY  ->  (FY-band fill, date-row fill)
+#    RULE: the date/period band under a header band is the 0.6 TINT of that
+#    band's own hue -- it is not one global color. The pairs below are the
+#    common families, with the date-row value precomputed via tint(hue, 0.6).
+#    A model with per-block scenario bands gets per-block tints (use tint()).
 # ===========================================================================
+def tint(hex6, t):
+    """Excel-style positive tint: each channel c -> c + (255 - c) * t."""
+    h = str(hex6).lstrip("#")
+    return "".join(f"{round(int(h[i:i+2], 16) + (255 - int(h[i:i+2], 16)) * t):02X}"
+                   for i in (0, 2, 4))
+
+
 HEADER_FILLS = {
-    "core":        ("525766", "B6BAC5"),  # Core statements (IS, BS, CF)
-    "liquidity":   ("24B1B1", "9CEBEB"),  # Liquidity / borrowing base
-    "ancillary":   ("BCBFC6", "E3E4E8"),  # Ancillary forecasts (Sales, COGS, BS Forecast)
-    "assumptions": ("6C1E36", "DF8AA4"),  # Assumptions "Live Case" block (maroon / pink)
+    "core":        ("525766", "BABCC2"),  # Core statements (IS, BS, CF); BABCC2 = tint(525766, 0.6)
+    "liquidity":   ("24B1B1", "A7E0E0"),  # Liquidity / borrowing base;   A7E0E0 = tint(24B1B1, 0.6)
+    "ancillary":   ("BCBFC6", "E4E5E8"),  # Ancillary forecasts;          E4E5E8 = tint(BCBFC6, 0.6)
+    "assumptions": ("6C1E36", "C4A5AF"),  # Assumptions "Live Case";      C4A5AF = tint(6C1E36, 0.6)
 }
 
 # ===========================================================================

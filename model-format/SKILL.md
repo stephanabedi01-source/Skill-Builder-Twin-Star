@@ -1,6 +1,6 @@
 ---
 name: model-format
-description: Apply our house formatting style to any Excel financial or operating model — the banker color-coding (blue hardcoded inputs, slate-gray formulas, green cross-sheet links), the three-tier total fill hierarchy (subtotals, major totals, headline totals), navy section banners, triple-marked yellow input blocks, exact number formats, and the standard model chassis (header band, freeze panes, tab colors). Use this skill whenever the user uploads or points to an .xlsx workbook and asks to format it, apply the house style or "our model format", "make this look like our models", clean it up visually, color-code inputs vs formulas, fix the totals or number formatting, or make a model client-ready or presentation-ready. Triggers on phrases like "format this model", "apply house style", "make this banker-ready", or "style this workbook" — even if they do not name the skill. Works on any model — different tab names, monthly or annual, one division or ten.
+description: Format Excel financial and operating models. Two modes — losslessly clone or restore a workbook's existing formatting (exact style records, theme, number formats, views, charts, drawings, cached values) when an established format exists, or impose the house style on unformatted models (banker color-coding with blue inputs, slate-gray formulas, green cross-sheet links; three-tier total fill hierarchy; navy section banners; triple-marked yellow input blocks; exact number formats; model chassis). Use whenever the user uploads or points to an .xlsx and asks to format it, apply the house style or "our model format", make it look like our models or like the original, restore or preserve formatting, transplant formatting between versions, color-code inputs vs formulas, fix totals or number formatting, or make a model client-ready. Triggers on "format this model", "apply house style", "match the original formatting", "style this workbook". Works on any model — monthly or annual, one division or ten.
 ---
 
 # Model Format
@@ -23,9 +23,38 @@ This works in two layers, and the split is the whole point:
   weights, all pulled from `scripts/style_constants.py`. **Never** retype a hex code
   or a number format from memory — that is what the script is for.
 
+## Mode 0 — preserve vs. impose (decide this FIRST)
+
+**When a workbook already has an established format, your job is to replicate
+that workbook's exact formatting — clone its style records verbatim — not to
+re-derive formatting from the house conventions.** The design language below is
+for *authoring*: unformatted targets, new builds, or an explicit instruction to
+restyle. Re-deriving an existing format always loses its long tail (per-block
+tint bands, hidden white plumbing text, scaling number formats, year-separator
+borders, drawings, charts, cached values) and is therefore wrong by default.
+
+- Restoring / round-tripping / "make it match the original" / applying one
+  version's look to an updated copy → **clone mode**: `scripts/clone_format.py
+  SOURCE.xlsx TARGET.xlsx -o OUT.xlsx`. It works at the package level — styles,
+  theme, numFmts, sheetViews, row/col geometry, tab colors, drawings, charts,
+  media, cached values are carried byte-for-byte from the source; only content
+  differences are patched in.
+- Formatting a workbook with no established style (or the user explicitly wants
+  the house style imposed) → the audit → review → apply workflow below.
+
+Know your writer's losses: any openpyxl round-trip **strips cached formula
+values** (recalculate before delivery — e.g. headless LibreOffice — or use
+clone mode), **drops embedded images**, and **re-serializes charts lossily**.
+Never push a workbook containing drawings/charts through apply_format without
+restoring those parts from the source package afterwards (clone_format's
+machinery is the reference for how).
+
 ## The hard rules (never break these)
 
 - **Never change cell values or formulas.** Only styling changes.
+- **Never re-derive formatting a workbook already has.** Established format →
+  clone it exactly; impose the house language only on unformatted targets or
+  explicit request.
 - **Never delete, insert, or reorder** rows, columns, or tabs.
 - **Never invent structure the target doesn't have.** No toggles in the model → don't
   fabricate toggles. Annual-only model → no monthly-axis machinery.
@@ -132,7 +161,9 @@ exactly. The skill never assigns a cell value.
 - `references/classification.md` — how to classify tabs/rows/cells, and the tier
   logic.
 - `scripts/style_constants.py` — single source of truth: every hex, number format,
-  font, border + style factories.
+  font, border + style factories (incl. `tint()` for band/date-row derivation).
 - `scripts/audit_workbook.py` — scans a workbook → reviewable JSON map.
 - `scripts/apply_format.py` — applies the reviewed map; idempotent; never touches
-  values/formulas; skips working tabs.
+  values/formulas; skips working tabs; never moves an existing freeze or print setup.
+- `scripts/clone_format.py` — lossless package-level formatting transplant for
+  already-formatted workbooks (clone mode).
