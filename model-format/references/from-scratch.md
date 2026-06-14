@@ -73,7 +73,14 @@ and restraint are the bar. Concretely:
 3. `apply_format.py` → then **look at the result** (re-audit, sample cells,
    render a tab to image if available). Fix the map and re-run until it reads
    clean. One pass is rarely excellent.
-4. Finish with the delivery standard: `finalize_delivery.py` (first tab active,
+4. **If the source is rich** (charts, data tables, cached values, defined names),
+   treat the `apply_format.py` output as a *style donor* and transplant it onto
+   the original package with `merge_format.py` — openpyxl's round-trip would
+   otherwise strip cached values and degrade charts. A plain workbook can skip
+   this. Verify zero value/formula change (compare against the source, comparing
+   `ArrayFormula`/`DataTableFormula` by attributes and floats by tolerance) and
+   that charts / defined names / cached values survived.
+5. Finish with the delivery standard: `finalize_delivery.py` (first tab active,
    A1 everywhere, 85% zoom). Every workbook handed back gets this, no exceptions.
 
 ## What Mode B must never do

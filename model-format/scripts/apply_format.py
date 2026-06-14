@@ -241,10 +241,13 @@ def _format_sheet(ws, sheet):
                 elif cls == "data":
                     cell.number_format = sc.NF_NUMBER_BS if balance else sc.NF_NUMBER
                 elif cls == "header_date":
-                    # Only stamp the date format on actual dates / chained =EOMONTH
-                    # formulas -- never on a plain year integer (that would make Excel
-                    # reinterpret e.g. 2019 as a 1905 serial date).
-                    if cell.is_date or cell.data_type == "f":
+                    # Stamp the date format on real dates / =EOMONTH formulas, and on
+                    # bare date *serials* (>=20000 ~ year 1954, e.g. a stripped model
+                    # whose dates lost their format) -- but never on a plain year
+                    # integer like 2019 (< 20000), which would become a 1905 serial.
+                    if (cell.is_date or cell.data_type == "f"
+                            or (cell.data_type == "n" and isinstance(cell.value, (int, float))
+                                and not isinstance(cell.value, bool) and cell.value >= 20000)):
                         cell.number_format = sc.NF_DATE_MONTH
                 elif cls in NUMFMT_BY_CLASS:
                     cell.number_format = NUMFMT_BY_CLASS[cls]

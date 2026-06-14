@@ -115,6 +115,27 @@ machinery is the reference for how).
   review → apply workflow below, with the Mode-B map fields (`indent`,
   `auto_widths`, `column_widths`, `row_heights`) in play.
 
+**Mode B on a rich workbook — apply the STYLING, not an openpyxl round-trip.**
+`apply_format.py` writes through openpyxl, which on a feature-rich file strips
+cached formula values, drops chart style/rels parts and drawings, expands shared
+formulas, and loses defined names — the same losses Mode A avoids. So when the
+target has charts, data tables, or cached values, do not ship the openpyxl output
+directly. Run `apply_format.py` on a copy to produce a STYLE DONOR, then transplant
+only its styling onto the original package with `scripts/merge_format.py`:
+
+```
+python3 scripts/apply_format.py SOURCE.xlsx --map MAP.json -o STYLE_DONOR.xlsx
+python3 scripts/merge_format.py SOURCE.xlsx STYLE_DONOR.xlsx -o OUT.xlsx
+python3 scripts/finalize_delivery.py OUT.xlsx
+```
+
+`merge_format` carries the donor's `styles.xml`, per-cell style indices, styled
+empty cells (so banner/tier fills span), column widths, sheet views, and tab
+colors onto the source — while keeping the source's cell values, formulas, cached
+results, charts, drawings, media, and defined names byte-for-byte. For a plain
+workbook with none of those features, `apply_format.py` output can be delivered
+directly (still finish with `finalize_delivery.py`).
+
 **How to choose: read the workbook.** A consistent, intentional existing format
 means Mode A. Absent, stripped, or sloppy/inconsistent formatting means Mode B.
 If an odd-but-consistent format leaves you genuinely unsure, ask. And in both
@@ -262,8 +283,10 @@ exactly. The skill never assigns a cell value.
 - `scripts/audit_workbook.py` — scans a workbook → reviewable JSON map.
 - `scripts/apply_format.py` — applies the reviewed map; idempotent; never touches
   values/formulas; skips working tabs; never moves an existing freeze or print setup.
-- `scripts/clone_format.py` — lossless package-level formatting transplant for
-  already-formatted workbooks (clone mode).
+- `scripts/clone_format.py` — Mode A: lossless package-level formatting transplant
+  for already-formatted workbooks (clone mode).
+- `scripts/merge_format.py` — Mode B package-safe applier: transplants a style
+  donor's styling onto a rich source package without openpyxl's content losses.
 - `scripts/finalize_delivery.py` — the universal final-save step: first tab
   active, every tab at A1 and 85% zoom; surgical (views only).
 - `references/from-scratch.md` — the Mode B playbook: what "excellent" means
