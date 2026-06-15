@@ -23,12 +23,13 @@ freeze); <sheetPr> tabColor. Kept from source: all cell values/formulas/cached
 """
 
 import argparse
+import os
 import re
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
 
-sys.path.insert(0, "/home/user/Skill-Builder-Twin-Star/model-format/scripts")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # location-independent
 from clone_format import _sheet_parts
 
 MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"

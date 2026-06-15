@@ -80,3 +80,28 @@ tab colors in Mode B, use tints of these (e.g. accent1@0.8 ≈ `DCE8F4`).
 4. Over-emphatic cyan/blue total fills when the model is restrained gray.
 5. Leaving gridlines on data tabs; over-freezing short tabs.
 6. Pure-red markers when the model uses dark red.
+
+## Bingo Industries test (second HL model, same template — confirmations + new lessons)
+
+Bingo (Discussion Materials: Capital Structure, Historicals spread, O1–O3
+outputs, Pricing data, a small Sheet1) confirmed the corrected Traeger
+conventions transfer cleanly to another HL model. New, generalizable lessons:
+
+- **Preserve the model's existing deliberate chrome; format only what's
+  unformatted.** Bingo's body was unformatted (gridlines on, mixed
+  Arial/Calibri/Aptos, ~no fills) but it already had **deliberate, house-scheme
+  tab colors and freeze splits**. The right move is hybrid: Mode B the body, but
+  *keep* the existing tab colors (`tab_color: null` so apply doesn't overwrite)
+  and the existing freeze splits (omit `freeze` so the guardrail leaves them).
+  Don't re-guess chrome the model already got right.
+- **`freeze_panes` (openpyxl) conflates the freeze split with the saved scroll.**
+  Bingo's Historicals read `B79` but the real split was 16 rows (`ySplit=16`)
+  scrolled to row 79. `finalize_delivery` keeps the split and resets the scroll
+  to its origin (`B17`) — that IS the delivery standard, not a lost freeze.
+  Verify the split (`xSplit`/`ySplit`), not the reported `freeze_panes` string.
+- **Rich even when "small".** A 7-tab "small" model still had 23 charts, 6
+  drawings, 110k defined names, 3070 cached values — Mode B still routes through
+  `merge_format` (package-safe), never a bare openpyxl save.
+- Same restrained palette (Segoe UI 11/8, navy section headers, `F2F2F2`
+  subtotals, accent2-tint headlines, `BCBFC6` rules, `C00000` markers) produced a
+  clean result with no corrections needed beyond per-tab geometry.

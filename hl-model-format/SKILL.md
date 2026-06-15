@@ -1,5 +1,5 @@
 ---
-name: model-format
+name: hl-model-format
 description: Format Excel financial and operating models. Mode A losslessly clones a workbook's established formatting (exact style records, theme, number formats, views, charts, drawings, cached values); Mode B formats an unformatted, stripped, or messy model from scratch to a clean professional standard (banker color-coding with blue inputs, gray formulas, green links; tiered total fills; section banners; exact number formats; widths, freezes, tab colors, print setup) — every deliverable finished to the delivery standard (opens on first tab, all tabs at A1, 85% zoom). Use whenever the user uploads or points to an .xlsx and asks to format it, apply the house style or "our model format", make it look like our models or like the original, restore or preserve formatting, format or clean up a messy or stripped model, color-code inputs vs formulas, fix number formats, or make a model client-ready. Triggers on "format this model", "apply house style", "match the original formatting", "make this look professional".
 ---
 
