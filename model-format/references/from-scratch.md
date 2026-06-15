@@ -21,9 +21,15 @@ whether an odd format is intentional, ask.
 ## What "excellent" means (the judgment standard)
 
 Use the house design language (`design-language.md`) as your default vocabulary —
-it is a complete professional system. Where the model's content calls for
-something the language doesn't cover, decide like an analyst would; consistency
-and restraint are the bar. Concretely:
+it is a complete professional system. **But first read
+`references/house-conventions.md`**: the values in design-language are Twin Star's,
+and real models in this style are often more restrained or use a different font /
+tab-color scheme. Set a `palette` and per-sheet `font_family`/`font_size` in the
+map to match the model (see SKILL.md "Mode B palette is overridable"). Where the
+model's content calls for something the language doesn't cover, decide like an
+analyst would; **consistency and restraint are the bar** — when unsure, prefer the
+quieter choice (light-gray total fills + bold + a hairline rule over loud fills).
+Concretely:
 
 - **Coherent font system.** One body font/size everywhere on model tabs (house
   default Arial 10, body color slate gray `525766`, never pure black); at most a
@@ -50,15 +56,19 @@ and restraint are the bar. Concretely:
   1.8, label ≈ 26, data ≈ 10 — widen if content needs it); default row heights;
   small spacer rows where the model already has them. Never let labels truncate
   into data columns on a tab you're calling finished.
-- **Useful freeze panes.** Freeze at the header-rows × label-columns intersection
-  on every schedule so scrolling keeps context. (Mode B sheets have no freeze to
-  preserve, so the audit's suggestion applies.)
-- **Tab colors that organize.** One color family per workbook section (statements
-  / forecasts / outputs / sources / working), dividers and cover uncolored —
-  the tab strip should read as a table of contents.
+- **Useful freeze panes — sparingly.** Freeze the main multi-screen statement at
+  its header-rows × label-columns intersection. Do NOT freeze short output/exhibit
+  tabs or every schedule; real models freeze only where scrolling loses context.
+- **Tab colors that organize.** One color family per workbook section, as theme
+  tints of the firm palette; dividers/cover uncolored. The hue→section mapping is a
+  per-model choice (see house-conventions.md) — pick a coherent scheme; the tab
+  strip should read as a table of contents.
+- **Gridlines OFF on every client-facing tab — including data/exhibit tabs.** Set
+  `gridlines_off: true` even on body-skipped data tabs (apply_format honors it
+  without restyling the body). Reserve gridlines-on only for genuinely internal
+  scratch the client never sees.
 - **Clean print setup.** Portrait Letter, ~0.7"/0.75" margins, fit one page wide,
-  gridlines off on every presentation tab. Working tabs stay untouched —
-  that rule survives in Mode B.
+  gridlines off.
 
 ## Workflow
 

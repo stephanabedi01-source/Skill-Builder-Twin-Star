@@ -136,6 +136,18 @@ results, charts, drawings, media, and defined names byte-for-byte. For a plain
 workbook with none of those features, `apply_format.py` output can be delivered
 directly (still finish with `finalize_delivery.py`).
 
+**Mode B palette is overridable — match the model, not Twin Star.** style_constants
+holds Twin Star's values as defaults, but a real model's palette is often more
+restrained or simply different. Set a top-level `palette` object in the map (and
+per-sheet `font_family` / `font_size`) and apply_format uses it instead of the
+defaults. Overridable keys: `body, input, link, flag, note, white, section_label,
+section_header, tier1, tier2, tier3, fill_input, banner, subbanner, total_border,
+font_body, font_size`. There is also a `section_header` row class (bold dark TEXT
+header, no fill — e.g. navy "Revenue"/"Operating Expense"). Before choosing a
+palette in Mode B, read `references/house-conventions.md` — the cross-model log of
+what the firm's correctly-formatted models actually do (fonts, tab-color families,
+restrained total fills, gridlines/freeze norms), so your defaults land near the bar.
+
 **How to choose: read the workbook.** A consistent, intentional existing format
 means Mode A. Absent, stripped, or sloppy/inconsistent formatting means Mode B.
 If an odd-but-consistent format leaves you genuinely unsure, ask. And in both
@@ -291,3 +303,6 @@ exactly. The skill never assigns a cell value.
   active, every tab at A1 and 85% zoom; surgical (views only).
 - `references/from-scratch.md` — the Mode B playbook: what "excellent" means
   when there is no key and your judgment is the standard.
+- `references/house-conventions.md` — cross-model lessons log: what the firm's
+  correctly-formatted models actually do (fonts, tab-color families, restrained
+  total fills, gridlines/freeze norms). Read before choosing a Mode B palette.

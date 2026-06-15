@@ -39,6 +39,28 @@ from audit_workbook import provenance
 TOTAL_CLASSES = {"subtotal", "major_total", "headline_total"}
 TIER_FILL = {"subtotal": sc.FILL_TIER1, "major_total": sc.FILL_TIER2, "headline_total": sc.FILL_TIER3}
 
+# The default palette = the house values from style_constants. A reviewed map may
+# override any of these via a top-level "palette" object -- essential for Mode B,
+# where the model's own restrained palette (lighter total fills, navy section
+# labels, a particular total-rule color, a different body font/size) is the
+# standard, not Twin Star's. Defaults unchanged => existing maps behave identically.
+DEFAULT_PALETTE = {
+    "body": sc.SLATE_GRAY, "input": sc.INPUT_BLUE, "link": sc.LINK_GREEN,
+    "flag": sc.FLAG_RED, "note": sc.NOTE_PURPLE, "white": sc.WHITE,
+    "section_label": sc.SUBLABEL_BLUE,   # bold colored sub-section labels
+    "section_header": sc.FILL_BANNER,    # bold dark TEXT section headers (no fill)
+    "tier1": sc.FILL_TIER1, "tier2": sc.FILL_TIER2, "tier3": sc.FILL_TIER3,
+    "fill_input": sc.FILL_INPUT, "banner": sc.FILL_BANNER, "subbanner": sc.FILL_SUBBANNER,
+    "total_border": sc.BORDER_GRAY,
+    "font_body": sc.FONT_BODY, "font_size": sc.FONT_SIZE,
+}
+
+
+def _palette(m):
+    pal = dict(DEFAULT_PALETTE)
+    pal.update(m.get("palette", {}))
+    return pal
+
 # class -> (font color, bold, italic) when the class overrides provenance entirely
 FORCED_FONT = {
     "banner":           (sc.WHITE, True, False),
@@ -81,8 +103,8 @@ def _numeric_or_blank(cell):
 # ---------------------------------------------------------------------------
 # Border merging (idempotent)
 # ---------------------------------------------------------------------------
-def _add_total_border(ws, row, c0, c1):
-    g = sc._side(sc.BORDER_GRAY)
+def _add_total_border(ws, row, c0, c1, color=sc.BORDER_GRAY):
+    g = sc._side(color)
     for col in range(c0, c1 + 1):
         cell = ws.cell(row=row, column=col)
         cell.border = sc.merge_border(cell.border, top=g, bottom=g)
@@ -138,7 +160,7 @@ def _set_tab_color(ws, hex6):
 # ---------------------------------------------------------------------------
 # Per-sheet application
 # ---------------------------------------------------------------------------
-def _format_sheet(ws, sheet):
+def _format_sheet(ws, sheet, pal):
     label_cols = sheet.get("label_cols") or []
     marker = _idx(sheet["marker_col"]) if sheet.get("marker_col") else None
     c_start = _idx(sheet["data_col_start"])
@@ -149,11 +171,21 @@ def _format_sheet(ws, sheet):
     balance = sheet.get("numfmt_family") == "balance"
     fam = sc.HEADER_FILLS.get(sheet.get("header_family", "core"), sc.HEADER_FILLS["core"])
     fy_fill, date_fill = fam
-    font_name = sheet.get("font_family", sc.FONT_BODY)
+    font_name = sheet.get("font_family", pal["font_body"])
+    font_size = float(sheet.get("font_size", pal["font_size"]))
     is_cover = sheet.get("tab_type") == "cover"
     # Output / presentation pages are intentionally all-gray: provenance coloring
     # (blue inputs / green links) is dropped on them. See references/tab-patterns.md.
     gray_only = sheet.get("tab_type") == "output"
+    # class -> (font color, bold, italic), palette-driven
+    forced_font = {
+        "banner": (pal["white"], True, False), "subbanner": (pal["white"], True, False),
+        "subsection_label": (pal["section_label"], True, False),
+        "section_header": (pal["section_header"], True, False),  # dark bold TEXT header, no fill
+        "unit_note": (pal["note"], False, True), "check": (pal["flag"], False, True),
+        "percent": (pal["body"], False, True), "header_fy": (pal["white"], True, False),
+    }
+    tier_fill = {"subtotal": pal["tier1"], "major_total": pal["tier2"], "headline_total": pal["tier3"]}
 
     rowmap = {r["row"]: r for r in sheet.get("rows", [])}
 
@@ -184,14 +216,14 @@ def _format_sheet(ws, sheet):
             in_input = (r, col) in input_cells
 
             # ---- FONT ----
-            color, bold, italic, underline = sc.SLATE_GRAY, False, False, None
+            color, bold, italic, underline = pal["body"], False, False, None
             forced = None
-            if cls in FORCED_FONT and (in_span or is_data or col in label_idx_set):
-                color, bold, italic = FORCED_FONT[cls]
+            if cls in forced_font and (in_span or is_data or col in label_idx_set):
+                color, bold, italic = forced_font[cls]
                 forced = cls
             elif cls == "section_underline":
                 # bold + underlined gray header (BS "Assets" / "Liabilities & Equity")
-                color, bold, underline, forced = sc.SLATE_GRAY, True, "single", cls
+                color, bold, underline, forced = pal["body"], True, "single", cls
             elif cls in TOTAL_CLASSES:
                 bold = True
             elif cls == "header_date":
@@ -202,37 +234,38 @@ def _format_sheet(ws, sheet):
                 # and of input cells (so green links inside a toggle stay green).
                 if (is_data or in_input) and cell.value is not None:
                     p = provenance(cell)
-                    color = (sc.LINK_GREEN if p == "cross_sheet"
-                             else sc.INPUT_BLUE if p == "hardcode"
-                             else sc.SLATE_GRAY)
+                    color = (pal["link"] if p == "cross_sheet"
+                             else pal["input"] if p == "hardcode"
+                             else pal["body"])
             if in_input and not gray_only and not is_marker:
                 # A triple-marked input is always provenance-colored and never bold/italic,
                 # even if its row was classed as percent/total -- input membership wins.
                 p = provenance(cell)
-                color = (sc.LINK_GREEN if p == "cross_sheet"
-                         else sc.INPUT_BLUE if p == "hardcode" else sc.SLATE_GRAY)
+                color = (pal["link"] if p == "cross_sheet"
+                         else pal["input"] if p == "hardcode" else pal["body"])
                 bold = italic = False
                 underline = None
             if is_marker and cell.value is not None:
-                color, bold = sc.FLAG_RED, True  # red "X" navigation markers
+                color, bold = pal["flag"], True  # red "X" navigation markers
             if is_cover and isinstance(cell.value, str) and WARNING_RE.search(cell.value):
-                color, bold = sc.FLAG_RED, True  # confidentiality warnings on the cover
+                color, bold = pal["flag"], True  # confidentiality warnings on the cover
 
-            cell.font = sc.font(color, bold=bold, italic=italic, underline=underline, name=font_name)
+            cell.font = sc.font(color, bold=bold, italic=italic, underline=underline,
+                                name=font_name, size=font_size)
 
             # ---- FILL ---- (only where a class/input dictates; never clear others)
             if cls == "banner" and in_span:
-                cell.fill = sc.fill(sc.FILL_BANNER)
+                cell.fill = sc.fill(pal["banner"])
             elif cls == "subbanner" and in_span:
-                cell.fill = sc.fill(sc.FILL_SUBBANNER)
-            elif cls in TIER_FILL and in_span:
-                cell.fill = sc.fill(TIER_FILL[cls])
+                cell.fill = sc.fill(pal["subbanner"])
+            elif cls in tier_fill and in_span:
+                cell.fill = sc.fill(tier_fill[cls])
             elif cls == "header_fy" and is_data:
                 cell.fill = sc.fill(fy_fill)
             elif cls == "header_date" and is_data:
                 cell.fill = sc.fill(date_fill)
             elif in_input:
-                cell.fill = sc.fill(sc.FILL_INPUT)
+                cell.fill = sc.fill(pal["fill_input"])
 
             # ---- NUMBER FORMAT ---- (data columns; never on text cells)
             if is_data and _numeric_or_blank(cell):
@@ -262,7 +295,7 @@ def _format_sheet(ws, sheet):
     # ---- BORDERS ----
     for r, info in rowmap.items():
         if info["class"] in TOTAL_CLASSES:
-            _add_total_border(ws, r, span_lo, span_hi)
+            _add_total_border(ws, r, span_lo, span_hi, pal["total_border"])
     for blk in sheet.get("input_blocks", []):
         _add_input_box(ws, blk["min_row"], blk["max_row"], _idx(blk["min_col"]), _idx(blk["max_col"]))
 
@@ -299,6 +332,7 @@ def apply_map(wb_path, map_path, out_path):
         m = json.load(f)
     wb = load_workbook(wb_path, data_only=False)
     by_name = {s["name"]: s for s in m["sheets"]}
+    pal = _palette(m)
 
     formatted, skipped = [], []
     for ws in wb.worksheets:
@@ -306,8 +340,12 @@ def apply_map(wb_path, map_path, out_path):
         if sheet is None:
             skipped.append((ws.title, "not in map"))
             continue
-        # Tab color is applied even to unformatted (working/source) tabs.
+        # Tab color + gridlines are chrome applied even to body-skipped tabs:
+        # many models turn gridlines off on data/exhibit tabs too (gridlines stay
+        # ON only where the map omits gridlines_off, i.e. genuine internal scratch).
         _set_tab_color(ws, sheet.get("tab_color"))
+        if sheet.get("gridlines_off"):
+            ws.sheet_view.showGridLines = False
         if not sheet.get("format_body"):
             skipped.append((ws.title, sheet.get("tab_type", "?")))
             continue
@@ -324,7 +362,7 @@ def apply_map(wb_path, map_path, out_path):
             # a header heuristic cannot reconstruct. Override only with
             # "freeze_force": true in the reviewed map.
             ws.freeze_panes = fr
-        _format_sheet(ws, sheet)
+        _format_sheet(ws, sheet, pal)
         _apply_geometry(ws, sheet)
         formatted.append(ws.title)
 
