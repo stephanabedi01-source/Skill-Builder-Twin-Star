@@ -1,185 +1,159 @@
-# HL formatting — themes, invariants & options
+# HL formatting — purpose → format rules (the analyst's reasoning)
 
-The growing pattern library for Houlihan Lokey model/material formatting. Built by
-diffing my output against ground-truth keys (Twin Star, JELD-WEN, Traeger, Bingo;
-more coming). Read with the "Generalization first" rule in SKILL.md: when a model
-already has a format, replicate **its own** values (Mode A); when it doesn't, these
-themes are how you choose well (Mode B). The aim of this file is to capture **why
-and when** each formatting choice is made, what is **invariant**, and what is **up
-for interpretation (your options)** — so replication and from-scratch creation both
-improve.
+How a strong HL analyst formats: **every cell's format states its role.** Format by
+what a cell *is* (input, calc, link, total, label, memo, header, check), not by where
+it sits. This guide gives the **purpose → format** rules — specific enough for polished,
+consistent output, general enough for a model you've never seen.
 
-The organizing principle behind everything below: **formatting encodes meaning.**
-Every visual choice answers a reader's question — "is this an input I can change?
-a subtotal? a different unit? a draft?" Format by what a cell *means*, not by where
-it sits.
+Evidence base: cell-by-cell study of 5 ground-truth keys (Twin Star, JELD-WEN,
+Traeger, MITER, Nine Energy) — ~200 sheets, ~150k formatted cells. All five share one
+**house theme**: `dk1 #525766 · lt1 #FFFFFF · dk2 #002855 · lt2 #0067A5 · accents
+508BC9 / BCBFC6 / 7E8597 / 24B1B1 / 6C1E36 / 9FC3DA` (tab/fill colors are theme
+index+tint, not raw RGB). Percentages below are how often a rule held across the keys.
 
 ---
 
-## 0. Invariants (true in every HL model seen)
+## THE MASTER SWITCH: is this a live model tab or a presentation page?
 
-- One shared **theme palette**: `dk1 #525766`, `lt1 #FFFFFF`, `dk2 #002855`,
-  `lt2 #0067A5`, accents `508BC9 / BCBFC6 / 7E8597 / 24B1B1 / 6C1E36 / 9FC3DA`.
-  Colors are stored as **theme index + tint**, not raw RGB.
-- **Body text is slate gray `#525766`, never black.**
-- **Color = provenance/role** (the banker code): blue hardcoded inputs, gray
-  formulas/labels, green cross-sheet links, red checks/flags/warnings.
-- **Negatives in parentheses; zero shown as a dash.**
-- **Gridlines OFF** on every client-facing tab.
-- Output/presentation pages drop provenance color → **all gray**.
+This one decision gates everything else, and it's the rule earlier attempts missed.
 
----
+- **Live model / working tab** (you build it, it has inputs + calcs): apply the full
+  **provenance color code** below — blue inputs, gray calcs, green links.
+- **Output / presentation page** (it mostly *pulls* other sheets via links, e.g. "IS
+  Out", "O1", "LFCF Build", valuation summaries): **drop provenance — everything is
+  gray `#525766`.** (On output pages: constants 75% gray, formulas 80% gray, links
+  80% gray. On model tabs: constants 44% blue, formulas 88% gray, links ~41% green.)
+  How to tell: a sheet that is >~55% cross-sheet links is an output page.
 
-## 1. Color = role  (theme: a reader must see what's editable vs derived)
+Everything below assumes a model tab unless it says otherwise.
 
-| Role | Color | When |
+## 1. Color = provenance/role  (why: a reader must see what's editable vs derived)
+
+| The cell is… | so its font is… | evidence / notes |
 |---|---|---|
-| Hardcoded input | blue `#0000FF` | a typed constant — **including assumption %/rate inputs** (a blue % input is still an input, NOT a margin row) |
-| Formula / label | gray `#525766` | any calc or text |
-| Cross-sheet link | green `#00B050` | formula pulling another sheet (suppressed to gray on output pages) |
-| Check / flag / nav "x" | red | check rows, error flags, the col-B "x" markers |
-| **"DRAFT" / "CONFIDENTIAL" / disclaimer** | red bold | **on ANY tab**, usually the top-right header corner — not just a cover |
+| a hardcoded **input** (typed number, incl. a %/rate assumption) | **blue** `#0000FF` (some models `#0000E1`) | 44% of model-tab constants; the rest are loaded data / headers left gray |
+| a **formula / calculation** (and most labels) | **gray** `#525766` (never black) | 88% of formulas |
+| a **link to another sheet** (`=Sheet!…`) | **green** `#008000` or `#00B050` | a house convention applied ~half the time on model tabs; always gray on output pages |
+| a **check / flag / nav "x"** | **red** | checks are italic, color red *or* gray (≈50/50) |
+| a **"DRAFT / CONFIDENTIAL / Subject to…"** stamp | **`#C00000`** bold (some `#FF0000`) | top-right of any tab, not just covers (`C00000` 77%) |
 
-- **Invariant:** the blue/gray/green/red meaning; gray (not black) body; outputs all gray.
-- **Interpretation / options:** exact red — pure `FF0000` (Twin Star) vs dark `C00000`
-  (Traeger, Bingo); whether links are even used (output pages don't).
-- **Mistake to avoid:** italic-graying a hardcoded `%` input because it "looks like a
-  margin." Inputs stay blue; only *derived* margin/growth rows are italic gray.
+- **Invariant:** blue=input, gray=calc, gray body never black, output pages all-gray.
+- **Interpretation:** exact input blue (`0000FF` vs `0000E1`); whether links are
+  greened at all (some analysts leave them gray); exact red (`C00000` vs `FF0000`).
+- **Trap:** a hardcoded `%` is a **blue input**, not an italic-gray margin row. Decide
+  by provenance first (constant → input → blue), unit second.
 
-## 2. Number format = data type  (theme: the format states the unit and aligns the column)
+## 2. Number format = data type  (why: the format states the unit and aligns the column)
 
-Choose the format by **what the cell holds**, and it commonly **varies by column**
-within one row — a cap-table or assumption row is `$ amount | rate % | x multiple |
-maturity date` across adjacent columns. A single row-level format cannot express
-that; use per-column formats (`column_numfmt` in the map).
+Pick by what the number **means**; it commonly varies **by column** within a row
+(cap tables/assumptions: `$ amount | rate % | x multiple | maturity date`). Use
+`column_numfmt` for mixed columns — one row format can't express them.
 
-| Data type | Format (representative) |
-|---|---|
-| Currency, first row of a block / totals | `"$"#,##0_);("$"#,##0)` or with a `$`/dash zero clause |
-| Currency, subsequent rows | `#,##0_);(#,##0); -` (zero = dash, often space-padded to align) |
-| Percent (margin/derived) | `0.0%` / `#,##0.0%_);(#,##0.0%)` — one decimal |
-| Percent (hardcoded input) | often `0.00%` (two decimals) — still a blue input |
-| Multiple | `#,##0.0x ;"NMF"` |
-| Date | `mmm-yy` (periods) or `m/d/yy` |
-| Count / ratio | `0`, `0.0` |
+| The number is… | house format (dominant) | also seen |
+|---|---|---|
+| **currency** | `"$"#,##0_);("$"#,##0)` (no zero clause) | `…;"$" -` / `…;-` zero variants; accounting `_($* #,##0…)` |
+| **plain (thousands)** | accounting `_(* #,##0_);_(* (#,##0);_(* "-"_);_(@_)` | `#,##0_);(#,##0);–?` (en-dash zero, an HL favorite); `#,##0_);(#,##0)` |
+| **percent** | `#,##0.0%_);(#,##0.0%);#,##0.0%_)` (1 dp, parens) | `0.0%`; `0%`; hardcoded % input often `0.00%` (2 dp) |
+| **multiple** | `0.0"x"` | `#,##0.0\x ;"NMF"` |
+| **date / period** | `[$-409]mmm-yy;@` | `m/d/yy`, `mm-dd-yy` |
+| **count / ratio** | `0` / `0.0` | |
 
-- **Invariant:** parentheses for negatives; zero as a dash; `$` on first-of-block and
-  totals; percent and date formats present where those units appear.
-- **Interpretation / options:** exact strings — the zero clause (`-;` vs `;-` vs
-  space-padded `\-\ \ \ ` for alignment), `$` with vs without a zero clause,
-  decimals (0 vs 1), `mmm-yy` vs `m/d/yy`. Match the model; when authoring, be
-  consistent within a block and align zeros under the digits.
+- **Invariant:** negatives in **parentheses**; zero shown as a **dash** (often padded
+  to align under the digits); `$` on the first row of a block and on totals; the unit
+  is always legible from the format. State scale once per tab ("$ in millions").
+- **Interpretation:** the exact string (accounting `_(*…` vs `#,##0…–?` vs `;-;`),
+  decimals (0 vs 1), `$`-on-every-row vs first+totals. Match the model; when authoring
+  be consistent within a block and pick from `NF_HL_*` in style_constants.
 
-## 3. Fills = hierarchy + inputs  (theme: fills mark rollups and editable cells)
+## 3. Fills + weight + borders = the rollup hierarchy  (why: show structure at a glance)
 
-- **Subtotals** light gray `#F2F2F2`; **headline totals** a slightly distinct tone
-  (Twin Star `D3EFEF`; Traeger/Bingo accent2@0.8 `F2F2F4` — barely different, the
-  **bold + a thin rule above/below carries the hierarchy**). Total rule color is a
-  gray (`BFBFBF` or accent2 `BCBFC6`).
-- **Inputs** get yellow `#FFFFCC` fill (the triple-mark: yellow + blue font + a thin
-  blue box) — **this includes assumption/driver blocks**, which is easy to miss.
-- Output pages sometimes add a light header band (accent1@0.8 `DCE8F4`) and explicit
-  white fills.
-- **Invariant:** inputs yellow; totals filled + bold + ruled; subtotal lighter than
-  it sits above.
-- **Interpretation / options:** how loud the tier fills are (restrained gray vs the
-  bolder cyan/blue), and how many tiers (2 is common; 3 if the statement needs it).
-  Lean restrained when unsure.
+- **Subtotal / total rows:** **bold**, a light fill, and a thin gray rule above & below
+  (`#BFBFBF` or accent2 `#BCBFC6`). Fills seen: `#F2F2F2` (most common), `#DCE8F4`,
+  `#F2F2F4`, `#D3EFEF` — all light tints. Many totals carry **no fill** and rely on
+  bold + the rule alone. So: hierarchy = bold + (light fill and/or rule), restrained.
+- **Inputs:** yellow `#FFFFCC` fill — the triple-mark (yellow + blue font + a thin blue
+  box) — **including assumption/driver blocks** (easy to miss).
+- **Output pages** sometimes add a light header band (accent1@0.8 `#DCE8F4`).
+- **Invariant:** totals are bold and set off; inputs are yellow-boxed.
+- **Interpretation:** which light tint (or none); 2 vs 3 tiers; rule vs fill emphasis.
+  When unsure, lean restrained (gray fill + bold + hairline rule).
 
-## 4. Fonts  (theme: one coherent family per surface)
+## 4. Italics = "this is a ratio, memo, or note"  (why: de-emphasize non-primary rows)
 
-- Family: **Segoe UI** in modern HL models (Arial in older ones). Data tabs may keep
-  their native font (e.g. Aptos Narrow) — don't force-convert raw data grids.
-- Size is **interpretive and tab-dependent**: primary statements/outputs often **12**
-  (Bingo), schedules **10–11**, dense/footnote **9**, titles **12–14**. Match the
-  model; when authoring, default ~Segoe UI 10–11 for body, larger for titles.
-- Title block: **title bold (larger), subtitle italic, "as of" + "($ millions)"
-  plain gray** (the unit note is **gray**, not purple — purple was Twin-Star-only).
-- **Invariant:** one body family per surface, gray body, titles bold.
-- **Interpretation / options:** exact size; Segoe UI vs Arial; whether "Segoe UI
-  Bold" is a named font or just the bold flag (equivalent).
+Italic marks **margin/%/growth rows, check rows, memo/footnote rows, and per-unit
+ratios** — derived or secondary figures sitting under primary numbers. It does **not**
+mark inputs (a blue % input is upright). Margin rows are italic **gray**.
 
-## 5. Section vs sub-headers  (theme: signal the outline, not every label)
+## 5. Labels, sections, headers
 
-- **Section headers** ("Revenues", "Operating Expenses", "Memo:", "Current
-  Liquidity"): three house treatments — **navy `dk2` bold TEXT, no fill**
-  (Traeger/Bingo); navy fill banner + white text; or bold `lt2` sub-label. Pick one
-  per model and stay consistent.
-- **Column / table sub-headers** ("Description", "Face", "Rate", "Maturity") are
-  **NOT** section headers — they are **gray bold** (sometimes underlined), not navy.
-- Line items below a section are **left-aligned, indent 1** (indent 2/3 for
-  sub-items). Indentation is real (`indent`), not leading spaces.
+- **Section headers** (a label row heading a group): **bold**, no fill; color is gray
+  or `lt2 #0067A5`, or **navy `dk2 #002855` text** (a strong house look). Banner-fill
+  headers (navy fill, white text) also occur. Pick one treatment per model; ~62% bold.
+- **Column / table sub-headers** ("Description", "Face", "Rate", "Maturity", "Year
+  Ended") are **gray bold** (sometimes underlined) — **not** section headers.
+- **Line items** under a section: left-aligned with a real **indent** (1; 2/3 for
+  sub-items) — indentation is `alignment.indent`, not leading spaces.
+- **Title block:** title bold (larger, 12–14); subtitle italic; "as of" + unit note
+  plain **gray** (the unit note is gray, *not* purple — purple was Twin-Star-only).
+- **Period header band:** year row centered bold; period/quarter labels; a date row
+  formatted `mmm-yy`. Centered.
 
-## 6. Chrome: tab colors, gridlines, freeze, zoom
+## 6. Fonts
 
-- **Tab colors**: one theme-tint family per workbook section; the *hue→section*
-  mapping is per-model (Traeger: core light-blue, outputs navy, scenarios maroon,
-  data teal; Bingo: cap-struct accent2@.8, statements/outputs navy, data teal).
-- **Gridlines off** on every client-facing tab (data/exhibit tabs included).
-- **Freeze sparingly** — the main multi-screen statement, below its period header;
-  not short output/exhibit tabs.
-- **Delivery standard** (the one place we override the model): open on the first
-  tab, every tab selection A1 + scrolled to pane origin, **85% zoom**. Real keys
-  use varied zoom and saved scroll; we normalize at delivery per instruction.
+- **Segoe UI** is the house font (Arial is legacy; raw-data tabs may keep Aptos Narrow
+  — don't force-convert them). Sizes run **9–11** (10–11 body, 9 dense/footnote; titles
+  12–14). 12 is not the default (Bingo's 12 was atypical). Match the model; default
+  Segoe UI 10–11 for body.
 
-## 7. Preserve, then build  (theme: don't re-guess what the model got right)
+## 7. Chrome: tab colors, gridlines, freeze, zoom, print
 
-Models often arrive **partly formatted** — deliberate tab colors and freeze splits
-already set, body unformatted. Format only what's missing: keep existing tab colors
-(`tab_color: null`) and freeze splits (omit `freeze`), and build the body. This is a
-per-tab Mode A / Mode B blend.
+- **Tab colors:** one theme-tint family per workbook section; the hue→section mapping
+  is per-model (e.g. core/light-blue, outputs/navy, scenarios/maroon, data/teal). Tints
+  vary (0, 0.6, 0.8, −0.25). Cover/divider tabs uncolored.
+- **Gridlines OFF** on every client-facing tab (off 128 : on 19; "on" only on genuine
+  scratch).
+- **Freeze sparingly** — the main multi-screen statement below its period header; not
+  short output/exhibit tabs. Preserve a model's existing deliberate freeze split.
+- **Print/page** off-gridlines, portrait/letter, fit-to-width.
+- **Delivery standard** (the one override): open on first tab, A1 + pane-origin scroll,
+  85% zoom — always, regardless of the model's saved views.
+
+## 8. Preserve, then build
+
+Models arrive partly formatted (deliberate tab colors / freeze splits, unformatted
+body). Format only what's missing: keep existing tab colors (`tab_color: null`) and
+freezes (omit `freeze`); build the body. A per-tab Mode A / Mode B blend.
 
 ---
 
-## Recurring tab archetypes
+## Calibration: invariant vs up-for-interpretation
 
-- **Spread / Historicals:** col-B/C "x" markers; section headers (navy) + subtotals
-  in the primary label col; indented line items in the secondary; period header band
-  (years centered bold, quarter labels, a `mmm-yy`/`m/d/yy` date row); margin rows
-  italic; check rows red italic; `$` on first-of-block + totals.
-- **Output pages (O1/O2/O3):** all gray, smaller font, "Year Ended" header
-  (centerContinuous), same total treatment, sometimes a light header band; no freeze.
-- **Capital Structure:** assumption inputs up top (blue, **yellow-filled**, % to 2dp);
-  a debt table with **per-column** formats ($ face | rate % | x | maturity date);
-  Total Debt / Net Debt / Total Liquidity as totals; "Memo:" / "Current Liquidity"
-  section headers.
-- **Scenario tabs:** maroon family; inputs + subtotals; layout varies — classify each.
-- **Market/data tabs:** teal family; gridlines off; body largely left as native raw
-  data (may keep Aptos Narrow), gray text.
+**Invariant (always do):** format-by-role; gray body never black; blue inputs; output
+pages all-gray; parentheses negatives + dash zero; totals bold & set off; inputs
+yellow-boxed; gridlines off; delivery standard. These produce "HL-correct" reliably.
 
----
+**Up for interpretation (judgment / match the model):** exact input-blue and red
+shades; whether links are greened; which light tint for totals (or none); the exact
+number-format string per unit; font size 9/10/11; section-header treatment (gray vs
+lt2 vs navy text vs banner); tab-color hue→section mapping; `$`-on-every-row vs
+first+totals. Choose one coherent answer per model and apply it consistently.
 
-## Lessons log (evidence)
+## Open questions resolved by the 5-key study (vs the prior log)
+- Headline-total fill is **not** one color — `F2F2F2`/`DCE8F4`/`F2F2F4`/`D3EFEF` all
+  occur (or none + bold + rule). Restraint, not a fixed hex.
+- Body size norm is **9–11**, not 12 (Bingo was the outlier).
+- `$` dominant string is `"$"#,##0_);("$"#,##0)`; plain-number dominant is the
+  accounting `_(*…` and the en-dash `…–?` forms. Defaults updated in style_constants.
+- Data/exhibit tabs are largely left native (font/Aptos Narrow) but gridlines-off and
+  gray-bodied; not heavily restructured.
+- Section-header treatment genuinely varies by model/team — it is interpretive.
 
-**Traeger key** — corrected my first Mode B: use Segoe UI not Arial; tab-color
-families are the model's (not yellow outputs); navy section text not `0067A5`;
-restrained gray totals not cyan; gridlines off on data tabs; sparing freeze; dark-red
-markers.
-
-**Bingo key** — diffing my output against the real key (same model) surfaced misses I
-*hadn't* caught (my earlier "clean" claim was premature, made before I had the key):
-- **Number formats were mostly wrong on the spread/cap-structure** because I applied
-  one format per row. The key formats **per column by data type** ($/%/x/date). →
-  added `column_numfmt`; this is the #1 fix.
-- **Assumption % inputs**: I italic-grayed them as "margin rows"; the key keeps them
-  **blue inputs with a `0.00%` format and a yellow fill**. % format ≠ margin row.
-- **Inputs need yellow fill** — I set no input blocks on Bingo and missed all of them.
-- **Unit note "($ millions)"** is **gray**, not purple.
-- **"DRAFT" / "CONFIDENTIAL"** (top-right of working tabs) are **red** — now applied
-  on any tab, not just covers.
-- **Column sub-headers** ("Description/Face/Rate") are **gray bold**, not navy
-  section headers.
-- **Font size**: statements/outputs were **12** (I used 11/8); cap-structure 10.
-  Size is genuinely interpretive — match the model.
-- Confirmed: preserve existing tab colors/freezes; even "small" models are rich
-  (route through `merge_format`); zero value/formula changes held.
-
-## Open questions to resolve with the next 5–10 models
-
-- Is the headline-total fill consistently accent2@0.8, or does it vary (cyan, blue)?
-- Default body size — is 12 the norm for primary statements across models, or Bingo-
-  specific?
-- Exact dollar zero-clause and dash-padding conventions — is there one house string?
-- How much do data/exhibit tabs get touched (font/color) vs left native?
-- Section-header treatment — does a given era/team consistently pick navy-text vs
-  banner vs sub-label?
+## Per-model evidence log
+- **Traeger key:** Segoe UI not Arial; model's own tab-color families; navy section
+  text; restrained gray totals; gridlines off on data tabs; dark-red markers.
+- **Bingo key:** number format is per-column by data type (→ `column_numfmt`); %-input
+  ≠ margin row; assumptions get yellow fill; unit note gray; column sub-headers gray
+  bold not navy; DRAFT/CONFIDENTIAL red on any tab.
+- **5-key cross study:** the master switch (model-tab provenance vs output-page gray);
+  the house number-format set; Segoe UI + 9–11 sizing; gridlines-off norm; C00000
+  warnings; checks italic (red or gray); totals = bold + restrained fill/rule.

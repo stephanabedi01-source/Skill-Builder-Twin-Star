@@ -28,14 +28,23 @@ exactly, because the script never paraphrases a hex code or a format string.
 
 ## Cell provenance (mechanical — the script derives this live)
 
-| Cell content | Provenance | Font color |
+**Master switch first — is this a live model tab or a presentation/output page?**
+A sheet that mostly *pulls* other sheets (>~55% cross-sheet links — "IS Out", "O1",
+"LFCF Build", valuation summaries) is an **output page → format everything gray
+`525766`, no provenance colors** (`tab_type: output`). The provenance table below
+applies only on **live model tabs**. (Across 5 keys: output-page cells are ~75-80%
+gray; model-tab hardcodes ~44% blue.) This is the rule earlier versions missed.
+
+| Cell content (on a model tab) | Provenance | Font color |
 |---|---|---|
-| Constant (number / date / text typed in) | hardcode | blue `0000FF` (on Assumptions = an input; on a statement = loaded data) |
+| Constant (number / date / text typed in) | hardcode | blue `0000FF` (assumptions/inputs); loaded historical data may be blue or left gray |
 | Formula with no other-sheet reference | calculation | gray `525766` |
-| Formula referencing another sheet (`=Sheet!A1`, `='Other Tab'!$B$2`) | cross-sheet link | green `00B050` |
+| Formula referencing another sheet (`=Sheet!A1`, `='Other Tab'!$B$2`) | cross-sheet link | green `008000`/`00B050` (a convention applied ~half the time; gray is acceptable) |
 
 You don't tag colors per cell — the script reads each cell and colors it. What you
-*do* decide is the semantic layer below.
+*do* decide is the master switch (model vs output tab) and the semantic layer below.
+See `house-conventions.md` for the full purpose→format rule set and what's
+invariant vs up-for-interpretation.
 
 ## Row class
 

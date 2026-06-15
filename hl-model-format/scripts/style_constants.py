@@ -97,12 +97,30 @@ NF_DATE_MONTH     = "[$-en-US]mmm-yy;@"             # month header dates
 NF_CHECK          = "$#,##0.000_);($#,##0.000);-;"  # check rows (3 decimals, exposes tiny breaks)
 NF_RATE_SPREAD    = '"S + "000'                      # rate-spread inputs -> renders e.g. "S + 800"
 
+# ---------------------------------------------------------------------------
+# HL HOUSE NUMBER-FORMAT SET  (empirical, dominant across 5 ground-truth keys)
+# Number format follows the cell's DATA TYPE. These are the most-used house
+# strings; pick by what the cell means, and match a model's own when replicating.
+# The principle is invariant (parens for negatives, a dash for zero, $/%/x/date
+# by unit); the exact string is the interpretive part -- these are the safe picks.
+# ---------------------------------------------------------------------------
+NF_HL_DOLLAR    = '"$"#,##0_);("$"#,##0)'                          # $ amounts (most common; no zero clause)
+NF_HL_DOLLAR_Z  = '"$"#,##0_);("$"#,##0);"$"-_)'                   # $ with aligned "$ -" zero (totals)
+NF_HL_NUMBER    = '_(* #,##0_);_(* (#,##0);_(* "-"_);_(@_)'        # plain number, accounting (single most common)
+NF_HL_NUMBER2   = '#,##0_);(#,##0);–?'                        # plain number, en-dash zero (HL favorite)
+NF_HL_PERCENT   = '#,##0.0%_);(#,##0.0%);#,##0.0%_)'               # percent, 1 decimal, parens (most common %)
+NF_HL_PERCENT0  = '0.0%'                                            # percent, simple 1-dp
+NF_HL_PCT_INPUT = '0.00%'                                           # hardcoded % input (2 dp) -> blue, not italic
+NF_HL_MULTIPLE  = '0.0"x"'                                          # EV/EBITDA etc. multiples
+NF_HL_DATE      = '[$-409]mmm-yy;@'                                 # period date headers
+
 # ===========================================================================
 # 7. FONTS
 # ===========================================================================
-FONT_BODY   = "Arial"     # every model / working tab
-FONT_OUTPUT = "Segoe UI"  # output / presentation-page tabs (IS Out, UFCF Out, CIM Outputs)
-FONT_SIZE   = 10.0
+FONT_BODY   = "Segoe UI"  # HL house body font (70k cells across 5 keys vs 17.5k Arial); Arial is legacy
+FONT_OUTPUT = "Segoe UI"  # output / presentation pages (smaller size, see house-conventions.md)
+FONT_SIZE   = 10.0        # body 9-11 across models (10-11 typical); titles 12-14; dense/footnote 9
+FONT_LEGACY = "Arial"     # older models (e.g. Twin Star); use only when matching such a model
 
 # ===========================================================================
 # 7b. CHASSIS COLUMN WIDTHS (openpyxl width units) -- Mode B / authoring only
