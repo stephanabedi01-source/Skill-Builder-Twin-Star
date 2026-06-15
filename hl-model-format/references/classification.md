@@ -59,6 +59,23 @@ The "first `$` row of a block" rule: within a section, only the first data row g
 the `$` number format; later rows drop the `$`. A block resets after any banner,
 sub-section header, or total.
 
+**Percent FORMAT is not a percent (margin) ROW.** The italic-gray `percent` class is
+for *derived* margin / growth / % rows (formulas under a parent). A **hardcoded**
+percentage — an assumption like a hedge %, discount rate, tax rate — is a blue
+**input** (often `0.00%`), frequently in a yellow input block; not italic, not gray.
+Classify by provenance first: a constant `%` cell is an input, not a margin.
+
+**Column / table sub-headers are not section headers.** A row of column captions
+("Description", "Face", "Rate", "Maturity", "Year Ended") is **gray bold**, not a
+navy `section_header`. Reserve section styling for the outline labels heading a group.
+
+**Number format is per data-type, often per COLUMN.** On cap tables and assumption
+blocks the columns hold different units side by side ($ amount, rate %, multiple x,
+maturity date). Don't apply one row format across them — supply `column_numfmt` so
+each column gets the format its data calls for. Also: the unit note "($ millions)"
+is plain **gray** italic (purple is Twin-Star-specific), and "DRAFT"/"CONFIDENTIAL"
+header stamps are **red** on any tab.
+
 ## Tier assignment (the judgment call the script is weakest at — review it)
 
 Three fills, three ranks. The principle: **a total of totals outranks its

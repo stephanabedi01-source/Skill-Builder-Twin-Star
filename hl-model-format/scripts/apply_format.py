@@ -186,6 +186,8 @@ def _format_sheet(ws, sheet, pal):
         "percent": (pal["body"], False, True), "header_fy": (pal["white"], True, False),
     }
     tier_fill = {"subtotal": pal["tier1"], "major_total": pal["tier2"], "headline_total": pal["tier3"]}
+    # per-column number formats (mixed tabs: {"E": "$#,##0...", "G": "0.0%", ...})
+    col_numfmt = {_idx(k): v for k, v in (sheet.get("column_numfmt") or {}).items()}
 
     rowmap = {r["row"]: r for r in sheet.get("rows", [])}
 
@@ -247,8 +249,10 @@ def _format_sheet(ws, sheet, pal):
                 underline = None
             if is_marker and cell.value is not None:
                 color, bold = pal["flag"], True  # red "X" navigation markers
-            if is_cover and isinstance(cell.value, str) and WARNING_RE.search(cell.value):
-                color, bold = pal["flag"], True  # confidentiality warnings on the cover
+            if isinstance(cell.value, str) and WARNING_RE.search(cell.value):
+                # DRAFT / CONFIDENTIAL / disclaimer warnings -> red bold on ANY tab
+                # (HL stamps these in the header corner of working tabs, not only a cover)
+                color, bold = pal["flag"], True
 
             cell.font = sc.font(color, bold=bold, italic=italic, underline=underline,
                                 name=font_name, size=font_size)
@@ -268,9 +272,16 @@ def _format_sheet(ws, sheet, pal):
                 cell.fill = sc.fill(pal["fill_input"])
 
             # ---- NUMBER FORMAT ---- (data columns; never on text cells)
+            # Number format follows the cell's DATA TYPE, which on mixed tabs
+            # (cap tables, assumption blocks) varies by COLUMN -- a single row
+            # format can't express "$ amount | rate % | x multiple | date". A
+            # per-column override (column_numfmt) wins over the row-class default.
             if is_data and _numeric_or_blank(cell):
+                col_nf = col_numfmt.get(col)
                 if in_input and (r, col) in input_numfmt:
                     cell.number_format = input_numfmt[(r, col)]
+                elif col_nf and cls not in ("subtotal", "major_total", "headline_total"):
+                    cell.number_format = col_nf
                 elif cls == "data":
                     cell.number_format = sc.NF_NUMBER_BS if balance else sc.NF_NUMBER
                 elif cls == "header_date":

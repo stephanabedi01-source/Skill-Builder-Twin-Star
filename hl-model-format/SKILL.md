@@ -143,9 +143,15 @@ per-sheet `font_family` / `font_size`) and apply_format uses it instead of the
 defaults. Overridable keys: `body, input, link, flag, note, white, section_label,
 section_header, tier1, tier2, tier3, fill_input, banner, subbanner, total_border,
 font_body, font_size`. There is also a `section_header` row class (bold dark TEXT
-header, no fill — e.g. navy "Revenue"/"Operating Expense"). Before choosing a
-palette in Mode B, read `references/house-conventions.md` — the cross-model log of
-what the firm's correctly-formatted models actually do (fonts, tab-color families,
+header, no fill — e.g. navy "Revenue"/"Operating Expense"). **Number format follows
+each cell's data type, which often varies by COLUMN** (cap tables / assumption
+blocks: `$ amount | rate % | x multiple | maturity date`) — set per-sheet
+`column_numfmt: {"E": "...", "G": "0.0%", ...}` for those; a single row format can't
+express it. **A hardcoded `%` cell is a blue input (often `0.00%`), NOT an
+italic-gray margin row** — only derived margin/growth formulas get the percent
+(italic gray) treatment. Before choosing a palette in Mode B, read
+`references/house-conventions.md` — the themes/invariants/options log of what the
+firm's correctly-formatted models actually do (fonts, tab-color families,
 restrained total fills, gridlines/freeze norms), so your defaults land near the bar.
 
 **How to choose: read the workbook.** A consistent, intentional existing format
