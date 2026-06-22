@@ -65,18 +65,40 @@ Pick by what the number **means**; it commonly varies **by column** within a row
   decimals (0 vs 1), `$`-on-every-row vs first+totals. Match the model; when authoring
   be consistent within a block and pick from `NF_HL_*` in style_constants.
 
-## 3. Fills + weight + borders = the rollup hierarchy  (why: show structure at a glance)
+## 3. Emphasis = bold / fill / rule  (why & when: mark where the eye should stop)
 
-- **Subtotal / total rows:** **bold**, a light fill, and a thin gray rule above & below
-  (`#BFBFBF` or accent2 `#BCBFC6`). Fills seen: `#F2F2F2` (most common), `#DCE8F4`,
-  `#F2F2F4`, `#D3EFEF` — all light tints. Many totals carry **no fill** and rely on
-  bold + the rule alone. So: hierarchy = bold + (light fill and/or rule), restrained.
-- **Inputs:** yellow `#FFFFCC` fill — the triple-mark (yellow + blue font + a thin blue
-  box) — **including assumption/driver blocks** (easy to miss).
+Emphasis is an **escalation ladder tied to a row's structural importance** — the more a
+row summarizes or divides, the more emphasis it earns. It is applied by **role**, not
+position. (Percentages = how the 5 keys' total/section rows actually broke down.)
+
+| Row role | Bold | Fill | Rule (thin border ↑/↓) | Why |
+|---|---|---|---|---|
+| **Line item / detail** | no | no | no | the detail stays quiet (82% of data rows have zero emphasis) |
+| **Subtotal** (sums line items above) | **yes** | light **gray `F2F2F2`** (when filled) | yes | a rollup, set off from its components; fill leans gray (46%) |
+| **Grand / headline total** (the bottom line — sums subtotals; Gross Profit, EBITDA, Net Income, Total Assets, Total/Net Debt, FCF, Total Liquidity) | **yes** | a **blue-ish tint `DCE8F4`** (or `F2F2F4`/`D3EFEF`) when filled | yes | the number the reader is hunting for; gets the stronger tint (34%) |
+| **Section header** (label heading a group) | **yes** | usually **none** | sometimes / underline | marks the outline; ~53% bold-only or bold+rule, only ~9% filled |
+| **Section banner** (major divider) | yes (white text) | **saturated `002855` navy** (or `0067A5`) | — | a hard divider between blocks |
+| **Input** (hardcode/assumption) | no | **saturated yellow `FFFFCC`** + blue box | — | editable cell |
+| **Memo / ratio / margin / footnote** | no | no | no | de-emphasized via **italic** instead |
+
+The escalation in one line: **detail (plain) < subtotal (bold + rule, light-gray fill)
+< grand total (bold + rule, blue-tint fill) < banner (saturated fill + white)**; inputs
+are the other saturated fill (yellow). Headers are bold but rarely filled.
+
+**The reliable part (do this):** any summation row is **bold and ruled** (a thin gray
+rule `#BFBFBF`/`#BCBFC6` above & below) — this is near-universal on totals and absent on
+detail rows. Subtotals lean gray fill, grand totals lean a blue tint. Banners and inputs
+are the only rows with a *saturated* fill. Memos/ratios get italic, never bold.
+
+**The interpretive part (judgment / match the model):** whether a total carries a fill
+*at all* vs **bold + rule alone** — fill is the louder option (~half of totals) and
+rule-only is the quieter one (~40%); pick one convention and keep it consistent. Also
+which light tint, and whether section headers are bold-text / underlined / banner-filled.
+When unsure, lean restrained: bold + a hairline rule, gray fill only on the rollups.
+
+- **Inputs:** yellow `#FFFFCC` (triple-mark: yellow + blue font + thin blue box),
+  **including assumption/driver blocks** (easy to miss).
 - **Output pages** sometimes add a light header band (accent1@0.8 `#DCE8F4`).
-- **Invariant:** totals are bold and set off; inputs are yellow-boxed.
-- **Interpretation:** which light tint (or none); 2 vs 3 tiers; rule vs fill emphasis.
-  When unsure, lean restrained (gray fill + bold + hairline rule).
 
 ## 4. Italics = "this is a ratio, memo, or note"  (why: de-emphasize non-primary rows)
 
