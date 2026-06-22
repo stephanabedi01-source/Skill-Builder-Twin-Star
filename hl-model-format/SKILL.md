@@ -312,3 +312,6 @@ exactly. The skill never assigns a cell value.
 - `references/house-conventions.md` — cross-model lessons log: what the firm's
   correctly-formatted models actually do (fonts, tab-color families, restrained
   total fills, gridlines/freeze norms). Read before choosing a Mode B palette.
+- `references/capital-structure.md` — the **canonical Capital Structure playbook**.
+  Whenever a model has a cap-structure / cap-table tab (debt tranches with leverage,
+  maturities, a liquidity build), format it exactly per this file.

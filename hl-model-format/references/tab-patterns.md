@@ -122,3 +122,14 @@ A different aesthetic:
 
 Teal tab color (`24B1B1`). Otherwise follows the statement playbooks (a carveout
 income statement is formatted like the Income Statement above).
+
+## Capital Structure  →  see `references/capital-structure.md`
+
+A debt-tranche table (face value, leverage, spread, rates, maturity, rating,
+trading price, market value) rolling to Total Debt → Net Debt → TEV, plus an RCF
+availability / Total Liquidity build and a memo EBITDA line. This tab has a
+**dedicated, canonical playbook** — `references/capital-structure.md` — covering its
+exact layout, per-column number formats, the boxed total tiers
+(`F2F2F2`→`DCE8F4`→`D3EFEF`), title block, headers, memo/footnotes, the right-side
+effective-rate block, and the gray/blue/maroon color convention. Whenever a model
+has a cap-structure tab, format it to that file exactly.

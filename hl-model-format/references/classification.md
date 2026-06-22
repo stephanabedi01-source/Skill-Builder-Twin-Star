@@ -110,6 +110,7 @@ page or a working scratchpad.
 |---|---|---|
 | divider | name ends with **`>`** | empty tab |
 | cover | "Cover", "Title", "Disclaimer" | one text block, confidentiality language |
+| **capital structure** | "Capital Structure", "Cap Stack", "Cap Table" | debt-tranche table (face/leverage/rate/maturity) → Total Debt/Net Debt/TEV + a liquidity build → **follow `capital-structure.md` exactly** |
 | assumptions | "Assumptions", "Drivers", "Inputs" | stacked input blocks of hardcodes |
 | income statement | "Income Statement", "P&L", "Statement of Operations" | revenue → margins → EBITDA |
 | balance sheet | "Balance Sheet", "Financial Position" | Assets / Liabilities & Equity, a check row |
