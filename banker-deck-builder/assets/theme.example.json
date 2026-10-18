@@ -1,0 +1,23 @@
+{
+  "_comment": "Project Print (Xerox RX deck) values. Evidence from one deck, not constants: re-derive every value from the user's template with scripts/inspect_template.py and their reference slides.",
+  "font": "Garamond",
+  "ink": "1A1A24",
+  "accent": "D92332",
+  "accent_fill": "C00000",
+  "grey_txt": "595959",
+  "grey_mid": "7F8590",
+  "grey_lt": "BFC3C9",
+  "hair": "D1D1D1",
+  "band": "E9E9E9",
+  "callout_fill": "D6D6D6",
+  "white": "FFFFFF",
+  "template_slide": 2,
+  "title_idx": 21,
+  "takeaway_idx": 16,
+  "drop_idx": [20],
+  "footer_idx": 18,
+  "footer_top": 6.93,
+  "footer_size": 10,
+  "copy_ph_types": ["sldNum", "ftr"],
+  "grid": {"L0": 0.23, "R1": 13.11, "LP1": 8.33, "RP0": 8.62, "ROW1": 1.30, "closing_y": 6.43, "closing_h": 0.36, "callout_y": 5.62}
+}
