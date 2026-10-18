@@ -18,7 +18,7 @@ import sys
 from pptx import Presentation
 
 PRONOUNS = re.compile(r"\b(we|our|ours|us|you|your|yours)\b", re.I)
-PRONOUN_CAPS = re.compile(r"\b(I|my|My)\b")
+PRONOUN_CAPS = re.compile(r"(?<![\w\-/.&])(I|my|My)(?![\w\-/.&])")  # skips names like "O-I"
 DASHES = re.compile(r"[—–]")
 AI_WORDS = re.compile(r"\b(delve|seamless(ly)?|robust|unlock(s|ing)?|game[- ]chang\w*|landscape|tapestry|"
                       r"navigate the|in today's|it's worth noting|testament to|leverag(e|ing) synergies)\b", re.I)

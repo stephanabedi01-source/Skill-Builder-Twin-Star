@@ -14,7 +14,8 @@ This skill was distilled from one engagement (Project Print: a Xerox restructuri
 competition, Garamond on a near-black/red master). Colors, font, slide master, placeholder indices, page grid,
 content and even the storyline will differ next time. Keep the PROCESS, the RULES and the CONSTRUCTION TECHNIQUES;
 take every concrete value (hex codes, inches, idx numbers, section list) from the new user's template, brief and
-reference decks. The Xerox numbers in the examples are illustrations of how to build, never data to reuse.
+reference decks. When the palette or brand changes, change the slide master and theme once (title tab, logo,
+theme colors and fonts) instead of redrawing master elements on each slide. The Xerox numbers in the examples are illustrations of how to build, never data to reuse.
 
 ## The workflow (read references/workflow.md for the full protocol)
 
@@ -24,7 +25,8 @@ reference decks. The Xerox numbers in the examples are illustrations of how to b
    "keep holding", only read.
 2. **Storyline.** One-sentence thesis, 4 to 6 beats, mapped to pages within the limit (references/rx-deck-playbook.md
    for the RX arc). Each slide gets a claim (takeaway) and a hand-off (closing line) before any visual is designed.
-3. **Per-slide plan, then wait.** For each slide, propose: the story job; the exact takeaway; what goes where (left
+3. **Per-slide plan, then wait.** First do the arithmetic that tests the intended claim; if the numbers do not
+   support it, push back and propose the claim they do support. Then propose: the story job; the exact takeaway; what goes where (left
    panel, right panels, callouts, closing line); the numbers with sources; flags (inconsistencies, missing inputs,
    judge questions); what moves out. Build only after the user says go. If the user asks "what do you think", give
    an opinion only.

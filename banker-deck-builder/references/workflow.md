@@ -24,6 +24,9 @@ Collect, and read before proposing anything:
   the content layout, placeholder idx values, footer, logos already placed, theme fonts and the palette in use.
   Write `theme.json` (start from `assets/theme.example.json`). If theme fonts are Office defaults (Aptos/Calibri),
   tell the user: inserted charts inherit them unless the builder sets the font explicitly (deck_kit does).
+- **New palette or brand on an existing master**: change it once in the slide master and theme (title tab color,
+  logo, theme colors and fonts), not by hiding and redrawing elements on every slide. If the user has not done it,
+  say so and offer to edit the master; only as a stopgap redraw on the slide, and tell the user.
 - **Reference decks**: study them for what works and what does not (see design-system.md "Reference deck lessons").
   Summarize the common strengths and failure modes back to the user once, briefly.
 - **The data source**: usually the user's model. Read values from a recalculated copy (formulas written by
@@ -58,12 +61,16 @@ then stop and wait for a go-ahead:
    - Right panel(s): the supporting chart/table and its point.
    - Callout(s): the exact sentence.
    - Closing line: the exact sentence.
-4. **Numbers**: list the figures that will appear, with their source (model tab / filing). Recompute anything
+4. **Test the claim against the numbers first.** Before designing anything, do the arithmetic that proves or
+   breaks the requested message (e.g. break-even multiple = net debt / EBITDA vs. the peer median). If the numbers do
+   not support the user's intended claim, say so up front, propose the claim they do support, and build that one
+   (or ask, if the user is available). Never build a slide whose takeaway the data contradicts.
+5. **Numbers**: list the figures that will appear, with their source (model tab / filing). Recompute anything
    derived and show the arithmetic when it matters.
-5. **Flags before building**: inconsistencies between slides or with the model, data the user must supply
+6. **Flags before building**: inconsistencies between slides or with the model, data the user must supply
    (logos, quotes, sources), judgment calls the user may want to reverse, and the questions a judge will ask
    with the answer the slide gives.
-6. **What moves out**: anything dropped from the main page and where it goes (appendix, video, footnote).
+7. **What moves out**: anything dropped from the main page and where it goes (appendix, video, footnote).
 
 Keep the plan concrete enough that the build is mechanical. If a decision is genuinely the user's (e.g. reveal
 the recommendation early or not), offer the alternative in one line rather than asking an open question.

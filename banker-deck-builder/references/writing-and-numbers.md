@@ -51,3 +51,7 @@
   replace the text with a structural statement and tell the user.
 - Quotes must be exact with a source, or footnoted as a paraphrase.
 - Logos: use the user's own (copy them from their slides). Never fabricate logos.
+- Check that the comp set and deal set are current: flag peers that have since been acquired, taken private or
+  delisted (their multiples are no longer undisturbed trading multiples) and say how the median moves without them.
+- Every data line needs an as-of date (e.g. "FactSet as of 10/14/26"); if the user did not give one, ask, and do not
+  leave a placeholder in the final file.
