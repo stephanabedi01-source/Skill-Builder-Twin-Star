@@ -1,6 +1,6 @@
 ---
 name: banker-deck-builder
-description: Plan and build investment-banking-quality PowerPoint decks slide by slide (restructuring / RX pitch decks, case-competition decks, M&A and valuation pitch books, IC decks) on the user's own template, the way the Project Print deck was built - storyline first, a per-slide layout plan the user approves, then native editable charts with claim lines, bands, brackets, callouts and footnotes, a render-and-fix QA loop, and an appendix of real Excel model outputs. Use this whenever the user wants to plan, lay out, build, rebuild, critique or polish banker-style slides or a pitch deck in .pptx, asks "what's our next slide", "lay out the X slide", "build the valuation summary / comps / precedents / DCF / liquidation / waterfall / recommendation slide", wants slides that "tell a story" and do not look AI-generated, or wants appendix pages from their model - even if they do not say "skill" or name the template.
+description: Plan and build investment-banking-quality PowerPoint decks slide by slide (restructuring / RX pitch decks, case-competition decks, M&A and valuation pitch books, IC decks, real estate investment and IC decks) on the user's own template, the way the Project Print deck was built - storyline first, a per-slide layout plan the user approves, then native editable charts with claim lines, bands, brackets, callouts and footnotes, a render-and-fix QA loop, and an appendix of real Excel model outputs. Use this whenever the user wants to plan, lay out, build, rebuild, critique or polish banker-style slides or a pitch deck in .pptx, asks "what's our next slide", "lay out the X slide", "build the valuation summary / comps / precedents / DCF / liquidation / waterfall / recommendation slide", wants slides that "tell a story" and do not look AI-generated, or wants appendix pages from their model - even if they do not say "skill" or name the template.
 ---
 
 # Banker Deck Builder
@@ -36,6 +36,19 @@ theme colors and fonts) instead of redrawing master elements on each slide. The 
    `scripts/lint_deck.py`. Never show an unrendered slide.
 6. **Deliver and report**: send the file; explain what the slide shows and how it advances the story; list changes to
    other slides and open items; offer the next slide's plan.
+
+## Other deck types (read before planning a non-RX deck)
+
+The workflow, chart techniques, QA loop, writing rules and appendix method are general. The RX storyline and the
+distress archetypes (liquidation, recovery waterfall, prepack recommendation) are not.
+- **Real estate** (IC / BOE pitches, acquisitions, development, LP positions): read
+  references/real-estate-adaptation.md. If a dedicated real estate deck skill is installed (e.g. `real-estate-deck`),
+  its house style, slide sequence, speaker notes, comp maps and merge workflow win on anything visual or structural;
+  use this skill for planning, claim testing, chart construction and QA.
+- **M&A / sell-side / other pitch books**: build the arc from the user's required sections (rx-deck-playbook.md,
+  "Adapting to other banker decks") and keep the per-slide discipline.
+- In general, when a domain or firm skill or template defines a house style, it overrides this skill's look; this
+  skill's process still applies.
 
 ## Rules the user set (honor them for the whole engagement)
 
@@ -128,5 +141,6 @@ questions; never paste a range that contradicts a main slide.
 | Render/validate/lint checklist and delivery | references/qa-and-delivery.md |
 | Appendix from model outputs | references/appendix-model-outputs.md |
 | RX storyline, judge questions, adapting to other deck types | references/rx-deck-playbook.md |
+| Real estate decks: precedence, storyline, slide types, conventions, IC questions | references/real-estate-adaptation.md |
 | What this user praised and corrected | references/feedback-log.md |
 | Working builders + rendered results for every archetype | examples/project_print/ (README.md) |

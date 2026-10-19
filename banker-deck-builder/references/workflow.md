@@ -20,6 +20,8 @@ process as much as the pixels: plan first, get a yes, build, render, fix, explai
 Collect, and read before proposing anything:
 - **The brief**: who the audience is (judges, IC, client), the role being played (e.g. debtor advisor), deadline,
   page limits (main pages vs. appendix), required topics and their order, deliverable format (PDF + video?).
+- **Other installed skills for this deck type** (e.g. a real estate deck skill, a firm-specific style skill): read them
+  first; their house style and slide sequence take precedence over this skill's look (see SKILL.md "Other deck types").
 - **The template / master**: the .pptx the user is working in. Run `scripts/inspect_template.py deck.pptx` to find
   the content layout, placeholder idx values, footer, logos already placed, theme fonts and the palette in use.
   Write `theme.json` (start from `assets/theme.example.json`). If theme fonts are Office defaults (Aptos/Calibri),

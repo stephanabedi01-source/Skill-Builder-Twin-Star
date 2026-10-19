@@ -42,4 +42,4 @@ industry overviews, stock charts, alternatives and key considerations go to the 
 The same machinery works for M&A pitches, IC memos in slide form, buy-side/sell-side materials and equity research
 style decks: replace the arc (e.g. situation -> strategic rationale -> valuation -> process/timeline ->
 recommendation), keep the per-slide discipline (claim takeaway, 2 to 4 exhibits, one accent, closing line, sourced
-footnotes, render/QA loop). Ask the user for the required sections and page limits first.
+footnotes, render/QA loop). Ask the user for the required sections and page limits first. For real estate decks, use references/real-estate-adaptation.md.
