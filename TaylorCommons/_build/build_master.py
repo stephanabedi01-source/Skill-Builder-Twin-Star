@@ -104,7 +104,7 @@ def edit_content_layout(x):
 
 def header_shapes():
     """Header furniture: charcoal top bar, running head at top right, hairline rule under the takeaway with a
-    short brick lead segment at the left margin."""
+    plain grey."""
     def sp(id_, name, x, y, w, h, geom, fill=None, ln=None, txt=None):
         f = f'<a:solidFill><a:srgbClr val="{fill}"/></a:solidFill>' if fill else "<a:noFill/>"
         l = (f'<a:ln w="{int(ln[1]*12700)}"><a:solidFill><a:srgbClr val="{ln[0]}"/></a:solidFill></a:ln>'
@@ -120,8 +120,7 @@ def header_shapes():
     return (sp(91, "Header top bar", 0, 0, 13.333, 0.08, "rect", fill=INK)
             + sp(92, "Header running head", 8.83, 0.24, 4.0, 0.26, "rect",
                  txt="Taylor Commons  |  Asset Management Update")
-            + sp(93, "Header rule", 0.50, 1.12, 12.33, 0, "line", ln=("D5D8DB", 0.75))
-            + sp(94, "Header rule lead", 0.50, 1.12, 1.10, 0, "line", ln=(BRICK, 2.25)))
+            + sp(93, "Header rule", 0.50, 1.12, 12.33, 0, "line", ln=("C9CDD1", 1.0)))
 
 
 def edit_title_layout(x):
