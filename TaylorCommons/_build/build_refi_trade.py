@@ -49,7 +49,7 @@ cats = ["Property taxes avoided", "HFC fees", "Added interest", "Net annual cost
 base = [0, TAX_SAVED - FEES, 0, 0]
 pos = [TAX_SAVED, FEES, TAX_SAVED - FEES, 0]
 neg = [0, 0, -(ADD_INT - (TAX_SAVED - FEES)), NET]
-P = Plot(0.75, 2.12, 6.9, 2.95, n=4, vmin=-700, vmax=560)
+P = Plot(0.75, 2.14, 6.9, 3.05, n=4, vmin=-700, vmax=560)
 chart(s, P, cats, [("Base", base), ("Increase", pos), ("Decrease", neg)],
       [nofill_ser(0, "Base", cats, base),
        bar_ser(1, "Increase", cats, pos, "ink", dpt={1: "grey_mid", 2: "accent_fill"}),
@@ -72,12 +72,12 @@ for k, v, txt, where in labels:
 # category labels
 sub = ["T12 $520 to $28", "Pecos HFC, booked below NOI", "T12 $500 to $1,540", "While the exemption holds"]
 for k, (cat, sb) in enumerate(zip(cats, sub)):
-    textbox(s, P.center(k) - 0.85, 5.33, 1.7, 0.42, [[(cat, {"b": True})], [(sb, {"c": "grey_txt", "i": True})]],
+    textbox(s, P.center(k) - 0.85, 5.45, 1.7, 0.44, [[(cat, {"b": True})], [(sb, {"c": "grey_txt", "i": True})]],
             size=10, align=PP_ALIGN.CENTER, name=f"A category {k+1}")
 # pill: the only positive bar is the one HB 21 removes
-px, py = P.center(0) - 0.82, P.v(-330)
-pill(s, px, py, 1.64, 0.42, [("Ends at YE2026", {"b": True, "c": "accent"}), (" under HB 21", {})],
-     "A pill HB21", size=9.5)
+px, py = P.center(0) - 0.95, P.v(-330)
+pill(s, px, py, 1.90, 0.34, [("Ends at YE2026", {"b": True, "c": "accent"}), (" under HB 21", {})],
+     "A pill HB21", size=10)
 line(s, P.center(0), P.v(0) + 0.02, P.center(0), py, "accent", 0.75, dash=MSO_LINE_DASH_STYLE.ROUND_DOT,
      name="A pill leader")
 
@@ -97,7 +97,7 @@ rows = [
 yb = grid_table(s, g["RP0"], 1.74, [1.62, 1.44, 1.52], ["", "Agency loan", "HFC bridge"], rows, "B table",
                 size=10.5, row_h=0.31, bold_rows=(7,), rule_before=(7,), hair_rules=True,
                 accent_cols={(2, 2), (4, 2), (6, 2), (7, 2)})
-callout(s, g["RP0"], yb + 0.16, RW, 0.62,
+callout(s, g["RP0"], yb + 0.24, RW, 0.66,
         [("Even after the 3.57% lock expired, a ~5.25% agency loan on the same NOI covers interest ", {}),
          ("1.3x", {"b": True}), ("(5)", {"sup": True})],
         "B callout", size=10.5)
@@ -105,13 +105,13 @@ callout(s, g["RP0"], yb + 0.16, RW, 0.62,
 # ------------------------------------------------------------------ closing, notes, sources
 closing_line(s, [("The exemption never paid for the debt it required, and ", {}),
                  ("HB 21 ends the exemption at YE2026 while the 9% debt remains", {"b": True})])
-notes_block(s, "Notes: (1) T12 Mar-25 to Feb-26 vs. T12 Mar-24 to Feb-25 from sponsor income statements; HFC fees are "
-               "Housing Authority annual and admin fees. (2) Estimated from Jan-25 interest at 3.57%. (3) 9.00% from "
-               "the Mar-26 12-month extension. (4) T12 Feb-26 NOI of $1,429K / T12 interest; agency column uses the "
-               "same NOI with taxes at the pre-HFC level ($937K). (5) $937K / ($13.7M x 5.25%); agency rates in the "
-               "low 5s per TexSun Q1-26 commentary.")
-sources_line(s, "Sources: TexSun T12 income statements; Deed of Trust, Ground Lease and Regulatory Agreement "
-                "(3/24/2025); IC presentation (Apr-23); Fund annual report 2025-26.")
+footer_notes(s,
+             "Notes: (1) T12 to Feb-26 vs. T12 to Feb-25, sponsor income statements; HFC fees are Housing Authority "
+             "fees. (2) Estimated from Jan-25 interest at 3.57%. (3) 9.00% after the Mar-26 extension. (4) T12 NOI / "
+             "T12 interest; agency case uses the same NOI with pre-HFC taxes ($937K). (5) $937K / ($13.7M x 5.25%), "
+             "TexSun Q1-26.",
+             "Sources: TexSun T12 statements; Deed of Trust, Ground Lease and Regulatory Agreement (3/24/25); "
+             "IC presentation (Apr-23); Fund annual report 2025-26.")
 
 speaker_notes(s, """Presenter: TBD
 

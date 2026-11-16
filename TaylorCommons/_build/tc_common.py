@@ -21,16 +21,14 @@ def add_slide_number(slide):
             return
 
 
-def notes_block(slide, notes, size=8):
-    """Numbered notes in grey, between the closing line and the footer rule (y 6.36 to 6.90)."""
-    textbox(slide, THEME["grid"]["L0"], 6.36, THEME["grid"]["R1"] - THEME["grid"]["L0"], 0.54,
-            [[(notes, {"c": "grey_txt"})]], size=size, name="Notes", anchor=MSO_ANCHOR.TOP)
-
-
-def sources_line(slide, sources, size=8):
-    """Sources sit in the footer band, between the SMU logo and the fund name."""
-    textbox(slide, 1.45, 7.0, 7.05, 0.32, [[(sources, {"c": "grey_txt", "i": True})]], size=size,
-            name="Sources", anchor=MSO_ANCHOR.MIDDLE)
+def footer_notes(slide, notes=None, sources=None, size=10):
+    """Notes and sources in the footer band (below the rule at 6.58, right of the SMU logo, left of the fund name)."""
+    paras = []
+    if notes:
+        paras.append([(notes, {"c": "grey_txt"})])
+    if sources:
+        paras.append([(sources, {"c": "grey_txt", "i": True})])
+    textbox(slide, 1.45, 6.64, 8.50, 0.80, paras, size=size, name="Footer notes and sources", anchor=MSO_ANCHOR.TOP)
 
 
 NOTES_BODY = ('<p:sp xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '

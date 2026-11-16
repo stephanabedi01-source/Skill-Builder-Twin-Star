@@ -70,9 +70,9 @@ def edit_content_layout(x):
     x = drop_element(x, "p:pic", r"wedge\.png")
     x = drop_element(x, "p:sp", r'name="Shape 0"|name="Shape 1"')
     # 2. title + takeaway to the 0.5in margin
-    x = set_xfrm_for_ph(x, 'idx="106"', off=(0.50, 0.30), ext=(12.33, 0.55))
+    x = set_xfrm_for_ph(x, 'idx="106"', off=(0.50, 0.19), ext=(9.10, 0.55))
     tk = 'idx="109"' if 'idx="109"' in x else 'idx="107"'   # takeaway slot differs by layout
-    x = set_xfrm_for_ph(x, tk, off=(0.50, 0.83), ext=(12.33, 0.34))
+    x = set_xfrm_for_ph(x, tk, off=(0.50, 0.70), ext=(12.33, 0.34))
     # takeaway: italic slate 14pt
     i = x.find(tk)
     if i > 0:
@@ -89,13 +89,39 @@ def edit_content_layout(x):
         s = x.rfind("<p:sp>", 0, i); t = x.find("</p:sp>", i)
         block = x[s:t]
         block = re.sub(r'<a:off x="\d+" y="\d+"/><a:ext cx="\d+" cy="\d+"/>',
-                       f'<a:off x="{e(8.6)}" y="{e(7.0)}"/><a:ext cx="{e(3.68)}" cy="{e(0.30)}"/>', block, count=1)
+                       f'<a:off x="{e(10.05)}" y="{e(6.66)}"/><a:ext cx="{e(2.23)}" cy="{e(0.26)}"/>', block, count=1)
         block = block.replace('algn="ctr"><a:buNone/>', 'algn="r"><a:buNone/>')
         block = block.replace("<a:t>|   SMU Cox Real Estate Impact Fund</a:t>",
                               "<a:t>SMU Cox Real Estate Impact Fund   |</a:t>")
         x = x[:s] + block + x[t:]
-    x = set_xfrm_for_ph(x, 'type="sldNum"', off=(12.33, 7.0), ext=(0.50, 0.30))
+    x = set_xfrm_for_ph(x, 'type="sldNum"', off=(12.33, 6.66), ext=(0.50, 0.26))
+    # footer rule and logo up: the band 6.60 to 7.45 holds notes and sources on each slide
+    x = re.sub(r'(name="Shape 2".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.58)}"', x, count=1, flags=re.S)
+    x = re.sub(r'(name="Image 1".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.70)}"', x, count=1, flags=re.S)
+    x = x.replace("</p:spTree>", header_shapes() + "</p:spTree>", 1)
     return swap_hex(x)
+
+
+def header_shapes():
+    """Header furniture: charcoal top bar, running head at top right, hairline rule under the takeaway with a
+    short brick lead segment at the left margin."""
+    def sp(id_, name, x, y, w, h, geom, fill=None, ln=None, txt=None):
+        f = f'<a:solidFill><a:srgbClr val="{fill}"/></a:solidFill>' if fill else "<a:noFill/>"
+        l = (f'<a:ln w="{int(ln[1]*12700)}"><a:solidFill><a:srgbClr val="{ln[0]}"/></a:solidFill></a:ln>'
+             if ln else "<a:ln><a:noFill/></a:ln>")
+        body = ('<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:endParaRPr lang="en-US"/></a:p></p:txBody>' if not txt
+                else '<p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr"/><a:lstStyle/>'
+                     '<a:p><a:pPr algn="r"/><a:r><a:rPr lang="en-US" sz="1000" i="1"><a:solidFill><a:srgbClr val="5F6670"/>'
+                     '</a:solidFill><a:latin typeface="Garamond"/><a:ea typeface="Garamond"/><a:cs typeface="Garamond"/>'
+                     f'</a:rPr><a:t>{txt}</a:t></a:r></a:p></p:txBody>')
+        return (f'<p:sp><p:nvSpPr><p:cNvPr id="{id_}" name="{name}"/><p:cNvSpPr/><p:nvPr userDrawn="1"/></p:nvSpPr>'
+                f'<p:spPr><a:xfrm><a:off x="{e(x)}" y="{e(y)}"/><a:ext cx="{e(w)}" cy="{e(h)}"/></a:xfrm>'
+                f'<a:prstGeom prst="{geom}"><a:avLst/></a:prstGeom>{f}{l}</p:spPr>{body}</p:sp>')
+    return (sp(91, "Header top bar", 0, 0, 13.333, 0.08, "rect", fill=INK)
+            + sp(92, "Header running head", 8.83, 0.24, 4.0, 0.26, "rect",
+                 txt="Taylor Commons  |  Asset Management Update")
+            + sp(93, "Header rule", 0.50, 1.12, 12.33, 0, "line", ln=("D5D8DB", 0.75))
+            + sp(94, "Header rule lead", 0.50, 1.12, 1.10, 0, "line", ln=(BRICK, 2.25)))
 
 
 def edit_title_layout(x):
