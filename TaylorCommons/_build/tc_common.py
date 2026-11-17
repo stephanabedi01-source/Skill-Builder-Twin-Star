@@ -89,12 +89,14 @@ def photo(slide, key, x, y, w, h, name, focus=0.5):
 
 
 def drop_slide_titled(prs, title, layout=None):
-    """Remove the first slide whose title placeholder text equals `title` (optionally on a given layout)."""
+    """Remove the first slide whose title placeholder (idx 106 / type TITLE) equals `title`."""
     for i, sl in enumerate(prs.slides):
         if layout and sl.slide_layout.name != layout:
             continue
-        t = sl.shapes.title
-        if t is not None and t.text_frame.text.strip() == title:
-            drop_slide(prs, i)
-            return i
+        for ph in sl.placeholders:
+            if ph.placeholder_format.type == 1 and ph.has_text_frame and ph.text_frame.text.strip() == title:
+                drop_slide(prs, i)
+                # renumber slide parts so slides added later do not reuse a dropped slide's part name
+                prs.part.rename_slide_parts([sid.rId for sid in prs.slides._sldIdLst])
+                return i
     return None
