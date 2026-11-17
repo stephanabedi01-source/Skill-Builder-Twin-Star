@@ -89,15 +89,20 @@ def edit_content_layout(x):
         s = x.rfind("<p:sp>", 0, i); t = x.find("</p:sp>", i)
         block = x[s:t]
         block = re.sub(r'<a:off x="\d+" y="\d+"/><a:ext cx="\d+" cy="\d+"/>',
-                       f'<a:off x="{e(10.05)}" y="{e(6.66)}"/><a:ext cx="{e(2.23)}" cy="{e(0.26)}"/>', block, count=1)
+                       f'<a:off x="{e(10.05)}" y="{e(6.90)}"/><a:ext cx="{e(2.23)}" cy="{e(0.24)}"/>', block, count=1)
         block = block.replace('algn="ctr"><a:buNone/>', 'algn="r"><a:buNone/>')
         block = block.replace("<a:t>|   SMU Cox Real Estate Impact Fund</a:t>",
                               "<a:t>SMU Cox Real Estate Impact Fund   |</a:t>")
+        block = block.replace('sz="1000"', 'sz="900"')
         x = x[:s] + block + x[t:]
-    x = set_xfrm_for_ph(x, 'type="sldNum"', off=(12.33, 6.66), ext=(0.50, 0.26))
+    i = x.find('type="sldNum"')
+    if i > 0:
+        s = x.rfind("<p:sp>", 0, i); t = x.find("</p:sp>", i)
+        x = x[:s] + x[s:t].replace('sz="1000"', 'sz="900"') + x[t:]
+    x = set_xfrm_for_ph(x, 'type="sldNum"', off=(12.33, 6.90), ext=(0.50, 0.24))
     # footer rule and logo up: the band 6.60 to 7.45 holds notes and sources on each slide
-    x = re.sub(r'(name="Shape 2".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.58)}"', x, count=1, flags=re.S)
-    x = re.sub(r'(name="Image 1".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.70)}"', x, count=1, flags=re.S)
+    x = re.sub(r'(name="Shape 2".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.82)}"', x, count=1, flags=re.S)
+    x = re.sub(r'(name="Image 1".*?<a:off x="\d+" )y="\d+"', rf'\1y="{e(6.92)}"', x, count=1, flags=re.S)
     x = x.replace("</p:spTree>", header_shapes() + "</p:spTree>", 1)
     return swap_hex(x)
 
@@ -111,14 +116,14 @@ def header_shapes():
              if ln else "<a:ln><a:noFill/></a:ln>")
         body = ('<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:endParaRPr lang="en-US"/></a:p></p:txBody>' if not txt
                 else '<p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr"/><a:lstStyle/>'
-                     '<a:p><a:pPr algn="r"/><a:r><a:rPr lang="en-US" sz="1000" i="1"><a:solidFill><a:srgbClr val="5F6670"/>'
+                     '<a:p><a:pPr algn="r"/><a:r><a:rPr lang="en-US" sz="900" i="1"><a:solidFill><a:srgbClr val="8C939A"/>'
                      '</a:solidFill><a:latin typeface="Garamond"/><a:ea typeface="Garamond"/><a:cs typeface="Garamond"/>'
                      f'</a:rPr><a:t>{txt}</a:t></a:r></a:p></p:txBody>')
         return (f'<p:sp><p:nvSpPr><p:cNvPr id="{id_}" name="{name}"/><p:cNvSpPr/><p:nvPr userDrawn="1"/></p:nvSpPr>'
                 f'<p:spPr><a:xfrm><a:off x="{e(x)}" y="{e(y)}"/><a:ext cx="{e(w)}" cy="{e(h)}"/></a:xfrm>'
                 f'<a:prstGeom prst="{geom}"><a:avLst/></a:prstGeom>{f}{l}</p:spPr>{body}</p:sp>')
     return (sp(91, "Header top bar", 0, 0, 13.333, 0.08, "rect", fill=INK)
-            + sp(92, "Header running head", 8.83, 0.24, 4.0, 0.26, "rect",
+            + sp(92, "Header running head", 8.83, 0.22, 4.0, 0.22, "rect",
                  txt="Taylor Commons  |  Asset Management Update")
             + sp(93, "Header rule", 0.50, 1.12, 12.33, 0, "line", ln=("C9CDD1", 1.0)))
 

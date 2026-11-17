@@ -21,14 +21,14 @@ def add_slide_number(slide):
             return
 
 
-def footer_notes(slide, notes=None, sources=None, size=10):
-    """Notes and sources in the footer band (below the rule at 6.58, right of the SMU logo, left of the fund name)."""
+def footer_notes(slide, notes=None, sources=None, size=9):
+    """Short notes and sources in the footer band (below the rule at 6.82, right of the logo, left of the fund name)."""
     paras = []
     if notes:
         paras.append([(notes, {"c": "grey_txt"})])
     if sources:
         paras.append([(sources, {"c": "grey_txt", "i": True})])
-    textbox(slide, 1.45, 6.64, 8.50, 0.80, paras, size=size, name="Footer notes and sources", anchor=MSO_ANCHOR.TOP)
+    textbox(slide, 1.45, 6.87, 8.50, 0.55, paras, size=size, name="Footer notes and sources", anchor=MSO_ANCHOR.TOP)
 
 
 NOTES_BODY = ('<p:sp xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '

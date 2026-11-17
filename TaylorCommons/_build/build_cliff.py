@@ -110,10 +110,8 @@ numbered_items(s, R0, yb + 0.66, RW, items, [0.36, 0.36, 0.36], name="C item", s
 closing_line(s, [("Even with the exemption a $2.2M gap remains; without it, ", {}),
                  ("the loan exceeds the value of the property", {"b": True})])
 footer_notes(s,
-             "Notes: (1) No relief: T12 Feb-26 NOI ($1,429K) less taxes at the pre-HFC level; exemption kept: T12 "
-             "Feb-26 NOI. (2) 6.75% is TexSun's refinancing target (mid-6s to 7%); 1.25x, 8.0% and 65% are team "
-             "assumptions. (3) $16.5M at ~9.0% interest only after the Mar-26 extension.",
-             "Sources: TexSun T12 (Mar-25 to Feb-26) and Q1-26 commentary; Fund annual report 2025-26; team analysis.")
+             "Notes: (1) No relief = T12 NOI less pre-HFC taxes. (2) 6.75% is TexSun's target; 1.25x, 8.0% and 65% are team assumptions. (3) $16.5M at ~9.0% interest only.",
+             "Sources: TexSun T12 and Q1-26 commentary; Fund annual report 2025-26; team analysis.")
 
 speaker_notes(s, """Presenter: TBD
 

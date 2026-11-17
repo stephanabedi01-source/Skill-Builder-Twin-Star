@@ -97,11 +97,8 @@ callout(s, R0, yb + 0.14, RW, 0.6,
 closing_line(s, [("Base case from 2027: NOI near ", {}), ("$0.94M against $1.49M of interest at 9%", {"b": True}),
                  (", with the loan due in March 2027", {})])
 footer_notes(s,
-             "Notes: (1) Pre-HFC T12 level (Mar-24 to Feb-25); 2027 assessment not yet out. (2) T12 Feb-26 NOI "
-             "($1,429K) less the tax increase; HFC fees sit below NOI. (3) 2026 Fort Worth MFI of $106,700 at 1.5 "
-             "persons per bedroom x 80% x 30% / 12 (estimate); market from Nov-26 box score.",
-             "Sources: Regulatory Agreement, Ground Lease (3/24/25); HB 21; The Real Deal; Multifamily Dive; "
-             "City of Fort Worth; TDHCA; box score 11/15/26.")
+             "Notes: (1) Pre-HFC T12 level; 2027 assessment not yet out. (2) T12 NOI less the tax increase. (3) 2026 MFI $106,700 at 1.5 persons per bedroom x 80% x 30% / 12 (estimate).",
+             "Sources: Regulatory Agreement; HB 21; The Real Deal; Multifamily Dive; City of Fort Worth; TDHCA; box score.")
 
 speaker_notes(s, """Presenter: TBD
 

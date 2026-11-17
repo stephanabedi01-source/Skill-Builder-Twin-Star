@@ -118,12 +118,8 @@ callout(s, R0, yb + 0.22, RW, 0.66,
 closing_line(s, [("SMU's $350K recovers nothing on income value; ", {}),
                  ("the common needs a sale above ~$100K per unit, stabilized comp pricing", {"b": True})])
 footer_notes(s,
-             "Notes: (1) No relief NOI is T12 Feb-26 NOI less pre-HFC taxes; sales comps are stabilized trades from "
-             "the fund annual report. (2) Gross value less 3.5% selling costs, paid in order of priority. (3) Pref "
-             "at the $5.03M balance; it accrues at 10% when unpaid, so the claim is likely higher. (4) ($16.5M + "
-             "$5.0M) / (1 - 3.5%) x 6.5% = $1.45M of NOI vs. $0.94M in 2027 without relief.",
-             "Sources: TexSun T12 (Mar-25 to Feb-26); Fund annual report 2025-26; AM model Capital Structure tab; "
-             "team analysis.")
+             "Notes: (1) Comps are stabilized trades per the fund annual report. (2) Net of 3.5% selling costs. (3) $5.03M; accrues at 10%, so likely higher. (4) ($16.5M + $5.0M) / 96.5% x 6.5%.",
+             "Sources: TexSun T12; Fund annual report 2025-26; AM model; team analysis.")
 
 speaker_notes(s, """Presenter: TBD
 

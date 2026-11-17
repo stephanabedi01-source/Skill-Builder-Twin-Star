@@ -97,12 +97,8 @@ callout(s, R0, 5.2, RW, 0.62,
 closing_line(s, [("The plan missed on operations before the refinancing; ", {}),
                  ("the March 2025 HFC trade then added cost the property could not carry", {"b": True})])
 footer_notes(s,
-             "Notes: (1) Box score 11/15/2026. (2) T12 Mar-25 to Feb-26 with property taxes of $28K under the HFC. "
-             "(3) IC model project years run from an assumed Apr-23 close (actual close 6/15/2023); Year 2 actual "
-             "is Apr-24 to Mar-25 from sponsor statements. 2026 rent is $975 at close grown at the IC model's "
-             "4%, 4%, 3%.",
-             "Sources: IC presentation and memo (Apr/May-23); IC model (3/18/23); TexSun T12 and box score; "
-             "Regulatory Agreement (3/24/25); Fund annual report 2025-26.")
+             "Notes: (1) Box score 11/15/26. (2) Property taxes of $28K under the HFC. (3) IC years run from an assumed Apr-23 close; 2026 rent is $975 at close grown 4%, 4%, 3%.",
+             "Sources: IC deck, memo and model; TexSun T12 and box score; Regulatory Agreement; Fund annual report.")
 
 speaker_notes(s, """Presenter: TBD
 

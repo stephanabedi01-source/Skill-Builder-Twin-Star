@@ -106,12 +106,9 @@ callout(s, g["RP0"], yb + 0.24, RW, 0.66,
 closing_line(s, [("The exemption never paid for the debt it required, and ", {}),
                  ("HB 21 ends the exemption at YE2026 while the 9% debt remains", {"b": True})])
 footer_notes(s,
-             "Notes: (1) T12 to Feb-26 vs. T12 to Feb-25, sponsor income statements; HFC fees are Housing Authority "
-             "fees. (2) Estimated from Jan-25 interest at 3.57%. (3) 9.00% after the Mar-26 extension. (4) T12 NOI / "
-             "T12 interest; agency case uses the same NOI with pre-HFC taxes ($937K). (5) $937K / ($13.7M x 5.25%), "
-             "TexSun Q1-26.",
-             "Sources: TexSun T12 statements; Deed of Trust, Ground Lease and Regulatory Agreement (3/24/25); "
-             "IC presentation (Apr-23); Fund annual report 2025-26.")
+             "Notes: (1) T12 to Feb-26 vs. T12 to Feb-25. (2) Estimate from Jan-25 interest. (3) 9.00% from Mar-26. "
+             "(4) Same NOI with pre-HFC taxes. (5) $937K / ($13.7M x 5.25%).",
+             "Sources: TexSun T12s; Deed of Trust (3/24/25); IC deck; Fund annual report 2025-26.")
 
 speaker_notes(s, """Presenter: TBD
 
