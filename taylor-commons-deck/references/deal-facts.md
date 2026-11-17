@@ -127,6 +127,19 @@ latest full financials the team has). Flags in **bold** are open questions or co
 - Common breakeven NOI ~$1.45M ((16.5 + 5.03) / 96.5% x 6.5%), 55% above the 2027 base case; ~$100K/unit sale price.
 
 ## 10. Market, migration and location
+- DFW Q3 2026 (Cushman & Wakefield): vacancy 9.4% (10.0% Q1-26 peak, 9.6% Q2-26; U.S. 8.6%); 2026 YTD net absorption
+  26,700+ units, ~5,600 above completions (implied ~21,100 completions); average effective rent $1,461, -2.0% YoY;
+  five submarkets with positive annual rent growth, led by Uptown Park Cities and Downtown Dallas.
+- Newmark Q3 2026: supply ~42,000 units in 2024 vs. ~20,000 through Q3 2026; average rent $1,512, occupancy 94.0%
+  (different definitions); RealPage forecasts +2.4% rent growth over the next 12 months.
+- East Fort Worth submarket (Transwestern Q3 2025): 38 buildings, 8,068 units, 90.3% occupied, $1,088 average
+  rent, -1.4% YoY; vacancy fell 190 bps in 2025 (Northmarq Q4 2025). Apartments.com Jan-26: 1BR $983, 2BR $1,277,
+  -3.6% YoY.
+- Comp set (team rent comp file, CoStar 2025 pull): 17 older comps average 77.1% occupied (median 76.8%), from
+  Bella Via 92.5% to Spur Canyon 61.1%. The annual report's "~20% submarket vacancy" describes this slice.
+- Comp median asking rent per SF, 2022 -> 2025: 1 bed 440-570 SF $1.87 -> $1.57 (-16%); 560-700 SF $1.65 -> $1.39
+  (-16%); 700+ SF $1.44 -> $1.30 (-9%); 2 bed 1 bath $1.40 -> $1.28 (-8%); 2 bed 2 bath $1.37 -> $1.23 (-10%).
+  Taylor Commons 2025 target vs. comp median: +9%, (2%), +8%, +8%, (2%).
 - Tarrant County 7/1/2025: 2,248,466 (+6.5% vs. April 2020 base). Jul-24 to Jul-25: total +18,428; natural
   +12,445; net international ~+12,800; net domestic -6,978 (Census Vintage 2025 via USAFacts; migration figures
   rounded).

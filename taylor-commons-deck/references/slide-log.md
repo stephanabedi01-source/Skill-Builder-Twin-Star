@@ -15,8 +15,8 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 | 7 | Site Visit: Amenities, Leasing and Marketing | Done | build_site.py | A strong leasing agent, but no model unit, short hours and a $175 fee package weaken every tour |
 | 8 | Operations: Where Leasing Broke Down | Done | build_operations.py | Occupancy peaked near 90% in Jul-25 and fell to 74.9%, with 49 of 56 vacant units not ready to lease |
 | 9 | Migration Trends | Done | build_migration.py | Fort Worth still adds about 20,000 people a year, but Tarrant County now loses domestic movers; growth comes from births and immigration |
-| 10 | Market Overview | Prior group (another deal's data, "Incomplete" box) | none | To rebuild: DFW vacancy, absorption, supply and rent growth with current sources |
-| 11 | Submarket Overview | Prior group (another deal's data) | none | To rebuild: East Fort Worth / Woodhaven vacancy (~20% per annual report), supply pipeline, rent trend |
+| 10 | Market Overview: Dallas-Fort Worth | Done | build_market.py | DFW is absorbing more apartments than it delivers and vacancy is down to 9.4%, but effective rents are still 2.0% lower than a year ago |
+| 11 | Submarket: East Fort Worth and the Comp Set | Done | build_market.py | East Fort Worth runs about 90% occupied, but Taylor Commons' older comp set averages 77% and comp rents fell 8% to 16% since IC |
 | 12 | Current Rent Comparables vs. Underwriting | Prior group, empty | none | To build: rent by floor plan vs. Brittany, Ryan and others; comp photos in the inspection report; IC comps in the AM model "UW Comps" tab |
 | 13 | Current Sales Comparables vs. Underwriting | Prior group, empty | none | To build: needs the team's sales comp outreach; annual report range $91K to $137K/unit, submarket cap ~5.9% |
 | 14 | Historical Financials vs. Underwriting | Prior group, empty | none | Planned: bridge from IC Year 3 NOI $2.21M to actual $0.94M (taxes paid) by line: occupancy, rent and concessions, bad debt, other income, payroll and opex, taxes and insurance |
@@ -36,7 +36,7 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 
 `build_master.py` (rebuild master on the v1 file) -> `build_refi_trade.py 11` -> `build_hb21.py 12` ->
 `build_cliff.py 13` -> `build_valuation.py 14` -> `build_snapshot.py 2` -> `build_operations.py 3` ->
-`build_site.py` -> `build_location.py 3` -> `build_migration.py`. On the latest deck, any single builder can be
+`build_site.py` -> `build_location.py 3` -> `build_migration.py` -> `build_market.py`. On the latest deck, any single builder can be
 rerun on its own; it replaces its slide in place.
 
 ## Feedback the user gave while building (keep honoring it)
