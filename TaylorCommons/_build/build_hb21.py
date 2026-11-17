@@ -15,7 +15,7 @@ Facts and numbers:
   2027 NOI no relief = 1,429.3 - 491.9 = 937.4 ($000s); with relief = 1,429.3 (T12 Feb-26).
   Rent caps: 2026 Fort Worth-Arlington HMFA MFI $106,700 (TDHCA); 1BR 1.5 persons (75%), 2BR 3 persons (90%):
     1BR 106,700 x .75 x .80 x .30 / 12 = 1,600; 2BR 106,700 x .90 x .80 x .30 / 12 = 1,921 (estimates).
-  Market rents (Apr-26 rent roll, unit-weighted): 1BR $935 (152 units), 2BR $1,130 (72 units).
+  Market rents (Nov-26 box score, unit-weighted): 1BR $894 (152 units), 2BR $1,129 (72 units).
 """
 import sys
 
@@ -27,9 +27,10 @@ POS = int(sys.argv[3]) if len(sys.argv) > 3 else 12
 MFI = 106700
 CAP_1BR = round(MFI * .75 * .80 * .30 / 12)     # 1,600
 CAP_2BR = round(MFI * .90 * .80 * .30 / 12)     # 1,921
-MKT_1BR = round((16*872.4375 + 78*863.3846 + 3*1150 + 38*1033.0263 + 1282 + 14*1040.5 + 2*1132.5) / 152)  # 935
-MKT_2BR = round((38*1079.8158 + 2*1369 + 28*1157.5357 + 4*1291.5) / 72)                                 # 1,130
-assert (CAP_1BR, CAP_2BR, MKT_1BR, MKT_2BR) == (1600, 1921, 935, 1130), (CAP_1BR, CAP_2BR, MKT_1BR, MKT_2BR)
+# market rents from the Nov-26 box score (AM model v1_1 'Rent Roll' tab, 11/15/2026), unit-weighted
+MKT_1BR = round((16*837.125 + 78*851.039 + 3*995 + 38*923.0263 + 1225 + 14*1025 + 2*1232.5) / 152)  # 894
+MKT_2BR = round((38*1079.8684 + 2*1294 + 28*1161.8571 + 4*1291.5) / 72)                              # 1,129
+assert (CAP_1BR, CAP_2BR, MKT_1BR, MKT_2BR) == (1600, 1921, 894, 1129), (CAP_1BR, CAP_2BR, MKT_1BR, MKT_2BR)
 
 prs = Presentation(SRC)
 g = THEME["grid"]
@@ -83,13 +84,13 @@ prow = [
 grid_table(s, R0, 1.74, [1.55, 2.05, 1.03], ["Path", "Status", "2027 NOI"], prow, "B table",
            size=10.5, row_h=0.36, hair_rules=True, left_cols=(0, 1), accent_rows=(2,), highlight_rows=(2,))
 
-section_header(s, R0, 3.32, RW, "Rent Caps vs. Market Rents", "C header", sup="(3)")
+section_header(s, R0, 3.32, RW, "Rent Caps vs. Market Rents (Nov-26)", "C header", sup="(3)")
 crow = [["One bedroom (152 units)", f"${CAP_1BR:,}", f"${MKT_1BR:,}", f"${CAP_1BR - MKT_1BR:,}"],
         ["Two bedroom (72 units)", f"${CAP_2BR:,}", f"${MKT_2BR:,}", f"${CAP_2BR - MKT_2BR:,}"]]
 yb = grid_table(s, R0, 3.74, [1.9, 0.9, 0.9, 0.93], ["$ / month", "80% cap", "Market", "Room"], crow, "C table",
                 size=10.5, row_h=0.32, hair_rules=True)
 callout(s, R0, yb + 0.14, RW, 0.6,
-        [("Caps sit ", {}), ("$665 to $791", {"b": True}), (" above market, so the cost is fees and compliance, "
+        [("Caps sit ", {}), (f"${CAP_1BR - MKT_1BR} to ${CAP_2BR - MKT_2BR}", {"b": True}), (" above market, so the cost is fees and compliance, "
                                                            "not rent", {})], "C callout", size=10.5)
 
 # ------------------------------------------------------------------ closing, footer, notes
@@ -98,9 +99,9 @@ closing_line(s, [("Base case from 2027: NOI near ", {}), ("$0.94M against $1.49M
 footer_notes(s,
              "Notes: (1) Pre-HFC T12 level (Mar-24 to Feb-25); 2027 assessment not yet out. (2) T12 Feb-26 NOI "
              "($1,429K) less the tax increase; HFC fees sit below NOI. (3) 2026 Fort Worth MFI of $106,700 at 1.5 "
-             "persons per bedroom x 80% x 30% / 12 (estimate); market from Apr-26 rent roll.",
+             "persons per bedroom x 80% x 30% / 12 (estimate); market from Nov-26 box score.",
              "Sources: Regulatory Agreement, Ground Lease (3/24/25); HB 21; The Real Deal; Multifamily Dive; "
-             "City of Fort Worth; TDHCA.")
+             "City of Fort Worth; TDHCA; box score 11/15/26.")
 
 speaker_notes(s, """Presenter: TBD
 
@@ -110,7 +111,7 @@ On the left, what that does here. The tax exemption ends, and we estimate taxes 
 
 On the right, three ways 2027 can go. Fort Worth could approve the Pecos HFC, but the city lobbied for this exact restriction, so we do not count on it. A coalition of owners sued in September 2025 and we have not found a ruling. So our base case is no relief, and NOI drops to about $940 thousand.
 
-One point in the sponsor's favor: the rent caps are not the problem. At 80% of area income a one-bedroom could charge about $1,600, and the market here is about $935. The HFC costs fees and paperwork, not rent.
+One point in the sponsor's favor: the rent caps are not the problem. At 80% of area income a one-bedroom could charge about $1,600, and the market here is about $894. The HFC costs fees and paperwork, not rent.
 
 So the base case for 2027 is about $940 thousand of NOI against almost $1.5 million of interest, with the loan due in March. That is the next slide.
 
