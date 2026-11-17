@@ -34,7 +34,7 @@ assert (CAP_1BR, CAP_2BR, MKT_1BR, MKT_2BR) == (1600, 1921, 894, 1129), (CAP_1BR
 
 prs = Presentation(SRC)
 g = THEME["grid"]
-s = new_content_slide(
+s = new_slide(
     prs, "HB 21: What Ends and What Stays",
     "Unless Fort Worth approves the Pecos HFC by YE2026 the exemption ends, while the HFC's lease, fees and rent "
     "rules stay")
@@ -42,7 +42,7 @@ add_slide_number(s)
 
 # ------------------------------------------------------------------ left: what changes on 1/1/2027
 L0, LW = g["L0"], g["LP1"] - g["L0"]
-section_header(s, L0, g["ROW1"], LW, "What Changes on 1/1/2027 Without Relief", "A header")
+header(s, L0, g["ROW1"], LW, "What Changes on 1/1/2027 Without Relief", "A header")
 rows = [
     ["Property tax exemption", "In place; T12 taxes $28K",
      [("Ends; ~$520K a year", {"b": True}), ("(1)", {"sup": True})]],
@@ -52,10 +52,10 @@ rows = [
     ["Exit from the HFC", "Needs Pecos HFC consent; owner pays", "No change"],
 ]
 grid_table(s, L0, 1.74, [2.0, 3.05, 2.3], ["", "Through YE2026", "From 1/1/2027"], rows, "A table",
-           size=10.5, row_h=0.38, hair_rules=True, left_cols=(0, 1), accent_cols={(0, 2)})
+           size=12, row_h=0.38, hair_rules=True, left_cols=(0, 1), accent_cols={(0, 2)})
 
 # timeline to the deadline
-section_header(s, L0, 4.30, LW, "Path to the Deadline", "A2 header")
+header(s, L0, 4.30, LW, "Path to the Deadline", "A2 header")
 events = [("Mar-25", "HFC and 9.5% bridge", "close"), ("May-25", "HB 21 signed,", "effective at once"),
           ("Sep-25", "Coalition sues;", "no ruling found"), ("Mar-26", "Loan extended", "12 months at ~9%"),
           ("Dec-26", "Local approval", "deadline"), ("Mar-27", "Bridge loan", "matures")]
@@ -68,33 +68,32 @@ for k, ((d, l1, l2), xx) in enumerate(zip(events, xs)):
     crit = k >= 4
     box(s, xx - 0.08, TY - 0.08, 0.16, 0.16, fill="accent" if crit else "ink", line=None, shape=MSO_SHAPE.OVAL,
         name=f"A2 dot {k+1}")
-    textbox(s, xx - 0.65, TY - 0.36, 1.3, 0.2, [[(d, {"b": True, "c": "accent" if crit else "ink"})]], size=10.5,
+    textbox(s, xx - 0.65, TY - 0.36, 1.3, 0.2, [[(d, {"b": True, "c": "accent" if crit else "ink"})]], size=12,
             align=PP_ALIGN.CENTER, name=f"A2 date {k+1}")
-    textbox(s, xx - 0.65, TY + 0.15, 1.3, 0.4, [[(l1, {})], [(l2, {"c": "grey_txt", "i": True})]], size=10,
+    textbox(s, xx - 0.65, TY + 0.15, 1.3, 0.4, [[(l1, {})], [(l2, {"c": "grey_txt", "i": True})]], size=11,
             align=PP_ALIGN.CENTER, name=f"A2 event {k+1}")
 
 # ------------------------------------------------------------------ right: three paths + rent caps
 R0, RW = g["RP0"], g["R1"] - g["RP0"]
-section_header(s, R0, g["ROW1"], RW, "Three Ways 2027 Can Go", "B header", sup="(2)")
+header(s, R0, g["ROW1"], RW, "Three Ways 2027 Can Go", "B header", sup="(2)")
 prow = [
     [[("Fort Worth approves", {"b": True})], [("Unlikely; city backed HB 21", {})], "$1.43M"],
     [[("Lawsuit wins", {"b": True})], [("Filed Sep-25; pending", {})], "$1.43M"],
     [[("No relief", {"b": True})], [("Default on 1/1/2027", {})], "$0.94M"],
 ]
 grid_table(s, R0, 1.74, [1.55, 2.05, 1.03], ["Path", "Status", "2027 NOI"], prow, "B table",
-           size=10.5, row_h=0.36, hair_rules=True, left_cols=(0, 1), accent_rows=(2,), highlight_rows=(2,))
+           size=12, row_h=0.36, hair_rules=True, left_cols=(0, 1), accent_rows=(2,), highlight_rows=(2,))
 
-section_header(s, R0, 3.32, RW, "Rent Caps vs. Market Rents (Nov-26)", "C header", sup="(3)")
+header(s, R0, 3.32, RW, "Rent Caps vs. Market Rents (Nov-26)", "C header", sup="(3)")
 crow = [["One bedroom (152 units)", f"${CAP_1BR:,}", f"${MKT_1BR:,}", f"${CAP_1BR - MKT_1BR:,}"],
         ["Two bedroom (72 units)", f"${CAP_2BR:,}", f"${MKT_2BR:,}", f"${CAP_2BR - MKT_2BR:,}"]]
 yb = grid_table(s, R0, 3.74, [1.9, 0.9, 0.9, 0.93], ["$ / month", "80% cap", "Market", "Room"], crow, "C table",
-                size=10.5, row_h=0.32, hair_rules=True)
+                size=12, row_h=0.32, hair_rules=True)
 callout(s, R0, yb + 0.14, RW, 0.6,
-        [("Caps sit ", {}), (f"${CAP_1BR - MKT_1BR} to ${CAP_2BR - MKT_2BR}", {"b": True}), (" above market, so the cost is fees and compliance, "
-                                                           "not rent", {})], "C callout", size=10.5)
+        [("Caps sit ", {}), (f"${CAP_1BR - MKT_1BR} to ${CAP_2BR - MKT_2BR}", {"b": True}), (" above market rents. The HFC's cost is fees and compliance, not rent.", {})], "C callout", size=12)
 
 # ------------------------------------------------------------------ closing, footer, notes
-closing_line(s, [("Base case from 2027: NOI near ", {}), ("$0.94M against $1.49M of interest at 9%", {"b": True}),
+closing(s, [("Base case from 2027: NOI near ", {}), ("$0.94M against $1.49M of interest at 9%", {"b": True}),
                  (", with the loan due in March 2027", {})])
 footer_notes(s,
              "Notes: (1) Pre-HFC T12 level; 2027 assessment not yet out. (2) T12 NOI less the tax increase. (3) 2026 MFI $106,700 at 1.5 persons per bedroom x 80% x 30% / 12 (estimate).",

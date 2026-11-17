@@ -45,3 +45,24 @@ def speaker_notes(slide, text):
         from pptx.oxml import parse_xml
         ns.shapes._spTree.append(parse_xml(NOTES_BODY))
     ns.notes_text_frame.text = text
+
+
+def closing(slide, runs):
+    """Closing line at the deck's body size (12pt)."""
+    closing_line(slide, runs, size=12)
+
+
+def header(slide, x, y, w, text, name, sup=None):
+    section_header(slide, x, y, w, text, name, sup=sup, size=15)
+
+
+def caption(slide, x, y, w, text, name, sup=None, size=11):
+    """Italic grey caption under a panel header (11pt on this deck)."""
+    runs = [(text, {"i": True, "c": "grey_txt"})] + ([(sup, {"sup": True, "i": True, "c": "grey_txt"})] if sup else [])
+    return textbox(slide, x, y, w, 0.22, [runs], size=size, name=name)
+
+
+def new_slide(prs, title, takeaway):
+    """new_content_slide on the plain CONTENT layout, found by name (robust to slides being inserted)."""
+    idx = next(i for i, sl in enumerate(prs.slides) if sl.slide_layout.name == "CONTENT")
+    return new_content_slide(prs, title, takeaway, template_index=idx)

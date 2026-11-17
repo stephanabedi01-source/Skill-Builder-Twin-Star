@@ -39,7 +39,7 @@ NOI_TAXED = 0.937
 
 prs = Presentation(SRC)
 g = THEME["grid"]
-s = new_content_slide(
+s = new_slide(
     prs, "Then vs. Now: IC Underwriting vs. Today",
     "Three years in, occupancy is 75% vs. 86% at IC and T12 NOI is $1.43M vs. $2.21M underwritten, even with "
     "the tax break")
@@ -47,7 +47,7 @@ add_slide_number(s)
 
 # ------------------------------------------------------------------ left: the comparison table
 L0, LW = g["L0"], g["LP1"] - g["L0"]
-section_header(s, L0, g["ROW1"], LW, "What Was Underwritten vs. Where It Stands", "A header")
+header(s, L0, g["ROW1"], LW, "What Was Underwritten vs. Where It Stands", "A header")
 rows = [
     ["Occupancy", "86%", [("74.9%; 78.5% leased", {}), ("(1)", {"sup": True})]],
     ["Average rent", "$1,086 by 2026 (+11%)", "$970 market (Nov-26)"],
@@ -62,16 +62,16 @@ rows = [
      [("$0 recovery (fund mark)", {"b": True})]],
 ]
 grid_table(s, L0, 1.74, [1.75, 2.35, 3.25], ["", "IC (Apr-23)", "Today (Nov-26)"], rows, "A table",
-           size=10.5, row_h=0.375, hair_rules=True, left_cols=(0, 1, 2), rule_before=(9,),
+           size=12, row_h=0.375, hair_rules=True, left_cols=(0, 1, 2), rule_before=(9,),
            accent_cols={(0, 2), (2, 2), (4, 2), (9, 2)})
 
 # ------------------------------------------------------------------ right: NOI vs. plan
 R0, RW = g["RP0"], g["R1"] - g["RP0"]
-section_header(s, R0, g["ROW1"], RW, "Underwritten vs. Actual NOI ($M)", "B header", sup="(3)")
+header(s, R0, g["ROW1"], RW, "Underwritten vs. Actual NOI ($M)", "B header", sup="(3)")
 for k, (lab, colr) in enumerate([("IC underwriting", "grey_lt"), ("Actual", "accent_fill")]):
     lx = R0 + k * 1.75
     box(s, lx, 1.78, 0.14, 0.14, fill=colr, line=None, shape=MSO_SHAPE.RECTANGLE, name=f"B legend key {k+1}")
-    textbox(s, lx + 0.2, 1.74, 1.5, 0.22, [[(lab, {})]], size=10, name=f"B legend {k+1}")
+    textbox(s, lx + 0.2, 1.74, 1.5, 0.22, [[(lab, {})]], size=11, name=f"B legend {k+1}")
 cats = ["Year 2", "Year 3"]
 P = Plot(R0 + 0.15, 2.3, RW - 0.3, 2.3, n=2, vmin=0, vmax=2.5)
 chart(s, P, cats, [("IC underwriting", UW_NOI), ("Actual", ACT_NOI)],
@@ -82,19 +82,19 @@ bw = P.slot / (2 + 0.08 + 0.70)
 for k in range(2):
     for j, (v, colr) in enumerate([(UW_NOI[k], "ink"), (ACT_NOI[k], "accent")]):
         bx = P.center(k) + (j - 0.5) * bw * 1.08
-        textbox(s, bx - 0.45, P.v(v) - 0.23, 0.9, 0.2, [[(f"${v:.2f}M", {"b": True, "c": colr})]], size=10.5,
+        textbox(s, bx - 0.45, P.v(v) - 0.23, 0.9, 0.2, [[(f"${v:.2f}M", {"b": True, "c": colr})]], size=12,
                 align=PP_ALIGN.CENTER, name=f"B label {k+1}-{j+1}")
 sub = ["Apr-24 to Mar-25", "T12 to Feb-26"]
 for k, (cat, sb) in enumerate(zip(cats, sub)):
     textbox(s, P.center(k) - 1.0, P.y + P.h + 0.06, 2.0, 0.42,
-            [[(cat, {"b": True})], [(sb, {"c": "grey_txt", "i": True})]], size=10, align=PP_ALIGN.CENTER,
+            [[(cat, {"b": True})], [(sb, {"c": "grey_txt", "i": True})]], size=11, align=PP_ALIGN.CENTER,
             name=f"B category {k+1}")
 callout(s, R0, 5.2, RW, 0.62,
         [("With taxes paid, Year 3 NOI is ", {}), (f"${NOI_TAXED:.2f}M", {"b": True}),
-         (f", {NOI_TAXED / UW_NOI[1]:.0%} of plan", {})], "B callout", size=10.5)
+         (f", {NOI_TAXED / UW_NOI[1]:.0%} of plan", {})], "B callout", size=12)
 
 # ------------------------------------------------------------------ closing, footer, notes
-closing_line(s, [("The plan missed on operations before the refinancing; ", {}),
+closing(s, [("The plan missed on operations before the refinancing; ", {}),
                  ("the March 2025 HFC trade then added cost the property could not carry", {"b": True})])
 footer_notes(s,
              "Notes: (1) Box score 11/15/26. (2) Property taxes of $28K under the HFC. (3) IC years run from an assumed Apr-23 close; 2026 rent is $975 at close grown 4%, 4%, 3%.",

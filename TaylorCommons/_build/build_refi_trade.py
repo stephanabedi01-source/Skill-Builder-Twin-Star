@@ -34,14 +34,14 @@ assert abs(NET - (-612.3)) < 0.5, NET
 
 prs = Presentation(SRC)
 g = THEME["grid"]
-s = new_content_slide(
+s = new_slide(
     prs, "The March 2025 Refinancing Trade",
     "The HFC refinancing added $1.04M of annual interest to save $428K of taxes net of fees, a $612K yearly loss")
 add_slide_number(s)
 
 # ------------------------------------------------------------------ left panel: waterfall
 LW = g["LP1"] - g["L0"]
-section_header(s, g["L0"], g["ROW1"], LW, "Annual Cash Flow Effect of the Trade ($000s)", "A header", sup="(1)")
+header(s, g["L0"], g["ROW1"], LW, "Annual Cash Flow Effect of the Trade ($000s)", "A header", sup="(1)")
 caption(s, g["L0"], g["ROW1"] + 0.36, LW,
         "T12 to Feb-26 under the HFC and bridge loan vs. T12 to Feb-25 under the agency loan", "A caption")
 
@@ -67,23 +67,23 @@ labels = [(0, TAX_SAVED, "+$492", "above"), (1, TAX_SAVED, "($64)", "above"),
 for k, v, txt, where in labels:
     y = P.v(v) - 0.25 if where == "above" else P.v(v) + 0.04
     col_ = "accent" if k >= 2 else "ink"
-    textbox(s, P.center(k) - 0.6, y, 1.2, 0.21, [[(txt, {"b": True, "c": col_})]], size=11, align=PP_ALIGN.CENTER,
+    textbox(s, P.center(k) - 0.6, y, 1.2, 0.21, [[(txt, {"b": True, "c": col_})]], size=12, align=PP_ALIGN.CENTER,
             name=f"A label {k+1}")
 # category labels
-sub = ["T12 $520 to $28", "Pecos HFC, booked below NOI", "T12 $500 to $1,540", "While the exemption holds"]
+sub = ["T12 $520 to $28", "Booked below NOI", "T12 $500 to $1,540", "While the exemption holds"]
 for k, (cat, sb) in enumerate(zip(cats, sub)):
     textbox(s, P.center(k) - 0.85, 5.45, 1.7, 0.44, [[(cat, {"b": True})], [(sb, {"c": "grey_txt", "i": True})]],
-            size=10, align=PP_ALIGN.CENTER, name=f"A category {k+1}")
+            size=11, align=PP_ALIGN.CENTER, name=f"A category {k+1}")
 # pill: the only positive bar is the one HB 21 removes
 px, py = P.center(0) - 0.95, P.v(-330)
 pill(s, px, py, 1.90, 0.34, [("Ends at YE2026", {"b": True, "c": "accent"}), (" under HB 21", {})],
-     "A pill HB21", size=10)
+     "A pill HB21", size=11)
 line(s, P.center(0), P.v(0) + 0.02, P.center(0), py, "accent", 0.75, dash=MSO_LINE_DASH_STYLE.ROUND_DOT,
      name="A pill leader")
 
 # ------------------------------------------------------------------ right panel: old loan vs. bridge
 RW = g["R1"] - g["RP0"]
-section_header(s, g["RP0"], g["ROW1"], RW, "Agency Loan vs. HFC Bridge", "B header")
+header(s, g["RP0"], g["ROW1"], RW, "Agency Loan vs. HFC Bridge", "B header")
 rows = [
     ["Lender", "Agency (assumed)", "W Financial REIT"],
     ["Loan balance", [("$13.7M", {}), ("(2)", {"sup": True})], "$16.5M"],
@@ -95,15 +95,15 @@ rows = [
     [[("Interest coverage", {}), ("(4)", {"sup": True})], "1.9x", "0.93x"],
 ]
 yb = grid_table(s, g["RP0"], 1.74, [1.62, 1.44, 1.52], ["", "Agency loan", "HFC bridge"], rows, "B table",
-                size=10.5, row_h=0.31, bold_rows=(7,), rule_before=(7,), hair_rules=True,
+                size=12, row_h=0.31, bold_rows=(7,), rule_before=(7,), hair_rules=True,
                 accent_cols={(2, 2), (4, 2), (6, 2), (7, 2)})
 callout(s, g["RP0"], yb + 0.24, RW, 0.66,
         [("Even after the 3.57% lock expired, a ~5.25% agency loan on the same NOI covers interest ", {}),
          ("1.3x", {"b": True}), ("(5)", {"sup": True})],
-        "B callout", size=10.5)
+        "B callout", size=12)
 
 # ------------------------------------------------------------------ closing, notes, sources
-closing_line(s, [("The exemption never paid for the debt it required, and ", {}),
+closing(s, [("The exemption never paid for the debt it required, and ", {}),
                  ("HB 21 ends the exemption at YE2026 while the 9% debt remains", {"b": True})])
 footer_notes(s,
              "Notes: (1) T12 to Feb-26 vs. T12 to Feb-25. (2) Estimate from Jan-25 interest. (3) 9.00% from Mar-26. "

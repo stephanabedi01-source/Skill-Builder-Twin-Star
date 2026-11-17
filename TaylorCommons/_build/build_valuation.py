@@ -44,14 +44,14 @@ WB, WK = waterfall(VB[1]), waterfall(VK[1])
 
 prs = Presentation(SRC)
 g = THEME["grid"]
-s = new_content_slide(
+s = new_slide(
     prs, "Valuation and Recovery",
     "Without relief the asset is worth $13.4M to $15.6M, below the $16.5M loan, so SMU's $350K recovers $0")
 add_slide_number(s)
 
 # ------------------------------------------------------------------ left: value range vs. the stack
 L0, LW = g["L0"], g["LP1"] - g["L0"]
-section_header(s, L0, g["ROW1"], LW, "Value Range vs. the Capital Stack ($M)", "A header", sup="(1)")
+header(s, L0, g["ROW1"], LW, "Value Range vs. the Capital Stack ($M)", "A header", sup="(1)")
 cats = ["Income: no relief", "Income: exemption kept", "Fund mark (Mar-26)", "Sales comps"]
 lo = [VB[0], VK[0], None, COMP[0]]
 span = [VB[2] - VB[0], VK[2] - VK[0], None, COMP[1] - COMP[0]]
@@ -64,39 +64,39 @@ bh = P.bar_width(70)
 # fund mark as a diamond
 ym = P.center(2)
 box(s, P.v(19.2) - 0.09, ym - 0.09, 0.18, 0.18, fill="ink", line=None, shape=MSO_SHAPE.DIAMOND, name="A fund mark")
-textbox(s, P.v(19.2) - 0.75, ym + 0.12, 1.5, 0.2, [[("$19.2M", {"b": True})]], size=10.5, align=PP_ALIGN.CENTER,
+textbox(s, P.v(19.2) - 0.75, ym + 0.12, 1.5, 0.2, [[("$19.2M", {"b": True})]], size=12, align=PP_ALIGN.CENTER,
         name="A fund mark label")
 # range labels
-textbox(s, P.v(VB[0]) - 1.32, P.center(0) - 0.1, 1.26, 0.2,
-        [[(f"${VB[0]:.1f} to ${VB[2]:.1f}", {"b": True, "c": "accent"})]], size=10.5, align=PP_ALIGN.RIGHT,
+textbox(s, P.v(VB[2]) - 1.75, P.center(0) - bh / 2 - 0.27, 1.7, 0.22,
+        [[(f"${VB[0]:.1f} to ${VB[2]:.1f}", {"b": True, "c": "accent"})]], size=12, align=PP_ALIGN.RIGHT,
         name="A range 1")
 rng = [(1, VK[0], VK[2], "ink"), (3, COMP[0], COMP[1], "ink")]
 for k, a, b, colr in rng:
     yy = P.center(k) - 0.1
-    textbox(s, P.v(a) - 0.72, yy, 0.66, 0.2, [[(f"${a:.1f}", {"b": True, "c": colr})]], size=10.5,
+    textbox(s, P.v(a) - 0.72, yy, 0.66, 0.2, [[(f"${a:.1f}", {"b": True, "c": colr})]], size=12,
             align=PP_ALIGN.RIGHT, name=f"A low {k+1}")
-    textbox(s, P.v(b) + 0.06, yy, 0.66, 0.2, [[(f"${b:.1f}", {"b": True, "c": colr})]], size=10.5,
+    textbox(s, P.v(b) + 0.06, yy, 0.66, 0.2, [[(f"${b:.1f}", {"b": True, "c": colr})]], size=12,
             name=f"A high {k+1}")
 # row labels (left of plot)
 sub = ["6.0% to 7.0% cap on $0.94M", "6.0% to 7.0% cap on $1.43M", "6.5% cap, recast NOI", "$91K to $137K per unit"]
 for k, (cat, sb) in enumerate(zip(cats, sub)):
     textbox(s, L0, P.center(k) - 0.21, 1.95, 0.42, [[(cat, {"b": True, "c": "accent" if k == 0 else "ink"})],
                                                     [(sb, {"c": "grey_txt", "i": True})]],
-            size=10, align=PP_ALIGN.RIGHT, name=f"A row {k+1}")
+            size=11, align=PP_ALIGN.RIGHT, name=f"A row {k+1}")
 # claim lines: loan, loan + pref
 for v, lab, colr, nm, al in [(LOAN, "Loan $16.5M", "accent", "loan", PP_ALIGN.RIGHT),
                              (LOAN + PREF, "Loan + pref $21.5M", "ink", "pref", PP_ALIGN.LEFT)]:
     x = P.v(v)
     line(s, x, P.y - 0.08, x, P.y + P.h, colr, 1.25, dash=MSO_LINE_DASH_STYLE.DASH, name=f"A {nm} line")
     lx = x - 1.45 if al == PP_ALIGN.RIGHT else x + 0.05
-    textbox(s, lx, P.y + P.h + 0.04, 1.4, 0.2, [[(lab, {"b": True, "c": colr})]], size=10.5,
+    textbox(s, lx, P.y + P.h + 0.04, 1.4, 0.2, [[(lab, {"b": True, "c": colr})]], size=12,
             align=al, name=f"A {nm} label")
 caption(s, L0, P.y + P.h + 0.36, LW,
         "Common equity is in the money only to the right of the loan + pref line", "A caption")
 
 # ------------------------------------------------------------------ right: who gets paid
 R0, RW = g["RP0"], g["R1"] - g["RP0"]
-section_header(s, R0, g["ROW1"], RW, "Sale at a 6.5% Cap: Who Gets Paid ($M)", "B header", sup="(2)")
+header(s, R0, g["ROW1"], RW, "Sale at a 6.5% Cap: Who Gets Paid ($M)", "B header", sup="(2)")
 pct = lambda a, b: f"{a / b:.0%}"  # noqa: E731
 rows = [
     ["Value", f"${VB[1]:.1f}", f"${VK[1]:.1f}"],
@@ -108,14 +108,14 @@ rows = [
     [[("SMU ($0.35)", {"b": True})], [("$0", {"b": True})], [("$0", {"b": True})]],
 ]
 yb = grid_table(s, R0, 1.74, [1.95, 1.3, 1.38], ["", "No relief", "Exemption kept"], rows, "B table",
-                size=10.5, row_h=0.31, hair_rules=True, rule_before=(2, 5),
+                size=12, row_h=0.31, hair_rules=True, rule_before=(2, 5),
                 accent_cols={(2, 1), (3, 1), (4, 1), (4, 2), (5, 1), (5, 2)})
 callout(s, R0, yb + 0.22, RW, 0.66,
         [("The common breaks even near ", {}), (f"${BE_NOI:.2f}M", {"b": True}), (" of NOI", {}),
-         ("(4)", {"sup": True}), (", 55% above the 2027 base case", {})], "B callout", size=10.5)
+         ("(4)", {"sup": True}), (", 55% above the 2027 base case of $0.94M", {})], "B callout", size=12)
 
 # ------------------------------------------------------------------ closing, footer, notes
-closing_line(s, [("SMU's $350K recovers nothing on income value; ", {}),
+closing(s, [("SMU's $350K recovers nothing on income value; ", {}),
                  ("the common needs a sale above ~$100K per unit, stabilized comp pricing", {"b": True})])
 footer_notes(s,
              "Notes: (1) Comps are stabilized trades per the fund annual report. (2) Net of 3.5% selling costs. (3) $5.03M; accrues at 10%, so likely higher. (4) ($16.5M + $5.0M) / 96.5% x 6.5%.",
