@@ -66,3 +66,35 @@ def new_slide(prs, title, takeaway):
     """new_content_slide on the plain CONTENT layout, found by name (robust to slides being inserted)."""
     idx = next(i for i, sl in enumerate(prs.slides) if sl.slide_layout.name == "CONTENT")
     return new_content_slide(prs, title, takeaway, template_index=idx)
+
+
+def photo(slide, key, x, y, w, h, name, focus=0.5):
+    """Place img/<key>.jpg center-cropped to exactly w x h inches (focus = vertical crop position 0..1)."""
+    from PIL import Image
+    src = os.path.join(HERE, "img", f"{key}.jpg")
+    out = os.path.join(HERE, "img", "_crops", f"{key}_{w:.2f}x{h:.2f}.jpg")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    im = Image.open(src).convert("RGB")
+    iw, ih = im.size
+    r = w / h
+    if iw / ih > r:
+        nw = int(ih * r)
+        im = im.crop(((iw - nw) // 2, 0, (iw - nw) // 2 + nw, ih))
+    else:
+        nh = int(iw / r)
+        top = int((ih - nh) * focus)
+        im = im.crop((0, top, iw, top + nh))
+    im.save(out, quality=88)
+    return add_image(slide, out, x, y, w, h, name=name)
+
+
+def drop_slide_titled(prs, title, layout=None):
+    """Remove the first slide whose title placeholder text equals `title` (optionally on a given layout)."""
+    for i, sl in enumerate(prs.slides):
+        if layout and sl.slide_layout.name != layout:
+            continue
+        t = sl.shapes.title
+        if t is not None and t.text_frame.text.strip() == title:
+            drop_slide(prs, i)
+            return i
+    return None

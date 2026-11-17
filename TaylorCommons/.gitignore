@@ -1,2 +1,3 @@
 renders/**/*.pdf
 __pycache__/
+_build/img/_crops/
