@@ -159,6 +159,6 @@ Reference notes:
 - Components Jul-24 to Jul-25: natural +12,445; net international about +12,800; net domestic -6,978; total +18,428.
 - A Census demographer noted Tarrant also had some net domestic out-migration in 2023 to 2024, offset by international migration.
 - ZIP figures come from secondary sites quoting ACS 2019-2023; confirm on data.census.gov (table S1901, B25003, B25064) if asked.""")
-move_slide(prs, s, idx if idx is not None else 8)
+place(prs, s, idx if idx is not None else 8)
 prs.save(DST)
-print("saved", DST, "at position", (idx if idx is not None else 8) + 1)
+print("saved", DST)

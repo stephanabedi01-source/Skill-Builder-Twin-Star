@@ -131,6 +131,6 @@ Reference notes:
 - TexSun Q1-26: talking to Trevian and others for a mid-6s to 7% bridge; agency not available yet (agency in the low 5s).
 - The annual report values the property at ~$19.2M on a 6.5% cap of recast NOI; our base case is lower because it removes the exemption.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

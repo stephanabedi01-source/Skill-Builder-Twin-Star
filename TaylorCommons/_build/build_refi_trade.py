@@ -127,6 +127,6 @@ Reference notes:
 - The T12 to Feb-26 also accrued $137K of 2026 property taxes (Dec-25 to Feb-26); confirm with TexSun whether that is a reserve against losing the exemption.
 - IC deck (Apr-23): assumed agency loan $14.2M, 3.57% fixed, 36 months.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

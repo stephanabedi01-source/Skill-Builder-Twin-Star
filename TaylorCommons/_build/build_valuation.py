@@ -140,6 +140,6 @@ Reference notes:
 - Breakeven NOI: (16.5 + 5.03) / 0.965 x 0.065 = $1.45M; any pref accrual raises it.
 - Sales comps are from the annual report; the team's updated sales comp outreach should replace or confirm them.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

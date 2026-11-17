@@ -166,6 +166,6 @@ So the location works for a workforce renter who wants to be near jobs and shopp
 Reference notes:
 - Pins placed from the prior team's map markers; drive times and school ratings are from that slide and should be re-checked.
 - Inspection: access exclusively via Bridge Road to Overlook Terrace; site tucked behind highway frontage; office developments to the south.""")
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

@@ -118,6 +118,6 @@ Reference notes:
 - Box score 11/15/2026: 167 of 223 rentable units occupied (74.9%), 78.5% leased, 56 vacant of which 49 not ready.
 - Fixes the old Asset Overview line '24 affordable units': the Regulatory Agreement requires at least 112 units (50%) for households under 80% AMI and 202 (90%) under 140% AMI.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

@@ -62,10 +62,26 @@ def caption(slide, x, y, w, text, name, sup=None, size=11):
     return textbox(slide, x, y, w, 0.22, [runs], size=size, name=name)
 
 
+_REPLACED = {}
+
+
 def new_slide(prs, title, takeaway):
-    """new_content_slide on the plain CONTENT layout, found by name (robust to slides being inserted)."""
+    """new_content_slide on the plain CONTENT layout, found by name (robust to slides being inserted).
+    If a CONTENT slide with the same title already exists (an earlier build of this slide), it is removed first and
+    place() later puts the new slide back in its spot, so rerunning a builder on the latest deck updates the slide
+    instead of duplicating it."""
+    old_idx = drop_slide_titled(prs, title, layout="CONTENT")
     idx = next(i for i, sl in enumerate(prs.slides) if sl.slide_layout.name == "CONTENT")
-    return new_content_slide(prs, title, takeaway, template_index=idx)
+    s = new_content_slide(prs, title, takeaway, template_index=idx)
+    _REPLACED[id(s._element)] = old_idx
+    return s
+
+
+def place(prs, slide, default_pos):
+    """Move a new slide to where its earlier version was; otherwise to default_pos (or an explicit CLI position)."""
+    old_idx = _REPLACED.get(id(slide._element))
+    explicit = len(sys.argv) > 3
+    move_slide(prs, slide, default_pos if (explicit or old_idx is None) else old_idx)
 
 
 def photo(slide, key, x, y, w, h, name, focus=0.5):

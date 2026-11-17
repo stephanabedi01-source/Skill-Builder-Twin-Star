@@ -138,6 +138,6 @@ Reference notes:
 - Retention Oct-25 to Apr-26: 145 expiring, 58 renewals, 41 early move-outs, 20 notices to vacate. The annual report's 57% retention uses a different basis.
 - Delinquency down to $16K at Mar-26 month end (TexSun); evictions slowed by 30 to 90 day writ delays.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

@@ -119,6 +119,6 @@ Reference notes:
 - Rent cap math: 2026 MFI $106,700 (TDHCA). 1BR at 1.5 persons = 75% of 4-person; 2BR at 3 persons = 90%. Estimates; confirm with the Novogradac calculator named in the agreement.
 - TexSun (Q1-26): no further clarity on the exemption; counsel checking in periodically.""")
 
-move_slide(prs, s, POS)
+place(prs, s, POS)
 prs.save(DST)
-print("saved", DST, "at position", POS + 1)
+print("saved", DST)

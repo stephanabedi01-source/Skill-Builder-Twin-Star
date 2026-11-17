@@ -85,7 +85,7 @@ This is older, basic product. It wins on price and condition, which is what we w
 Reference notes:
 - Fixes the prior version: the property is not '24 affordable units'; the Regulatory Agreement requires 50% of units for households under 80% AMI and 90% under 140% AMI.
 - 171,715 rentable SF per the IC model (the prior slide showed 178,923 SF).""")
-move_slide(prs, s, 2)
+place(prs, s, 2)
 
 
 # ======================================================================== Site visit helper
@@ -150,7 +150,7 @@ On arrival, the entry and leasing office are clean and landscaped, but the build
 Inside, the vacant unit we saw had new counters and backsplash, but tile floors, white appliances, and no light fixtures in the living room or bedrooms, so it was dim. It had not been cleaned. A renovated model unit with good light would show much better.
 
 All of this costs leads before anyone sees a unit, which matches the funnel: leads doubled, tours did not.""")
-move_slide(prs, s, 4)
+place(prs, s, 4)
 
 # ======================================================================== Site Visit 2
 s = new_slide(prs, "Site Visit: Amenities, Leasing and Marketing",
@@ -193,7 +193,7 @@ None of these fixes are expensive. A model unit, longer hours and trash pickup a
 Reference notes:
 - The Brittany (TexSun, 280 units, 1984) has a model unit next to the leasing office overlooking the pool, with stainless appliances and vinyl plank.
 - Fee packages from the inspection: Taylor Commons $175 (trash $20, W/D $60, pest $9, Spectrum $70, waiver $16); The Brittany $135; Tides at 5400 $99.""")
-move_slide(prs, s, 5)
+place(prs, s, 5)
 
 prs.save(DST)
 print("saved", DST)
