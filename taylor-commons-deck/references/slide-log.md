@@ -26,8 +26,8 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 | 7 | Site Visit: Amenities, Leasing and Marketing | Done | build_site.py | A strong leasing agent, but no model unit, short hours and a $175 fee package weaken every tour |
 | 8 | Operations: Where Leasing Broke Down | Done | build_operations.py | Occupancy peaked near 90% in Jul-25 and fell to 74.9%, with 49 of 56 vacant units not ready to lease |
 | 9 | Migration Trends | Done | build_migration.py | Fort Worth still adds about 20,000 people a year, but Tarrant County now loses domestic movers; growth comes from births and immigration |
-| 10 | Market Overview: Dallas-Fort Worth | Done (rebuilt Nov-18) | build_market.py | DFW demand now outruns new supply and the pipeline keeps shrinking, but rents are still 2.0% lower than a year ago |
-| 11 | Submarket Overview: East Fort Worth | Done (rebuilt Nov-18) | build_market.py | East Fort Worth is 91% occupied with only 200 units under construction, but its rents are falling faster than the metro's (comp-set occupancy chart moved to the comps section, still to build) |
+| 10 | Market Overview: Dallas-Fort Worth | Done (rebuilt on the prior team's 4-module layout) | build_market.py | DFW keeps adding people and jobs and demand now outruns supply, but rents and sale prices are still below their peaks |
+| 11 | Submarket Overview: East Fort Worth | Done (prior team's supply pipeline / rent dynamics / key employers layout; Arlington data replaced) | build_market.py | East Fort Worth has almost no new supply coming, but its rents are falling 4.6% a year, more than twice the metro's pace |
 | 12 | Current Rent Comparables vs. Underwriting | Prior group, empty | none | To build: rent by floor plan vs. Brittany, Ryan and others; comp photos in the inspection report; IC comps in the AM model "UW Comps" tab |
 | 13 | Current Sales Comparables vs. Underwriting | Prior group, empty | none | To build: needs the team's sales comp outreach; annual report range $91K to $137K/unit, submarket cap ~5.9% |
 | 14 | Historical Financials vs. Underwriting | Prior group, empty | none | Planned: bridge from IC Year 3 NOI $2.21M to actual $0.94M (taxes paid) by line: occupancy, rent and concessions, bad debt, other income, payroll and opex, taxes and insurance |
@@ -53,6 +53,7 @@ rerun on its own; it replaces its slide in place.
 ## Feedback the user gave while building (keep honoring it)
 
 - Market and submarket slides must look like market slides: economy, supply vs. demand over time, fundamentals and pipeline; submarket map plus submarket stats vs. metro. Comp-set rankings belong on the comps slides.
+- When redoing a prior team's slide, start from its structure and content (modules, logos, points worth keeping) and fix or replace the data; do not start over.
 - Do not present the fund's $19.2M mark as neutral: it assumes the tax exemption survives, which the team thinks is very unlikely.
 
 - Garamond deck; clean, not used by another group: no navy, no red swoosh.
