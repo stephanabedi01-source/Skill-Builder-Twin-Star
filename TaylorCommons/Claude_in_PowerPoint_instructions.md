@@ -5,14 +5,24 @@ editing the same file, so paste **one batch at a time** and check each one befor
 Always refer to slides **by title, not number**. The deck has hidden slides, so the numbers PowerPoint shows don't
 match the PDF.
 
+**Photo rule:** the deck uses only Seth's photos from this year's secret shop (the seven photo slides at the back).
+No photos from the Nov-25 inspection report, the IC deck, the sponsor or prior groups. Maps and logos are fine.
+
 Three changes need a person, not Claude in PowerPoint:
-1. **Paste in the rebuilt slides.** The Market, Submarket and Valuation slides in the live deck are older
-   versions. Their newer versions have native charts and are in `TaylorCommons/v2_Taylor_Commons_AM_pitch_11.16.2026.pptx`.
+1. **Paste in the rebuilt slides.** Six slides in the live deck are older versions. The rebuilt ones are in
+   `TaylorCommons/v2_Taylor_Commons_AM_pitch_11.16.2026.pptx`: Market and Submarket now have native charts, and
+   Asset Overview and both Site Visit slides now use only Seth's photos.
    1. In PowerPoint, go to Home > New Slide > Reuse Slides and pick that file.
    2. Check **Keep source formatting**.
-   3. Insert "Market Overview: Dallas-Fort Worth", "Submarket Overview: East Fort Worth" and "Valuation and
-      Recovery".
-   4. Delete the old copies.
+   3. Insert these six slides:
+      - "Asset Overview"
+      - "Site Visit: Location, Signage and Arrival"
+      - "Site Visit: Leasing Office, Model Unit and Upkeep"
+      - "Market Overview: Dallas-Fort Worth"
+      - "Submarket Overview: East Fort Worth"
+      - "Valuation and Recovery"
+   4. Delete the old copies, including the old Asset Overview and the two old Site Visit slides, which used last
+      year's photos.
 2. **Fill the bracketed items.** Anything in [square brackets] below is something only the person who did the
    Nov-26 secret shop knows. Fill it in or delete it. Never let Claude invent it.
 3. **Sales comps.** These need real trades from CoStar or broker calls (see Batch 6).
@@ -37,6 +47,8 @@ House style for every change:
 - Third person only on slides (no we, our, us, you, I). No em dashes. Numbers like $1.43M, ($612K), 0.93x, 74.9%,
   $13.4M to $15.6M. Months like Nov-26.
 - Do not invent numbers. Text in [square brackets] is a placeholder for a teammate: leave it in brackets.
+- Photos: use only the team's Nov-26 secret shop photos already in this deck (the "Secret Shopping - Asset Photos"
+  slides). Never insert photos from older reports, the IC deck, the sponsor or the internet. Maps and logos are fine.
 ```
 
 ---
@@ -51,8 +63,8 @@ me about any slide that is not on this list; do not delete those yet.
 1  Cover
 2  Agenda
 3  Asset Overview
-4  Site Visit: Location, Curb Appeal and Units
-5  Site Visit: Amenities, Leasing and Marketing
+4  Site Visit: Location, Signage and Arrival        (rebuilt; pasted from the v2 file)
+5  Site Visit: Leasing Office, Model Unit and Upkeep  (rebuilt; pasted from the v2 file)
 6  Secret Shopping - Update            (rename to "Secret Shopping Update (Nov-26)" in Batch 2)
 7  Location Overview
 8  Migration Trends
@@ -87,7 +99,7 @@ Next, update the agenda so its page numbers match:
 ```
 On the "Agenda" slide, update the ten rows (keep the layout) to:
 1  Asset Overview | 224 units, built 1979, bought in Jun-23 for $25.9M | 3
-2  Site Visit Findings | Hard to find and dated; a model unit now, but deferred maintenance shows | 4 to 6
+2  Site Visit Findings | Still hard to find; a model unit now, but upkeep is slipping | 4 to 6
 3  Location & Market | DFW is recovering; east Fort Worth Class C is not | 7 to 10
 4  Performance vs. Underwriting | 75% occupied; T12 NOI of $1.43M vs. $2.21M planned | 11 to 13
 5  Comparables | Comp set 72.8% occupied; TC asks $970, $56 below the comp average | 14 to 16
@@ -103,9 +115,10 @@ Keep the takeaway as is. Each preview must stay on one line at 12pt; shorten it 
 
 ## Batch 2: secret shopping body slide
 
-Context: the inspection report dated Nov-11-25 is the **first** visit. My two Site Visit slides summarize it.
-The photo slides come from the **Nov-26** secret shop. The biggest change since then is a staged 1BR model unit,
-which didn't exist in Nov-25. Signage, hours, fees and condition haven't improved, and some have gotten worse.
+Context: the inspection report dated Nov-11-25 is last year's visit, and none of its photos are used. The two
+rebuilt Site Visit slides and the photo slides all come from Seth's **Nov-26** secret shop. The biggest change
+since Nov-25 is a staged 1BR model unit. Signage, hours, fees and condition haven't improved, and some have gotten
+worse.
 
 ```
 Rework the slide titled "Secret Shopping - Update". Keep its structure (two panel headers "Factors of Low Occupancy"
@@ -149,13 +162,8 @@ Notes: Asking rents from the Rent Comparables slide (box score 11/15/26); fee pa
 Sources: Team secret shop (Nov-26); Taylor Commons inspection report (Nov-25); TexSun box score.
 ```
 
-Then flag the earlier visit on the two site visit slides:
-
-```
-On the slides titled "Site Visit: Location, Curb Appeal and Units" and "Site Visit: Amenities, Leasing and
-Marketing", add " (Nov-25)" to the end of each title. On the second one, wherever it says there is no model unit,
-add in grey italics: "(model unit added by Nov-26)". Change nothing else.
-```
+Before running Batch 2, check that the old Site Visit slides ("Location, Curb Appeal and Units" and "Amenities,
+Leasing and Marketing") are gone. Those slides used last year's photos and are replaced by the rebuilt ones.
 
 ---
 

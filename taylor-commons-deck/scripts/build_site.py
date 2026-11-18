@@ -1,4 +1,7 @@
-"""Slides: Asset Overview (rebuilt) + Site Visit 1 and 2 (from the team inspection, November 11).
+"""Slides: Asset Overview (rebuilt) + Site Visit 1 and 2 (team site visit and secret shop, Nov-26).
+
+PHOTO RULE: only the team's Nov-26 secret shop photos (img/v26_*.jpg) may be used. No photos from the Nov-25
+inspection report, the IC deck, the sponsor, or prior groups.
 
 Usage: python3 build_site.py <in.pptx> <out.pptx>
 Drops the old 'Asset Overview' slide, inserts the new one at slide 3 and the two site visit slides at 5 and 6
@@ -7,7 +10,7 @@ Drops the old 'Asset Overview' slide, inserts the new one at slide 3 and the two
 Facts: 5600 Cotswold Hills Dr., Fort Worth 76112; built 1979; 224 units (152 1BR / 72 2BR, box score 11/15/2026);
 avg 767 SF (Control Sheet); closed 6/15/2023 at $25.9M ($115,625/unit, IC); sponsor TexSun Holdings; Cottonwood
 running day-to-day operations (annual report); SMU $350K of $9.875M common; senior $16.5M W Financial bridge ~9%
-due Mar-27; Pecos HFC ground lease 3/24/2025. Site visit text and photos: Taylor_Commons_Inspection.pdf.
+due Mar-27; Pecos HFC ground lease 3/24/2025. Fee package and referral terms: Nov-25 inspection report text.
 """
 import sys
 
@@ -26,11 +29,13 @@ s = new_slide(prs, "Asset Overview",
               "of common")
 add_slide_number(s)
 header(s, L0, g["ROW1"], LW, "Taylor Commons Apartments", "A header")
-photo(s, "aerial", L0, 1.74, LW, 2.72, "A aerial", focus=0.8)
+photo(s, "v26_gate", L0, 1.74, LW, 2.72, "A hero", focus=0.62)
 pw = (LW - 0.24) / 3
-for k, (key, nm) in enumerate([("leasing_office", "office"), ("pool", "pool"), ("exterior3", "building")]):
-    photo(s, key, L0 + k * (pw + 0.12), 4.58, pw, 1.3, f"A photo {nm}")
-caption(s, L0, 5.93, LW, "Aerial view; leasing office; pool; typical two-story building", "A caption")
+for k, (key, nm, fc) in enumerate([("v26_office", "office", 0.6), ("v26_model_living", "model", 0.55),
+                                   ("v26_building", "building", 0.4)]):
+    photo(s, key, L0 + k * (pw + 0.12), 4.58, pw, 1.3, f"A photo {nm}", focus=fc)
+caption(s, L0, 5.93, LW, "Entry gate; leasing office; staged model unit; typical two-story building (Nov-26)",
+        "A caption")
 
 header(s, R0, g["ROW1"], RW, "Property", "B header")
 rows_p = [
@@ -71,7 +76,7 @@ closing(s, [("Older, basic product that has to win on price and condition, ", {}
             ("which is what the site visit tested", {"b": True})])
 footer_notes(s, "Notes: (1) Box score 11/15/26.",
              "Sources: IC presentation; Deed of Trust and Ground Lease (3/24/25); Fund annual report 2025-26; "
-             "sponsor photos; team site visit.")
+             "team site visit (Nov-26).")
 speaker_notes(s, """Presenter: TBD
 
 Taylor Commons is a 224-unit garden-style community on the east side of Fort Worth, in the Woodhaven submarket, just north of I-30. It was built in 1979: two-story buildings, 152 one-bedrooms and 72 two-bedrooms, averaging about 770 square feet, with a pool, a small fitness center and a resident lounge in the leasing office.
@@ -116,84 +121,94 @@ def photo_grid(s, items, name):
 
 
 # ======================================================================== Site Visit 1
-s = new_slide(prs, "Site Visit: Location, Curb Appeal and Units",
-              "The property is hard to find and dated on arrival, and the vacant unit toured was dim and not cleaned")
+old1 = drop_slide_titled(prs, "Site Visit: Location, Curb Appeal and Units")
+s = new_slide(prs, "Site Visit: Location, Signage and Arrival",
+              "Taylor Commons is still hard to find: one unbranded sign on I-30, office towers in front and a gate "
+              "seen only up close")
 add_slide_number(s)
 header(s, L0, g["ROW1"], LW, "What a Prospect Sees", "A header")
-photo_grid(s, [("sign", "The only sign on the frontage road", 0.5),
-               ("office_view", "Office towers block the view from I-30", 0.5),
-               ("gate", "Gate signage reads only up close", 0.5),
-               ("exterior2", "Original 1979 stucco buildings", 0.5),
-               ("kitchen", "Updated counters, white appliances", 0.5),
-               ("living", "No light fixture in the living room", 0.5)], "A")
+photo_grid(s, [("v26_sign", "The only sign on the frontage road", 0.5),
+               ("v26_corner", "Office towers own the corner", 0.75),
+               ("v26_overlook", "Overlook Terrace bends out of view", 0.7),
+               ("v26_paving", "Cracked paving on the only way in", 0.7),
+               ("v26_gate", "Gate sign reads only up close", 0.65),
+               ("v26_office", "Clean, landscaped leasing office", 0.6)], "A")
 header(s, R0, g["ROW1"], RW, "Team Assessment", "B header")
 yy1 = scorecard(s, 1.74, [
-    ("Location and visibility", "Weak",
-     "Tucked behind office buildings off I-30, one small \"Now Leasing\" sign, single entry off Overlook Terrace"),
-    ("Curb appeal", "Fair",
-     "Clean, landscaped entry, but 1979 stucco, faded striping and repetitive buildings read dated"),
-    ("Unit interiors", "Fair",
-     "New counters and backsplash, but tile floors, white appliances and no ceiling lights; unit not cleaned"),
+    ("Visibility", "Weak",
+     "Behind office towers north of I-30; the frontage-road sign carries no property name"),
+    ("Wayfinding", "Weak",
+     "Single entry via Overlook Terrace, a curving side street with cracked, patched paving"),
+    ("Entry and office", "Fair",
+     "Gate, flags and leasing office are clean and landscaped, but signage reads only at the gate"),
 ], "B")
-callout(s, R0, yy1, RW, 0.62, [("The agent ", {}), ("struggled to find it", {"b": True}), (" for her own interview", {})], "B callout", size=12)
-closing(s, [("Visibility and curb appeal cost leads ", {}), ("before a prospect ever sees a unit", {"b": True})])
-footer_notes(s, "Notes: Team site visit and secret shop, November 11.",
-             "Sources: Team site visit and photos.")
+callout(s, R0, yy1, RW, 0.62, [("Signage is ", {}), ("unchanged", {"b": True}),
+                               (" since the Nov-25 visit", {})], "B callout", size=12)
+closing(s, [("Visibility costs leads before a prospect sees a unit: ", {}),
+            ("leads doubled in 2025 while tours stayed flat", {"b": True})])
+footer_notes(s, "Notes: Leads 665 to 1,315 and tours 121 to 123, 26 weeks to Jun-25 vs. 26 weeks to Dec-25.",
+             "Sources: Team site visit and secret shop (Nov-26); TexSun box scores.")
 speaker_notes(s, """Presenter: TBD
 
-We visited the property and secret-shopped the leasing office on November 11.
+We went back out to the property and secret-shopped it this month.
 
-Getting there is the first problem. The property sits behind a row of office buildings off I-30, so you cannot see it from the highway. The only directional sign on the frontage road is a small 'Now Leasing' sign with no property name on it, and the property signage at the gate only reads once you are almost there. The leasing agent told us she had trouble finding it for her own interview.
+Getting there is still the first problem. Coming off I-30, the only cue is a small 'Now Leasing' sign on the frontage road with no property name on it. The corner is dominated by the glass office towers, and Overlook Terrace, the only way in, curves behind them, so you cannot see the property from the road. The street itself is cracked and patched.
 
-On arrival, the entry and leasing office are clean and landscaped, but the buildings are original 1979 stucco with dark trim, the parking striping is faded, and the buildings all look the same. Next to renovated neighbors like The Brittany, it reads dated.
+At the gate it gets better: the gate, the flags and the leasing office are clean and well landscaped. But the Taylor Commons sign only reads once you are already at the gate.
 
-Inside, the vacant unit we saw had new counters and backsplash, but tile floors, white appliances, and no light fixtures in the living room or bedrooms, so it was dim. It had not been cleaned. A renovated model unit with good light would show much better.
-
-All of this costs leads before anyone sees a unit, which matches the funnel: leads doubled, tours did not.""")
-place(prs, s, 4)
-
-# ======================================================================== Site Visit 2
-s = new_slide(prs, "Site Visit: Amenities, Leasing and Marketing",
-              "A strong leasing agent, but no model unit, short hours and a $175 fee package weaken every tour")
-add_slide_number(s)
-header(s, L0, g["ROW1"], LW, "The Tour", "A header")
-photo_grid(s, [("pool", "Pool is clean; deck furniture is worn", 0.5),
-               ("fitness", "Small gym, open office hours only", 0.5),
-               ("lounge", "Lounge works as a waiting area", 0.5),
-               ("trash", "Overflowing trash on the tour route", 0.5),
-               ("hours", "Closed Sundays and 6 PM weekdays", 0.4),
-               ("website", "Website and listings are current", 0.5)], "A")
-header(s, R0, g["ROW1"], RW, "Team Assessment", "B header")
-yy = scorecard(s, 1.74, [
-    ("Amenities", "Fair", "Clean pool and lounge; small fitness center locked outside office hours"),
-    ("Leasing and tour", "Weak",
-     "Engaged, knowledgeable agent, but no model unit; tour of an occupied corner unit past overflowing trash"),
-    ("Hours and marketing", "Fair",
-     "Closes 6 PM weekdays, all Sunday; site and listings current; $500 to $1,000 referral bonuses"),
-], "B")
-callout(s, R0, yy, RW, 0.62, [("Fee package: ", {}), ("$175 a month", {"b": True}),
-                              (" vs. $135 at The Brittany and $99 at Tides", {})], "B callout", size=12)
-closing(s, [("The fixes are cheap (a model unit, longer hours, trash pickup), ", {}),
-            ("but each competes for the same scarce cash", {"b": True})])
-footer_notes(s, "Notes: Team site visit and secret shop, November 11. Fee package is trash, W/D, pest, Wi-Fi and "
-                "liability waiver; The Brittany $135, Tides at 5400 $99.",
-             "Sources: Team site visit; leasing offices; taylorcommons.com.")
-speaker_notes(s, """Presenter: TBD
-
-The amenities are serviceable. The pool is clean and a good size, but the deck furniture is worn. The fitness center is small and only open during leasing office hours, which does not help residents who work all day. The lounge in the leasing office is nice but works more like a waiting room than a place residents use.
-
-The leasing agent was the best part of the visit: engaged, knew the product and the neighborhood, and sold the location well. But the tour hurt her. There is no model unit, so she showed us an occupied unit in the far corner of the property, and the route went past overflowing trash bins and unkept pet areas.
-
-Hours are a real problem for this renter: the office closes at 6 on weekdays and is closed Sundays, and most prospects work full time. The website and the listing sites are current and look good, and there is a referral program paying $500 to $1,000.
-
-One pricing point: the monthly fee package here, trash, washer and dryer, pest, Wi-Fi and the liability waiver, is about $175 a month. The Brittany's is $135 and Tides at 5400 is $99. That is on top of rents that TexSun already says are high on some floor plans.
-
-None of these fixes are expensive. A model unit, longer hours and trash pickup are small dollars. But they compete for the same cash the property needs to turn its 49 vacant units.
+None of the signage has changed since last year's visit. That matters because the funnel shows it: leads roughly doubled in 2025, but tours stayed flat. Prospects find the listing; fewer of them find, or choose to drive to, the property.
 
 Reference notes:
-- The Brittany (TexSun, 280 units, 1984) has a model unit next to the leasing office overlooking the pool, with stainless appliances and vinyl plank.
-- Fee packages from the inspection: Taylor Commons $175 (trash $20, W/D $60, pest $9, Spectrum $70, waiver $16); The Brittany $135; Tides at 5400 $99.""")
-place(prs, s, 5)
+- Leasing funnel (box score sums): leads 665 -> 1,315; tours 121 -> 123; 26 weeks to 6/2/25 vs. 26 weeks to 12/8/25.
+- Photos: team secret shop, Nov-26 (only current-year photos are used in this deck).""")
+place(prs, s, old1 if old1 is not None else 3)
+
+# ======================================================================== Site Visit 2
+old2 = drop_slide_titled(prs, "Site Visit: Amenities, Leasing and Marketing")
+s = new_slide(prs, "Site Visit: Leasing Office, Model Unit and Upkeep",
+              "A staged model unit now anchors the tour, but short hours and visible deferred maintenance undercut it")
+add_slide_number(s)
+header(s, L0, g["ROW1"], LW, "The Tour", "A header")
+photo_grid(s, [("v26_hours", "Closed 6 PM weekdays and all Sunday", 0.45),
+               ("v26_model_living", "New since Nov-25: staged 1BR model", 0.6),
+               ("v26_model_kitchen", "New counters; white appliances, tile", 0.55),
+               ("v26_landing2", "Stair landing propped on cinder blocks", 0.6),
+               ("v26_hvac2", "Rusted, debris-filled condensers", 0.55),
+               ("v26_siding", "Rotted siding behind a downspout", 0.5)], "A")
+header(s, R0, g["ROW1"], RW, "Team Assessment", "B header")
+yy = scorecard(s, 1.74, [
+    ("Leasing office", "Fair",
+     "Clean and inviting, but open only 9 to 6 weekdays and 10 to 5:30 Saturday; closed Sunday"),
+    ("Model unit", "Good",
+     "Staged 1BR model now shown; classic finishes: new counters, original cabinets, white appliances"),
+    ("Exterior upkeep", "Weak",
+     "Landings on cinder blocks, rusted HVAC condensers and rotted siding along resident walkways"),
+], "B")
+callout(s, R0, yy, RW, 0.62, [("Fee package: ", {}), ("$175 a month", {"b": True}),
+                              (" vs. $135 at The Brittany and $99 at Tides", {}), ("(1)", {"sup": True})],
+        "B callout", size=12)
+closing(s, [("The unit now shows well; ", {}),
+            ("the hours and the walk to it still cost leases", {"b": True})])
+footer_notes(s, "Notes: (1) Trash, W/D, pest, Wi-Fi and liability waiver, as quoted at the Nov-25 visit. More photos "
+                "in the appendix.",
+             "Sources: Team site visit and secret shop (Nov-26); posted office hours.")
+speaker_notes(s, """Presenter: TBD
+
+Inside the gate, the biggest change since last year is a staged model unit. Last year the agent had to show an occupied unit in the far corner; now there is a furnished one-bedroom, the A2 plan, and it shows well. It is a classic unit, though: new counters and backsplash, but the original cabinets, white appliances and tile floors.
+
+The leasing office itself is clean and inviting, but the hours have not changed: 9 to 6 on weekdays, 10 to 5:30 on Saturday, and closed Sunday, which is when people who work full time go apartment hunting. [Add: the office was closed when we arrived, if that is when the 'closed' sign photo was taken.]
+
+The walk to the unit is where it falls apart. Several concrete stair landings have settled and cracked and are propped up on loose cinder blocks. Many of the AC condensers are rusted and packed with leaves, and some siding has rotted through. The landings are a safety and liability issue, not a cosmetic one.
+
+Pricing: the monthly fee package was $175 at last year's visit, against $135 at The Brittany and $99 at Tides at 5400. [Confirm what was quoted this year.]
+
+So the unit sells now; the hours and the condition of the walk still cost leases.
+
+Reference notes:
+- Office hours from the posted sign: Mon-Fri 9:00 to 6:00, Sat 10:00 to 5:30, Sun closed.
+- Fee package (Nov-25 inspection): Taylor Commons $175 (trash $20, W/D $60, pest $9, Spectrum $70, waiver $16); The Brittany $135; Tides at 5400 $99.
+- Full photo set (signage, office, model, foundation, HVAC, misc.) is in the appendix.""")
+place(prs, s, old2 if old2 is not None else 4)
 
 prs.save(DST)
 print("saved", DST)

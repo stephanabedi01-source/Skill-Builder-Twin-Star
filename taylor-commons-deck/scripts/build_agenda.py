@@ -24,8 +24,8 @@ def title_of(sl):
 # (section, descriptor, title prefixes in order)
 SECTIONS = [
     ("Asset Overview", "224 units, built 1979, bought in Jun-23 for $25.9M", ["Asset Overview"]),
-    ("Site Visit Findings", "Hard to find, dated on arrival, and a weak tour", ["Site Visit: Location",
-                                                                              "Site Visit: Amenities"]),
+    ("Site Visit Findings", "Still hard to find; a model unit now, but upkeep is slipping", ["Site Visit: Location",
+                                                                                   "Site Visit: Leasing"]),
     ("Location & Market", "DFW is recovering; east Fort Worth Class C is not",
      ["Location Overview", "Migration Trends", "Market Overview", "Submarket"]),
     ("Performance vs. Underwriting", "75% occupied; T12 NOI of $1.43M vs. $2.21M planned",

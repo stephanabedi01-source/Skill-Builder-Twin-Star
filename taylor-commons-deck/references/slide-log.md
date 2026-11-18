@@ -10,9 +10,9 @@ The deck has hidden slides, so always match slides by title, never by number.
 |---|---|---|
 | 1 | Cover | Done |
 | 2 | Agenda | Done; page ranges must be updated to this order (claude-in-ppt Batch 1) |
-| 3 | Asset Overview | Done |
-| 4 | Site Visit: Location, Curb Appeal and Units (Nov-25) | Done; summarizes the Nov-25 inspection report |
-| 5 | Site Visit: Amenities, Leasing and Marketing (Nov-25) | Done; note the model unit has since been added |
+| 3 | Asset Overview | Rebuilt Nov-18 with Nov-26 photos only (v2 file); reuse into the live deck |
+| 4 | Site Visit: Location, Signage and Arrival | Rebuilt Nov-18 from the Nov-26 secret shop (v2 file); replaces "Location, Curb Appeal and Units" |
+| 5 | Site Visit: Leasing Office, Model Unit and Upkeep | Rebuilt Nov-18 from the Nov-26 secret shop (v2 file); replaces "Amenities, Leasing and Marketing" |
 | 6 | Secret Shopping Update (Nov-26) | Teammate shell; text written in claude-in-ppt Batch 2 |
 | 7 | Location Overview | Done |
 | 8 | Migration Trends | Done |
@@ -34,7 +34,7 @@ The deck has hidden slides, so always match slides by title, never by number.
 | 24 | How Can the Fund Avoid the Same Mistakes | Done (teammate); light fixes in Batch 4 |
 | 25 | What the Fund Does Now | To build; full text in Batch 5 (three paths at maturity plus recommendation) |
 | 26 | Appendix | Divider |
-| 27 to 33 | Secret Shopping - Asset Photos (7) | Teammate photos on the OLD navy template; restyle and caption them (Batch 3) |
+| 27 to 33 | Secret Shopping - Asset Photos (7) | Seth's Nov-26 photos (the ONLY photos allowed in the deck) on the OLD navy template; restyle and caption them (Batch 3) |
 
 Assignment checklist:
 - **Inspection report:** covered by slides 4 to 6 and 27 to 33.

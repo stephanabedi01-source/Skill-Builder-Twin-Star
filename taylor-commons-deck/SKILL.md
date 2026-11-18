@@ -1,6 +1,6 @@
 ---
 name: taylor-commons-deck
-description: Build, edit, check and present slides for the SMU Cox Real Estate Impact Fund's Taylor Commons asset management (AM) update deck (224-unit, 1979 multifamily in east Fort Worth; TexSun sponsor; March 2025 Pecos HFC refinancing; HB 21 tax cliff; W Financial bridge loan). Carries the team's slide master and formatting rules (Garamond, charcoal and brick, 12pt body, takeaway line, dashed closing line, 9pt footer notes), every sourced deal number, the status of each slide, open questions for TexSun, and runnable builder scripts plus the property photos and maps. Use this whenever anyone mentions Taylor Commons, the TC deck, the AM update or AM pitch, the HFC or HB 21 slides, the refinancing trade, the 2027 cliff, valuation and recovery, rent or sales comps for Taylor Commons, the site visit slides, speaker notes for the presentation, or asks to add, fix, restyle, check or rebuild any slide in that deck, even if they do not say "skill".
+description: Build, edit, check and present slides for the SMU Cox Real Estate Impact Fund's Taylor Commons asset management (AM) update deck (224-unit, 1979 multifamily in east Fort Worth; TexSun sponsor; March 2025 Pecos HFC refinancing; HB 21 tax cliff; W Financial bridge loan). Carries the team's slide master and formatting rules (Garamond, charcoal and brick, 12pt body, takeaway line, dashed closing line, 9pt footer notes), every sourced deal number, the status of each slide, open questions for TexSun, and runnable builder scripts plus the team's Nov-26 property photos and maps. Use this whenever anyone mentions Taylor Commons, the TC deck, the AM update or AM pitch, the HFC or HB 21 slides, the refinancing trade, the 2027 cliff, valuation and recovery, rent or sales comps for Taylor Commons, the site visit slides, speaker notes for the presentation, or asks to add, fix, restyle, check or rebuild any slide in that deck, even if they do not say "skill".
 ---
 
 # Taylor Commons AM Deck
@@ -69,6 +69,8 @@ Every new slide should push that argument one step and hand off to the next slid
   Longer explanations go in speaker notes.
 - No personal pronouns on slides (we, our, us, you, I); slides speak in the third person. No em dashes. Numbers
   formatted like `$1.43M`, `($612K)`, `0.93x`, `74.9%`, `$13.4M to $15.6M`.
+- Photos: only the team's Nov-26 secret shop photos (`scripts/img/v26_*.jpg`). No photos from the Nov-25 inspection
+  report, the IC deck, the sponsor, prior groups or past assignments. Maps and logos are fine.
 - Real, sourced numbers only. Mark estimates as estimates. Never fill a gap with a plausible-looking number.
 - Native, editable charts (not pictures of charts). Label values directly; no gridlines or legends unless needed.
 - The prior group's facts are not trusted by default: their Asset Overview said "24 affordable units" (wrong; the

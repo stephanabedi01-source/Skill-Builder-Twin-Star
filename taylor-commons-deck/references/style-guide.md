@@ -100,7 +100,10 @@ One accent per deck. In a table, color only the cells that carry the message (e.
 ## 7. Photos and maps
 
 - Photos are cropped to exact boxes (the `photo` helper does center crops; `focus` shifts the crop vertically).
-  Sources: sponsor aerial and the team inspection photos in `scripts/img/`.
+  **Photo rule (user instruction, Nov-18): use ONLY the team's Nov-26 secret shop photos (Seth's; `scripts/img/v26_*.jpg`,
+  also on the seven "Secret Shopping - Asset Photos" slides). Never use photos from the Nov-25 inspection report, the
+  IC deck, the sponsor, prior groups or past assignments.** Maps and logos are not photos and are allowed.
+  Captions credit "Team site visit and secret shop (Nov-26)".
 - Maps use clean pins, not logo collages: brick dot plus label for Taylor Commons, dark numbered circles for
   competing apartments, white circles (S1..) for schools, grey circles (R1..) for retail, and a matching key in
   the right panel. Illustrative overlays (county outline, migration arrows) are labeled "Illustrative" and
