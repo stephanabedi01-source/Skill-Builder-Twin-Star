@@ -1,5 +1,16 @@
 # Slide log: status of every slide
 
+## Current order (agenda order, set Nov-18 by build_agenda.py)
+
+Agenda sections and pages: 1 Asset Overview (3); 2 Site Visit Findings (4 to 5); 3 Location & Market (6 to 9:
+Location, Migration, Market, Submarket); 4 Performance vs. Underwriting (10 to 12: Then vs. Now, Operations,
+Historical Financials); 5 Comparables (13 to 14: rent, sales); 6 Capital Structure & 2027 Maturity (15 to 18:
+Refinancing trade, HB 21, 2027 cliff, Valuation); 7 Renovation Plan (19); 8 What Went Wrong (20 to 21); 9 Lessons
+for the Fund (22 to 23, incl. Final Recommendation); 10 Appendix (24 to 25).
+`build_agenda.py` reorders slides by title into this order and computes the page ranges, so rerun it after adding,
+removing or retitling slides. The table below uses the older numbering; match slides by title.
+
+
 Slide numbers are as of the v2 deck (25 slides). "Done" slides are on the new master, 12pt, sourced, rendered and
 checked; edit them only to fix numbers or apply team feedback, and keep their builder in sync if you use scripts.
 "Prior group" slides are leftovers from the earlier template or another deal and should be rebuilt or removed.
@@ -7,7 +18,7 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 | # | Title | Status | Builder | Takeaway (claim) |
 |---|---|---|---|---|
 | 1 | Cover | Done (master) | build_master.py | none |
-| 2 | Agenda | Prior group, empty | none | Replace with an executive summary or drop |
+| 2 | Agenda | Done | build_agenda.py | Three years into a five-year hold, the common equity is out of the money; this update shows why and what the fund does next |
 | 3 | Asset Overview | Done | build_site.py | A 224-unit 1979 garden community in east Fort Worth, bought for $25.9M in Jun-23; SMU holds $350K of common |
 | 4 | Location Overview | Done | build_location.py | Eleven minutes east of downtown Fort Worth off I-30, but ringed by older garden competitors and low-rated schools |
 | 5 | Then vs. Now: IC Underwriting vs. Today | Done | build_snapshot.py | Three years in, occupancy is 75% vs. 86% at IC and T12 NOI is $1.43M vs. $2.21M underwritten, even with the tax break |
