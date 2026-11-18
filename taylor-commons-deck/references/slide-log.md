@@ -26,15 +26,15 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 | 7 | Site Visit: Amenities, Leasing and Marketing | Done | build_site.py | A strong leasing agent, but no model unit, short hours and a $175 fee package weaken every tour |
 | 8 | Operations: Where Leasing Broke Down | Done | build_operations.py | Occupancy peaked near 90% in Jul-25 and fell to 74.9%, with 49 of 56 vacant units not ready to lease |
 | 9 | Migration Trends | Done | build_migration.py | Fort Worth still adds about 20,000 people a year, but Tarrant County now loses domestic movers; growth comes from births and immigration |
-| 10 | Market Overview: Dallas-Fort Worth | Done | build_market.py | DFW is absorbing more apartments than it delivers and vacancy is down to 9.4%, but effective rents are still 2.0% lower than a year ago |
-| 11 | Submarket: East Fort Worth and the Comp Set | Done | build_market.py | East Fort Worth runs about 90% occupied, but Taylor Commons' older comp set averages 77% and comp rents fell 8% to 16% since IC |
+| 10 | Market Overview: Dallas-Fort Worth | Done (rebuilt Nov-18) | build_market.py | DFW demand now outruns new supply and the pipeline keeps shrinking, but rents are still 2.0% lower than a year ago |
+| 11 | Submarket Overview: East Fort Worth | Done (rebuilt Nov-18) | build_market.py | East Fort Worth is 91% occupied with only 200 units under construction, but its rents are falling faster than the metro's (comp-set occupancy chart moved to the comps section, still to build) |
 | 12 | Current Rent Comparables vs. Underwriting | Prior group, empty | none | To build: rent by floor plan vs. Brittany, Ryan and others; comp photos in the inspection report; IC comps in the AM model "UW Comps" tab |
 | 13 | Current Sales Comparables vs. Underwriting | Prior group, empty | none | To build: needs the team's sales comp outreach; annual report range $91K to $137K/unit, submarket cap ~5.9% |
 | 14 | Historical Financials vs. Underwriting | Prior group, empty | none | Planned: bridge from IC Year 3 NOI $2.21M to actual $0.94M (taxes paid) by line: occupancy, rent and concessions, bad debt, other income, payroll and opex, taxes and insurance |
 | 15 | The March 2025 Refinancing Trade | Done | build_refi_trade.py | The HFC refinancing added $1.04M of annual interest to save $428K of taxes net of fees, a $612K yearly loss |
 | 16 | HB 21: What Ends and What Stays | Done | build_hb21.py | Unless Fort Worth approves the Pecos HFC by YE2026 the exemption ends, while the HFC's lease, fees and rent rules stay |
 | 17 | The 2027 Cliff and Refinancing Gap | Done | build_cliff.py | At $0.94M of 2027 NOI a new loan sizes to about $9.4M against $16.5M due in March 2027, a $7.1M gap |
-| 18 | Valuation and Recovery | Done | build_valuation.py | Without relief the asset is worth $13.4M to $15.6M, below the $16.5M loan, so SMU's $350K recovers $0 |
+| 18 | Valuation and Recovery | Done (revised Nov-18) | build_valuation.py | Without the tax break the asset is worth $13.4M to $15.6M, well below the fund's $19.2M mark, so SMU's $350K recovers $0 |
 | 19 | What Went Wrong? | Prior group, empty | none | Likely fold into an executive summary or a "three things went wrong" slide |
 | 20 | HFC Update | Prior group, empty | none | Superseded by slides 15 to 17; remove |
 | 21 | Renovation Plan | Done (from a teammate draft) | build_renovation.py | The plan called for 116 renovated units by Mar-25; 12 are done, at about twice the budgeted cost, for a fraction of the rent lift |
@@ -51,6 +51,9 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 rerun on its own; it replaces its slide in place.
 
 ## Feedback the user gave while building (keep honoring it)
+
+- Market and submarket slides must look like market slides: economy, supply vs. demand over time, fundamentals and pipeline; submarket map plus submarket stats vs. metro. Comp-set rankings belong on the comps slides.
+- Do not present the fund's $19.2M mark as neutral: it assumes the tax exemption survives, which the team thinks is very unlikely.
 
 - Garamond deck; clean, not used by another group: no navy, no red swoosh.
 - Header needs something up top: thin charcoal top bar plus running head; title and takeaway shifted up; the rule

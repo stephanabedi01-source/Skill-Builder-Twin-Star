@@ -128,6 +128,12 @@ latest full financials the team has). Flags in **bold** are open questions or co
 - 1.25x, 8.0% and 65% are team assumptions; say so if asked.
 
 ## 9. Valuation and recovery
+- New actuals (AM model v1_2, data through Sep-26): T12 Oct-25 to Sep-26 NOI $992K including $379K of property taxes
+  (TexSun accruing $34.6K/mo in 2026, ~$415K/yr); Jul to Sep-26 NOI annualizes to $677K (value ~$9.7M to $11.3M at
+  6% to 7%). Interest Mar to Sep-26 still runs at a 9.5% rate on $16.5M, not 9.0%. **Ask TexSun.**
+- The model's own Present Valuation headline is still #N/A; its DCF ($22.5M) and exit ($23.8M) assume $42K/yr
+  property taxes after 2026 (exemption kept), a 5.12% floating senior rate, and an unsupported renovation premium.
+- The fund's $19.2M mark needs ~$1.25M of NOI, which only works with the exemption.
 - Income value at 6.0% to 7.0% caps: no relief $13.4M to $15.6M; exemption kept $20.4M to $23.8M.
 - Fund mark (annual report, as of 3/31/2026): ~$19.2M ($85,714/unit) at a 6.5% cap on recast NOI; submarket
   stabilized cap ~5.9%; sales comps $91K to $137K/unit ($20.4M to $30.7M for 224 units). **Updated sales comps

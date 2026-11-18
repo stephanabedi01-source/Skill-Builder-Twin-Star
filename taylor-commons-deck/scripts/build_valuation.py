@@ -23,10 +23,11 @@ POS = int(sys.argv[3]) if len(sys.argv) > 3 else 14
 
 LOAN, PREF, COMMON, SMU = 16.5, 5.03, 9.875, 0.35
 COST = 0.035
-NOI_B, NOI_K = 0.9374, 1.4293
+NOI_B, NOI_K, NOI_R = 0.9374, 1.4293, 0.6771   # base; exemption kept; Jul-Sep 2026 annualized (model v1_2 PV!J55)
 val = lambda noi, cap: noi / cap  # noqa: E731
 VB = [val(NOI_B, c) for c in (0.07, 0.065, 0.06)]
 VK = [val(NOI_K, c) for c in (0.07, 0.065, 0.06)]
+VR = [val(NOI_R, c) for c in (0.07, 0.065, 0.06)]
 COMP = (0.091 * 224, 0.137 * 224)
 BE_NOI = (LOAN + PREF) / (1 - COST) * 0.065
 assert round(VB[0], 1) == 13.4 and round(VB[2], 1) == 15.6 and round(BE_NOI, 2) == 1.45
@@ -46,31 +47,32 @@ prs = Presentation(SRC)
 g = THEME["grid"]
 s = new_slide(
     prs, "Valuation and Recovery",
-    "Without relief the asset is worth $13.4M to $15.6M, below the $16.5M loan, so SMU's $350K recovers $0")
+    "Without the tax break the asset is worth $13.4M to $15.6M, well below the fund's $19.2M mark, so SMU's $350K "
+    "recovers $0")
 add_slide_number(s)
 
 # ------------------------------------------------------------------ left: value range vs. the stack
 L0, LW = g["L0"], g["LP1"] - g["L0"]
 header(s, L0, g["ROW1"], LW, "Value Range vs. the Capital Stack ($M)", "A header", sup="(1)")
-cats = ["Income: no relief", "Income: exemption kept", "Fund mark (Mar-26)", "Sales comps"]
-lo = [VB[0], VK[0], None, COMP[0]]
-span = [VB[2] - VB[0], VK[2] - VK[0], None, COMP[1] - COMP[0]]
-P = Plot(2.55, 1.85, 5.05, 3.45, n=4, vmin=10, vmax=32, horizontal=True)
+cats = ["Base case: no tax break", "Recent run-rate", "If the break survives", "Fund mark (Mar-26)", "Sales comps"]
+lo = [VB[0], VR[0], VK[0], None, COMP[0]]
+span = [VB[2] - VB[0], VR[2] - VR[0], VK[2] - VK[0], None, COMP[1] - COMP[0]]
+P = Plot(2.55, 1.85, 5.05, 3.45, n=5, vmin=8, vmax=32, horizontal=True)
 chart(s, P, cats, [("Low", lo), ("Range", span)],
       [nofill_ser(0, "Low", cats, lo),
-       bar_ser(1, "Range", cats, span, "grey_lt", dpt={0: "accent_fill"})],
+       bar_ser(1, "Range", cats, span, "grey_lt", dpt={0: "accent_fill", 1: "accent_fill"})],
       "A football field", grouping="stacked", gap=70)
 bh = P.bar_width(70)
 # fund mark as a diamond
-ym = P.center(2)
-box(s, P.v(19.2) - 0.09, ym - 0.09, 0.18, 0.18, fill="ink", line=None, shape=MSO_SHAPE.DIAMOND, name="A fund mark")
-textbox(s, P.v(19.2) - 0.75, ym + 0.12, 1.5, 0.2, [[("$19.2M", {"b": True})]], size=12, align=PP_ALIGN.CENTER,
+ym = P.center(3)
+box(s, P.v(19.2) - 0.09, ym - 0.09, 0.18, 0.18, fill="grey_mid", line=None, shape=MSO_SHAPE.DIAMOND, name="A fund mark")
+textbox(s, P.v(19.2) - 0.86, ym - 0.11, 0.7, 0.22, [[("$19.2M", {"b": True})]], size=12, align=PP_ALIGN.RIGHT,
         name="A fund mark label")
 # range labels
 textbox(s, P.v(VB[2]) - 1.75, P.center(0) - bh / 2 - 0.27, 1.7, 0.22,
         [[(f"${VB[0]:.1f} to ${VB[2]:.1f}", {"b": True, "c": "accent"})]], size=12, align=PP_ALIGN.RIGHT,
         name="A range 1")
-rng = [(1, VK[0], VK[2], "ink"), (3, COMP[0], COMP[1], "ink")]
+rng = [(1, VR[0], VR[2], "accent"), (2, VK[0], VK[2], "ink"), (4, COMP[0], COMP[1], "ink")]
 for k, a, b, colr in rng:
     yy = P.center(k) - 0.1
     textbox(s, P.v(a) - 0.72, yy, 0.66, 0.2, [[(f"${a:.1f}", {"b": True, "c": colr})]], size=12,
@@ -78,9 +80,10 @@ for k, a, b, colr in rng:
     textbox(s, P.v(b) + 0.06, yy, 0.66, 0.2, [[(f"${b:.1f}", {"b": True, "c": colr})]], size=12,
             name=f"A high {k+1}")
 # row labels (left of plot)
-sub = ["6.0% to 7.0% cap on $0.94M", "6.0% to 7.0% cap on $1.43M", "6.5% cap, recast NOI", "$91K to $137K per unit"]
+sub = ["6.0% to 7.0% cap on $0.94M", "Jul to Sep-26 NOI, $0.68M", "Unlikely after HB 21; $1.43M", "Needs $1.25M of NOI",
+       "$91K to $137K per unit"]
 for k, (cat, sb) in enumerate(zip(cats, sub)):
-    textbox(s, L0, P.center(k) - 0.21, 1.95, 0.42, [[(cat, {"b": True, "c": "accent" if k == 0 else "ink"})],
+    textbox(s, L0, P.center(k) - 0.21, 1.95, 0.42, [[(cat, {"b": True, "c": "accent" if k < 2 else "ink"})],
                                                     [(sb, {"c": "grey_txt", "i": True})]],
             size=11, align=PP_ALIGN.RIGHT, name=f"A row {k+1}")
 # claim lines: loan, loan + pref
@@ -115,11 +118,13 @@ callout(s, R0, yb + 0.22, RW, 0.66,
          ("(4)", {"sup": True}), (", 55% above the 2027 base case of $0.94M", {})], "B callout", size=12)
 
 # ------------------------------------------------------------------ closing, footer, notes
-closing(s, [("SMU's $350K recovers nothing on income value; ", {}),
-                 ("the common needs a sale above ~$100K per unit, stabilized comp pricing", {"b": True})])
+closing(s, [("The $19.2M mark assumes a tax break HB 21 ends: ", {}),
+            ("marked to the base case, value is $13M to $16M and the common is worth $0", {"b": True})])
 footer_notes(s,
-             "Notes: (1) Comps are stabilized trades per the fund annual report. (2) Net of 3.5% selling costs. (3) $5.03M; accrues at 10%, so likely higher. (4) ($16.5M + $5.0M) / 96.5% x 6.5%.",
-             "Sources: TexSun T12; Fund annual report 2025-26; AM model; team analysis.")
+             "Notes: (1) Run-rate is Jul-26 to Sep-26 NOI annualized (AM model v1_2); fund mark per annual report "
+             "(6.5% cap); comps are stabilized trades. (2) Net of 3.5% selling costs. (3) $5.03M; accrues at 10%. "
+             "(4) ($16.5M + $5.0M) / 96.5% x 6.5%.",
+             "Sources: TexSun T12s; AM model v1_2; Fund annual report 2025-26; team analysis.")
 
 speaker_notes(s, """Presenter: TBD
 
@@ -132,6 +137,8 @@ In red, our base case. With the exemption gone, NOI is about $940 thousand. At a
 On the right, a sale at a 6.5 cap. With no relief the lender takes about 84 cents on the dollar and the pref and common get nothing. Even with the exemption, the pref takes a small haircut and the common gets nothing. The common only sees a dollar once NOI reaches about $1.45 million. That is 55% above our 2027 base case, and slightly above what the property made this year even with the tax exemption.
 
 So the fund's $350 thousand is at zero in every case we can underwrite.
+
+One more point on the fund's own mark. The annual report carries the property at $19.2 million, a 6.5% cap on about $1.25 million of NOI. That NOI only works if the tax exemption survives, and we think it will not. On our base case, without the tax break, the mark should come down to roughly $13 to $16 million. And the last three months are weaker still: July through September annualize to about $680 thousand of NOI, which would put value near $10 to $11 million.
 
 Reference notes:
 - Annual report: 6.5% cap on recast NOI -> ~$19.2M ($85,714/unit); submarket average cap 5.9% for stabilized assets; comps $91K to $137K/unit; recovery considered zero.
