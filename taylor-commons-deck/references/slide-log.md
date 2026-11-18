@@ -1,5 +1,53 @@
 # Slide log: status of every slide
 
+## Live team deck (as of Nov-18): target order
+
+The team works in the live file `v1_Taylor_Commons_AM_pitch_11.11.2026.pptx`, and teammates edit it at the same time.
+Changes go in through Claude in PowerPoint, using the prompts in `references/claude-in-ppt.md`.
+The deck has hidden slides, so always match slides by title, never by number.
+
+| # | Title | Status (Nov-18) |
+|---|---|---|
+| 1 | Cover | Done |
+| 2 | Agenda | Done; page ranges must be updated to this order (claude-in-ppt Batch 1) |
+| 3 | Asset Overview | Done |
+| 4 | Site Visit: Location, Curb Appeal and Units (Nov-25) | Done; summarizes the Nov-25 inspection report |
+| 5 | Site Visit: Amenities, Leasing and Marketing (Nov-25) | Done; note the model unit has since been added |
+| 6 | Secret Shopping Update (Nov-26) | Teammate shell; text written in claude-in-ppt Batch 2 |
+| 7 | Location Overview | Done |
+| 8 | Migration Trends | Done |
+| 9 | Market Overview: Dallas-Fort Worth | Done in v2 file; the live deck has an older copy, so reuse the slide from v2 |
+| 10 | Submarket Overview: East Fort Worth | Same as Market |
+| 11 | Then vs. Now: IC Underwriting vs. Today | Done |
+| 12 | Operations: Where Leasing Broke Down | Done |
+| 13 | Historical Financials vs. Underwriting | To build; spec in Batch 5; needs the model's actuals vs. IC tab |
+| 14 | Rent Comparables | Done (teammate): 17 comps, 72.8% occupied, TC $970 vs. $1,026 average; footnote the outreach |
+| 15 | Rent Comparables Map | Teammate; takeaway was unfinished (fixed in Batch 4) |
+| 16 | Sales Comparables | Empty; needs real trades (Batch 6) |
+| 17 | The March 2025 Refinancing Trade | Done |
+| 18 | HB 21: What Ends and What Stays | Done |
+| 19 | The 2027 Cliff and Refinancing Gap | Done |
+| 20 | Valuation and Recovery | Done in v2 file; the live deck has older wording, so reuse from v2 |
+| 21 | Renovation Plan | Done |
+| 22 | What Went Wrong | Done (teammate); three numbers conflict with other slides (fixed in Batch 4) |
+| 23 | Key Risks and Mitigants | To build; required by the assignment; full text in Batch 5 |
+| 24 | How Can the Fund Avoid the Same Mistakes | Done (teammate); light fixes in Batch 4 |
+| 25 | What the Fund Does Now | To build; full text in Batch 5 (three paths at maturity plus recommendation) |
+| 26 | Appendix | Divider |
+| 27 to 33 | Secret Shopping - Asset Photos (7) | Teammate photos on the OLD navy template; restyle and caption them (Batch 3) |
+
+Assignment checklist:
+- **Inspection report:** covered by slides 4 to 6 and 27 to 33.
+- **Rent comps:** covered by slides 14 and 15, but direct outreach must be footnoted.
+- **Sales and cap rate comps:** missing (slide 16).
+- **Vacancy, absorption and supply:** covered by slides 9 and 10.
+- **Actuals vs. IC:** slide 11 has the headline only; the line-by-line view is slide 13.
+- **Risks and mitigants:** slide 23.
+- **Sponsor's command of facts:** add a line to slide 23 or 6 on TexSun's unanswered questions.
+- **Updated model and valuation:** the model still needs fixes (see deal-facts section 9).
+
+## Older v2 file numbering (for the scripted builders)
+
 ## Current order (agenda order, set Nov-18 by build_agenda.py)
 
 Agenda sections and pages: 1 Asset Overview (3); 2 Site Visit Findings (4 to 5); 3 Location & Market (6 to 9:

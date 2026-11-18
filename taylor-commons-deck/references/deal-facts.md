@@ -185,6 +185,42 @@ latest full financials the team has). Flags in **bold** are open questions or co
   current, no reviews; referral bonuses $500 / $750 / $1,000.
 - **The report is dated November 11, 2025. Confirm whether it is this year's visit (typo) or last year's.**
 
+## 11b. Secret shop, Nov-26 (team photos; written notes still to come from the shopper)
+- The Nov-25 inspection report was the FIRST visit, and its date is not a typo: the Nov-25 photos show a vacant,
+  unstaged unit and a "6 Weeks Free" website banner, while the Nov-26 photos show a staged 1BR (A2) model unit.
+- Fixed since Nov-25: a staged model unit near the office.
+- Unchanged:
+  - one small, unbranded "Now Leasing" sign on the I-30 frontage road
+  - gate sign legible only up close
+  - posted hours Mon to Fri 9 to 6, Sat 10 to 5:30, Sun closed (a "Sorry, we're closed" sign was photographed on the
+    office door; day and time to confirm)
+- New or worse:
+  - concrete stair landings settled, cracked and propped on loose cinder blocks (safety and liability)
+  - rusted, faded HVAC condensers with leaf-clogged tops (some reported not working)
+  - rotted siding behind a downspout, a weathered exterior closet door, torn screens, loose wiring and a utility box
+    at grade
+- Listing (Rent Comparables slide, box score 11/15/26):
+  - asking rents: 1 bed $894, 2B/1BA $1,091, 2B/2BA $1,178, property average $970 ($56 below the 17-comp average of
+    $1,026), renovated $1,202
+  - six weeks of concessions
+  - comp set 72.8% occupied
+- Fee package $175 vs. $135 (Brittany) and $99 (Tides at 5400) erases most of the $56 rent discount.
+
+## 12a. Cross-slide conflicts found Nov-18 (resolve before presenting)
+- Senior rate: the teammate's "What Went Wrong" slide says AMERIBOR + 512 bps with a 9.25% floor. The annual report
+  says 9.5%, cut to 9.0% at the Mar-26 extension, but the books accrue about 9.5% through Sep-26. The AM model's
+  "5.12% senior rate" is almost certainly the spread alone, without the index, which overstates the DCF. Confirm
+  against the promissory note.
+- Submarket vacancy: "What Went Wrong" says 19.8% (398 new units). The Submarket slide says 91.3% occupied, with 670
+  units delivered in 2024 and 200 under construction. Use one source on both slides.
+- Occupancy peak: 88.8% ("summer 2025", T12/model basis) vs. 90.2% (Jul-25, box score, Operations slide). Use 90.2%
+  and 74.9% (Nov-26).
+- Coverage:
+  - 0.62x = T12 Oct-25 to Sep-26, interest $1.59M vs. NOI $0.99M with taxes accrued
+  - 0.93x = T12 Mar-25 to Feb-26
+  - Both are valid; each slide must state its period.
+- How Can the Fund Avoid: its footer carries a stray note (1) copied from the refinancing slide.
+
 ## 12. Open questions for TexSun and known conflicts
 - Where did the ~$2.8M of extra bridge proceeds go? (T12 shows $803K partner loan interest in Mar-25.)
 - Why is TexSun accruing 2026 property taxes ($137K Dec-25 to Feb-26) if the exemption runs through YE2026?

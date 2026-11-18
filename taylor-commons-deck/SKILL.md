@@ -22,7 +22,10 @@ model were due the Monday before at 5 PM CT).
 3. **Read `references/deal-facts.md` before quoting any number.** Every figure on a slide must come from there or
    from a named document, and must match how other slides already state it. If you find a better source or a
    conflict, update the facts file and tell the team which slides quote the old number.
-4. **Follow `references/style-guide.md`** for layout, fonts, colors and wording. The master already carries the
+4. **If you are editing the live deck through Claude in PowerPoint** (teammates editing at the same time), use the
+   copy-paste batches in `references/claude-in-ppt.md`: house rules first, then one batch at a time, matching
+   slides by title.
+5. **Follow `references/style-guide.md`** for layout, fonts, colors and wording. The master already carries the
    header, footer, logo and colors, so new slides only need the body.
 
 ## The story the deck tells
