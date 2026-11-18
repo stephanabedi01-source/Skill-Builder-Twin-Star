@@ -37,7 +37,7 @@ checked; edit them only to fix numbers or apply team feedback, and keep their bu
 | 18 | Valuation and Recovery | Done | build_valuation.py | Without relief the asset is worth $13.4M to $15.6M, below the $16.5M loan, so SMU's $350K recovers $0 |
 | 19 | What Went Wrong? | Prior group, empty | none | Likely fold into an executive summary or a "three things went wrong" slide |
 | 20 | HFC Update | Prior group, empty | none | Superseded by slides 15 to 17; remove |
-| 21 | Renovation Plan | Prior group, empty | none | To build: $1.8M capex budget (Control Sheet) vs. capex actually spent (T12 capex $207K) and 12 renovated-layout units |
+| 21 | Renovation Plan | Done (from a teammate draft) | build_renovation.py | The plan called for 116 renovated units by Mar-25; 12 are done, at about twice the budgeted cost, for a fraction of the rent lift |
 | 22 | How Can the Fund Avoid the Same Mistakes | Prior group, empty | none | Lessons: screens for structure changes after closing, rate-lock expiries, sponsor liquidity, consent rights |
 | 23 | Final Recommendation | Prior group, empty | none | "What the fund does now": the team wants this creative but rigorous; draft idea is hold at $0, fund no new capital, and press TexSun on the open questions |
 | 24 | Appendix | Divider | none | |

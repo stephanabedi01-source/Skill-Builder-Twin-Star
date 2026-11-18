@@ -109,6 +109,16 @@ latest full financials the team has). Flags in **bold** are open questions or co
 - With taxes paid, Year 3 NOI ~$937K = 42% of the IC plan ($2,206K).
 - 2026 property taxes: TexSun accrued $137K Dec-25 to Feb-26 (~$415K annualized). **Ask why.**
 
+## 7b. Renovation plan (teammate draft; verified where noted)
+- IC plan: 116 units by Mar-25 at $6.5K (1 bed) / $8.0K (2 bed); ~$348/mo lift (renovation plus mark-to-market);
+  $1,310 average rent (IC deck, verified); $1.8M reserve (Control Sheet, verified).
+- Today: 12 units in renovated layouts, 4 occupied, $1,202 average market rent (box score 11/15/26, verified);
+  ~$13.5K per unit on the first completed units; ~$70/mo lift on signed renovated leases; ~$340K left in capex
+  escrow; ~$661K capitalized as building improvements.
+- **Coding conflict:** the Mar-23 IC unit mix coded 154 units as renovated layouts (A1R 10, A2R 55, A3R 21,
+  A4R 15, B1R 31, B2R 22) vs. 12 today. Confirm actual renovated count with TexSun.
+- Asking premium of renovated layouts over the same classic plan (Nov-26 box score): ~$130 to ~$300.
+
 ## 8. 2027 cliff and refinancing sizing (team analysis)
 - 2027 NOI: no relief $937K; exemption kept $1,429K. Interest at 9.0% on $16.5M = $1,485K.
 - Coverage: 0.63x (no relief), 0.96x (kept). Shortfall after interest ($548K) / ($56K).
